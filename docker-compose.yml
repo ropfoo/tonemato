@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  drilbur:
+    container_name: drilbur
+    build:
+      context: ./drilbur
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./drilbur:/usr/src/drilbur
+      - /usr/src/drilbur/node_modules
+  ralts:
+    container_name: ralts
+    build:
+      context: ./ralts
+      dockerfile: Dockerfile
+    ports:
+      - '3005:3005'
+    volumes:
+      - ./ralts:/usr/src/ralts
+      - /usr/src/ralts/node_modules
+  redis:
+    image: redis:latest
+    container_name: redis
+    hostname: redis
+    # network_mode: bridge
+    ports:
+      - 6379:6379

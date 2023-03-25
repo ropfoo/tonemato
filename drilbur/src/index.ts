@@ -18,11 +18,11 @@ app.get('/musicstore', async (req, res) => {
   const musicStoreResult = await scrapeMusicStore({
     instrument: MusicStoreInstrument.guitar,
     ageRange: MusicStoreAgeRange['26-35'],
-    category: MusicStoreCategory['looking for musician'],
+    category: MusicStoreCategory['looking for band'],
   });
   res.json({
     data: musicStoreResult,
   });
 });
 
-app.listen(3000);
+app.listen(3001);
