@@ -1,15 +1,28 @@
-import axios from 'axios';
-import { load } from 'cheerio';
 import scrapeMusicStore from './musicstore';
-import { MusicStoreAgeRange, MusicStoreInstrument } from './musicstore/filter';
+import {
+  MusicStoreAgeRange,
+  MusicStoreCategory,
+  MusicStoreInstrument,
+} from './musicstore/filter';
+import express from 'express';
 
-async function init() {
-  console.log('start');
+const app = express();
 
-  scrapeMusicStore({
+app.get('/', (req, res) => {
+  res.json({
+    test: 'hello',
+  });
+});
+
+app.get('/musicstore', async (req, res) => {
+  const musicStoreResult = await scrapeMusicStore({
     instrument: MusicStoreInstrument.guitar,
     ageRange: MusicStoreAgeRange['26-35'],
+    category: MusicStoreCategory['looking for musician'],
   });
-}
+  res.json({
+    data: musicStoreResult,
+  });
+});
 
-init();
+app.listen(3000);
