@@ -10,6 +10,8 @@ import {
   MusikersuchtCategory,
   MusikersuchtInstrument,
 } from './musikersucht/filter';
+import scrapeBackstagepro from './backstagepro';
+import { BackstageproInstrument } from './backstagepro/filter';
 
 const app = express();
 
@@ -34,7 +36,16 @@ app.get('/musikersucht', async (req, res) => {
   const musicStoreResult = await scrapeMusikersucht({
     instrument: MusikersuchtInstrument.guitar,
     category: MusikersuchtCategory['looking for musician'],
-    // plz: '5',
+  });
+  res.json({
+    data: musicStoreResult,
+  });
+});
+
+app.get('/backstagepro', async (req, res) => {
+  const musicStoreResult = await scrapeBackstagepro({
+    instrument: BackstageproInstrument.guitar,
+    category: BackstageproInstrument['looking for musician'],
   });
   res.json({
     data: musicStoreResult,
