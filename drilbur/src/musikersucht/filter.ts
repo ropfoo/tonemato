@@ -1,7 +1,6 @@
 export type Filter = {
   instrument: MusikersuchtInstrument;
   category: MusikersuchtCategory;
-  plz?: string;
 };
 
 export enum MusikersuchtInstrument {

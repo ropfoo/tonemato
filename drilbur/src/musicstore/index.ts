@@ -8,7 +8,7 @@ export default async function scrapeMusicStore({
   ageRange,
   category,
 }: Filter) {
-  const url = `https://musikersuche.musicstore.de/filter-ergebnisse/page/1/?category=${category}&instrument=${instrument}&age=${ageRange}&plz=51149&city=K%C3%B6ln&umkreis=20`;
+  const url = `https://musikersuche.musicstore.de/filter-ergebnisse/page/1/?category=${category}&instrument=${instrument}`;
 
   const { data } = await axios.get(url);
 

@@ -6,9 +6,8 @@ import { getMusikersuchtPage } from './get-musikersucht-page';
 export default async function scrapeMusikersucht({
   instrument,
   category,
-  plz = '',
 }: Filter) {
-  const url = `https://www.musiker-sucht.de/requests/index/${category}/instrument:${instrument}/plz:${plz}/page:1/`;
+  const url = `https://www.musiker-sucht.de/requests/index/${category}/instrument:${instrument}/page:1/`;
 
   const { data } = await axios.get(url);
 
