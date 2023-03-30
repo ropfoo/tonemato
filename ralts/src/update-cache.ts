@@ -10,6 +10,7 @@ export default async function updateCache() {
     console.log('done!');
   } catch (e) {
     console.error('failed fetching backstagepro: ', e);
+    throw new Error(e);
   }
 
   // set musicstore cache
@@ -20,6 +21,7 @@ export default async function updateCache() {
     console.log('done!');
   } catch (e) {
     console.error('failed fetching musicstore: ', e);
+    throw new Error(e);
   }
 
   // set musikersucht cache
@@ -30,5 +32,6 @@ export default async function updateCache() {
     console.log('done!');
   } catch (e) {
     console.error('failed fetching musikersucht: ', e);
+    throw new Error(e);
   }
 }
