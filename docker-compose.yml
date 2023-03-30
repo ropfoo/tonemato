@@ -1,5 +1,6 @@
 version: '3.8'
 services:
+  # Drilbur
   drilbur:
     container_name: drilbur
     build:
@@ -7,9 +8,17 @@ services:
       dockerfile: Dockerfile
     ports:
       - '3001:3001'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://drilbur:3001/']
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 0s
     volumes:
       - ./drilbur:/usr/src/drilbur
       - /usr/src/drilbur/node_modules
+
+  # Ralts
   ralts:
     container_name: ralts
     build:
@@ -17,9 +26,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - '3005:3005'
+    depends_on:
+      drilbur:
+        condition: service_healthy
     volumes:
       - ./ralts:/usr/src/ralts
       - /usr/src/ralts/node_modules
+
+  # Redis
   redis:
     image: redis:latest
     container_name: redis
