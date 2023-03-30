@@ -1,42 +1,47 @@
-import axios from 'axios';
 import express from 'express';
-import Redis from 'ioredis';
-
-const redis = new Redis({
-  port: 6379, // Redis port
-  host: 'host.docker.internal', // Redis host
-});
+import redis from './redis';
+import updateCache from './update-cache';
 
 const app = express();
 
 app.get('/musicstore', async (req, res) => {
   const cache = await redis.get('musicstore');
 
-  if (cache) {
-    return res.json({ type: 'cache', ...JSON.parse(cache) });
-  }
-  const { data } = await axios.get('http://drilbur:3001/musicstore');
-  redis.set('musicstore', JSON.stringify(data));
   res.json({
-    type: 'no-cache',
+    type: 'cache',
     test: 'hello from ralts',
-    data,
+    ...JSON.parse(cache),
   });
 });
 
 app.get('/backstagepro', async (req, res) => {
   const cache = await redis.get('backstagepro');
 
-  if (cache) {
-    return res.json({ type: 'cache', ...JSON.parse(cache) });
-  }
-  const { data } = await axios.get('http://drilbur:3001/backstagepro');
-  redis.set('backstagepro', JSON.stringify(data));
   res.json({
-    type: 'no-cache',
+    type: 'cache',
     test: 'hello from ralts',
-    data,
+    ...JSON.parse(cache),
   });
 });
 
-app.listen(3005);
+app.get('/musikersucht', async (req, res) => {
+  const cache = await redis.get('musikersucht');
+
+  res.json({
+    type: 'cache',
+    test: 'hello from ralts',
+    ...JSON.parse(cache),
+  });
+});
+
+app.listen(3005, async () => {
+  try {
+    console.log('ralts is starting');
+    console.log('updating cache...');
+    await updateCache();
+    console.log('cache was successfully updated!');
+    console.log('ralts is ready to use!');
+  } catch (e) {
+    console.error('failed updating cache: ', e);
+  }
+});
