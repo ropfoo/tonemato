@@ -8,7 +8,6 @@ export * from './filter';
 
 export async function scrapeMusicStore({
   instrument,
-  ageRange,
   category,
 }: MusicStoreFilter) {
   const url = `https://musikersuche.musicstore.de/filter-ergebnisse/page/1/?category=${category}&instrument=${instrument}`;

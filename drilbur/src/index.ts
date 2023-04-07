@@ -1,7 +1,6 @@
 import express from 'express';
 import {
   BackstageproInstrument,
-  MusicStoreAgeRange,
   MusicStoreCategory,
   MusicStoreInstrument,
   MusikersuchtCategory,
@@ -21,8 +20,7 @@ app.get('/', (req, res) => {
 app.get('/musicstore', async (req, res) => {
   const musicStoreResult = await scrapeMusicStore({
     instrument: MusicStoreInstrument.guitar,
-    ageRange: MusicStoreAgeRange['26-35'],
-    category: MusicStoreCategory['looking for band'],
+    category: MusicStoreCategory['looking for musician'],
   });
   res.json({
     data: musicStoreResult,
