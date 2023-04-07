@@ -17,22 +17,13 @@ export async function scrapeMusikersucht({
   const $ = load(data);
   const pages = [];
 
-  const pageCount = $('.pagination a').length ?? 0;
-  // const pageCount = 0;
+  const pageCount =
+    $('.pagination').first().find('[currenttag="a"]').length + 1;
 
-  let latestEntryDate: Date = new Date();
-  const updateLatestEntryDate = async (date: Date) => {
-    console.log('in update: ', date);
-    latestEntryDate = date;
-  };
-
-  for (let index = 0; index <= pageCount; index++) {
-    console.log('LEL', latestEntryDate);
+  for (let index = 1; index <= pageCount; index++) {
     const page = await getMusikersuchtPage({
       url,
       pageCount: index,
-      latestEntryDate,
-      updateLatestEntryDate,
     });
     pages.push(page);
   }
