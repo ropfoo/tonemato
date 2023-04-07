@@ -1,20 +1,25 @@
-let prevDate: Date = new Date();
+import { Domain } from '../types';
 
-export function createDate(dateValue: string) {
+const prev: { date: Date; domain: Domain } = {
+  date: new Date(),
+  domain: null,
+};
+
+export function createDate(dateValue: string, domain: Domain) {
   if (dateValue) {
     const [day, month, year] = dateValue.split('.');
-    console.log(dateValue);
+
     if (year) return new Date(`${month}.${day}.${year}`);
 
     // handle no year
-    const date = new Date(`${month}.${day}.${prevDate.getFullYear()}`);
+    const date = new Date(`${month}.${day}.${prev.date.getFullYear()}`);
 
     // is previous year
-    if (date.getMonth() > prevDate.getMonth()) {
-      date.setFullYear(prevDate.getFullYear() - 1);
+    if (prev.domain === domain && date.getMonth() > prev.date.getMonth()) {
+      date.setFullYear(prev.date.getFullYear() - 1);
     }
 
-    prevDate = date;
+    prev.date = date;
 
     return date;
   }

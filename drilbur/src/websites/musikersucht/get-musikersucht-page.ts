@@ -23,7 +23,7 @@ export async function getMusikersuchtPage({
     const url = `https://musiker-sucht.de/${$(teaser).find('a').attr().href}`;
     const [day] = $(teaser).find('.label').text().split('.');
 
-    const date = createDate($(teaser).find('.label').text());
+    const date = createDate($(teaser).find('.label').text(), 'musikersucht');
 
     const address = $(teaser).find('td:eq(3)').text().split('D-', 2)[1];
     const zipCode = address?.substring(0, 5);

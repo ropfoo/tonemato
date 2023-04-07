@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { load } from 'cheerio';
+import { createDate } from '../../helper/create-date';
 import { EntryTeaser } from '../../types';
 
 export async function getMusicStorePage({
@@ -19,15 +20,21 @@ export async function getMusicStorePage({
 
   teasers.each((i, teaser) => {
     const url = $(teaser).find('.teaser-content a').attr().href;
-    const [day, month, year] = $(teaser).find('.date').text().split('.');
-    const date = new Date(`${month}.${day}.${year}`).toJSON();
+    const date = createDate($(teaser).find('.date').text(), 'musicstore');
     const address = $(teaser).find('.city').text();
     const zipCode = address?.substring(0, 5);
     const city = address?.substring(5, address?.length).replace(', ', '');
     const title = $(teaser).find('.teaser-body h4').text();
     const description = $(teaser).find('.teaser-text').text();
 
-    entries.push({ url, date, title, description, zipCode, city });
+    entries.push({
+      url,
+      date: date.toJSON(),
+      title,
+      description,
+      zipCode,
+      city,
+    });
   });
 
   return entries;

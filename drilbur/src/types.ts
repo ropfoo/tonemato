@@ -6,3 +6,5 @@ export type EntryTeaser = {
   zipCode: string;
   city: string;
 };
+
+export type Domain = 'backstagepro' | 'musikersucht' | 'musicstore';
