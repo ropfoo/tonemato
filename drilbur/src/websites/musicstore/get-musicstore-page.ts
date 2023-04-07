@@ -34,6 +34,7 @@ export async function getMusicStorePage({
       description,
       zipCode,
       city,
+      origin: 'musicstore',
     });
   });
 

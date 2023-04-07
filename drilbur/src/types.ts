@@ -5,6 +5,8 @@ export type EntryTeaser = {
   description?: string;
   zipCode: string;
   city: string;
+  previewImageUrl?: string;
+  origin: Domain;
 };
 
 export type Domain = 'backstagepro' | 'musikersucht' | 'musicstore';

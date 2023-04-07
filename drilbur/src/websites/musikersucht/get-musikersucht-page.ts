@@ -41,6 +41,7 @@ export async function getMusikersuchtPage({
         description,
         zipCode,
         city,
+        origin: 'musicstore',
       });
     }
   });

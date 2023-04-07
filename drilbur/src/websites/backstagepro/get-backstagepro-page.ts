@@ -52,6 +52,12 @@ export async function getBackstageproPage({
       .find('td:eq(1)')
       .text();
 
+    const previewImageUrl = $(teaser)
+      .find('img')
+      .attr('data-lzsrc')
+      .replace('/small/', '/large/');
+    console.log(previewImageUrl);
+
     entries.push({
       url,
       date: date.toJSON(),
@@ -59,6 +65,8 @@ export async function getBackstageproPage({
       description,
       zipCode,
       city,
+      previewImageUrl,
+      origin: 'backstagepro',
     });
   });
 
