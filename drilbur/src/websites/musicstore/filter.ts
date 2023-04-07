@@ -13,6 +13,6 @@ export enum MusicStoreAgeRange {
 }
 
 export enum MusicStoreCategory {
-  'looking for band' = 'msb',
-  'looking for musician' = 'bsm',
+  'looking for band' = 'bsm',
+  'looking for musician' = 'msb',
 }
