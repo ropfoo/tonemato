@@ -1,4 +1,4 @@
-export type Filter = {
+export type BackstagepoFilter = {
   instrument: BackstageproInstrument;
   category: BackstageproCategory;
 };

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { load } from 'cheerio';
-import { EntryTeaser } from '../types';
+import { EntryTeaser } from '../../types';
 
 export async function getMusicStorePage({
   url,
@@ -19,7 +19,8 @@ export async function getMusicStorePage({
 
   teasers.each((i, teaser) => {
     const url = $(teaser).find('.teaser-content a').attr().href;
-    const date = $(teaser).find('.date').text();
+    const [day, month, year] = $(teaser).find('.date').text().split('.');
+    const date = new Date(`${month}.${day}.${year}`).toJSON();
     const address = $(teaser).find('.city').text();
     const zipCode = address?.substring(0, 5);
     const city = address?.substring(5, address?.length).replace(', ', '');

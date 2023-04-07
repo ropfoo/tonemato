@@ -1,4 +1,4 @@
-export type Filter = {
+export type MusikersuchtFilter = {
   instrument: MusikersuchtInstrument;
   category: MusikersuchtCategory;
 };

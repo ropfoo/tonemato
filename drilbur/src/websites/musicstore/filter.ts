@@ -1,4 +1,4 @@
-export type Filter = {
+export type MusicStoreFilter = {
   ageRange: MusicStoreAgeRange;
   instrument: MusicStoreInstrument;
   category: MusicStoreCategory;

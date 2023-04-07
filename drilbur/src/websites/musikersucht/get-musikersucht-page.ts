@@ -1,13 +1,17 @@
 import axios from 'axios';
 import { load } from 'cheerio';
-import { EntryTeaser } from '../types';
+import { EntryTeaser } from '../../types';
 
 export async function getMusikersuchtPage({
   url,
   pageCount = 1,
+  updateLatestEntryDate,
+  latestEntryDate,
 }: {
   url: string;
   pageCount?: number;
+  updateLatestEntryDate: (date: Date) => Promise<void>;
+  latestEntryDate: Date;
 }) {
   const pageUrl = url.replace(/\/page:1/, `/page:${pageCount}/`);
 
@@ -20,7 +24,17 @@ export async function getMusikersuchtPage({
 
   teasers.each((i, teaser) => {
     const url = `https://musiker-sucht.de/${$(teaser).find('a').attr().href}`;
-    const date = $(teaser).find('.label').text();
+    const [day, month] = $(teaser).find('.label').text().split('.');
+    const date = new Date(
+      `${month}.${day}.${new Date().getFullYear()}`
+    ).toJSON();
+    console.log('date: ', date);
+
+    if (pageCount === 0 && i === 0) {
+      updateLatestEntryDate(new Date(date));
+    }
+
+    console.log(latestEntryDate?.toJSON(), pageCount, i);
     const address = $(teaser).find('td:eq(3)').text().split('D-', 2)[1];
     const zipCode = address?.substring(0, 5);
     const city = address
@@ -29,7 +43,7 @@ export async function getMusikersuchtPage({
       .replace(' ', '');
     const title = $(teaser).find('td:eq(0)').text();
     const description = $(teaser).find('td:eq(1)').text();
-    if (date) {
+    if (day) {
       entries.push({ url, date, title, description, zipCode, city });
     }
   });

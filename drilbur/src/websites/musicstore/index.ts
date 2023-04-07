@@ -1,13 +1,16 @@
 import axios from 'axios';
 import { load } from 'cheerio';
-import { Filter } from './filter';
+import { MusicStoreFilter } from './filter';
 import { getMusicStorePage } from './get-musicstore-page';
 
-export default async function scrapeMusicStore({
+export * from './get-musicstore-page';
+export * from './filter';
+
+export async function scrapeMusicStore({
   instrument,
   ageRange,
   category,
-}: Filter) {
+}: MusicStoreFilter) {
   const url = `https://musikersuche.musicstore.de/filter-ergebnisse/page/1/?category=${category}&instrument=${instrument}`;
 
   const { data } = await axios.get(url);

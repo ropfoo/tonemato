@@ -1,18 +1,15 @@
-import scrapeMusicStore from './musicstore';
+import express from 'express';
 import {
+  BackstageproInstrument,
   MusicStoreAgeRange,
   MusicStoreCategory,
   MusicStoreInstrument,
-} from './musicstore/filter';
-import express from 'express';
-import scrapeMusikersucht from './musikersucht';
-import {
   MusikersuchtCategory,
   MusikersuchtInstrument,
-} from './musikersucht/filter';
-import scrapeBackstagepro from './backstagepro';
-import { BackstageproInstrument } from './backstagepro/filter';
-
+  scrapeBackstagepro,
+  scrapeMusicStore,
+  scrapeMusikersucht,
+} from './websites';
 const app = express();
 
 app.get('/', (req, res) => {

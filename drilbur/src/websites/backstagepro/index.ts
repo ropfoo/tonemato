@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { load } from 'cheerio';
-import { Filter } from './filter';
+import { BackstagepoFilter } from './filter';
 import { getBackstageproPage } from './get-backstagepro-page';
 
-export default async function scrapeBackstagepro({
+export * from './get-backstagepro-page';
+export * from './filter';
+
+export async function scrapeBackstagepro({
   instrument,
   category,
-}: Filter) {
+}: BackstagepoFilter) {
   const url = `https://www.backstagepro.de/musikersuche?city=&radius=40&city_name=&city_country=&city_lon=&city_lat=&address=&orderby=lastmod&instruments[]=${instrument}&rubrik=${category}&page=1`;
 
   const { data } = await axios.get(url);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { load } from 'cheerio';
-import { EntryTeaser } from '../types';
+import { EntryTeaser } from '../../types';
 
 export async function getBackstageproPage({
   url,
