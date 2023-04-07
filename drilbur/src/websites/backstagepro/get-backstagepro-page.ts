@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { load } from 'cheerio';
+import { createDate } from '../../helper/create-date';
 import { EntryTeaser } from '../../types';
 
 export async function getBackstageproPage({
@@ -18,14 +19,29 @@ export async function getBackstageproPage({
   const entries: EntryTeaser[] = [];
 
   teasers.each((i, teaser) => {
-    const url = `https://www.backstagepro.de/${
-      $(teaser).find('a').attr().href
-    }`;
-    const date = $(teaser)
+    const url = `https://www.backstagepro.de${$(teaser).find('a').attr().href}`;
+
+    const unformattedDate = $(teaser)
       .find('.feedhide')
       .find('span:eq(1)')
       .text()
-      .replace(', ', '');
+      .replace(', ', '')
+      .replace('Januar', '01.')
+      .replace('Februar', '02.')
+      .replace('März', '03.')
+      .replace('April', '04.')
+      .replace('Mai', '05.')
+      .replace('Juni', '06.')
+      .replace('Juli', '07.')
+      .replace('August', '08.')
+      .replace('September', '09.')
+      .replace('Oktober', '10.')
+      .replace('November', '11.')
+      .replace('Dezember', '12.')
+      .replace(' ', '');
+
+    const date = createDate(unformattedDate, 'backstagepro');
+
     const address = $(teaser).find('h3').text();
     const zipCode = address?.substring(0, 5);
     const city = address?.substring(5, address?.length).replace(' ', '');
@@ -36,7 +52,14 @@ export async function getBackstageproPage({
       .find('td:eq(1)')
       .text();
 
-    entries.push({ url, date, title, description, zipCode, city });
+    entries.push({
+      url,
+      date: date.toJSON(),
+      title,
+      description,
+      zipCode,
+      city,
+    });
   });
 
   return entries;
