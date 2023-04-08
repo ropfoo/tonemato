@@ -4,34 +4,19 @@ import redis from './redis';
 export default async function updateCache() {
   // set backstagepro cache
   try {
-    console.log('fetching data from backstage pro...');
-    const backstagepro = await axios.get('http://drilbur:3001/backstagepro');
-    redis.set('backstagepro', JSON.stringify(backstagepro.data));
-    console.log('done!');
-  } catch (e) {
-    console.error('failed fetching backstagepro: ', e);
-    throw new Error(e);
-  }
+    console.log('fetching data');
+    const { data: { backstagepro, musicstore, musikersucht } } = await axios.get('http://drilbur:3001/scrape');
+    redis.set('Backstagepro', JSON.stringify(backstagepro));
+    console.log('backstagepro Data stored!');
 
-  // set musicstore cache
-  try {
-    console.log('fetching data from musicstore...');
-    const musicstore = await axios.get('http://drilbur:3001/musicstore');
-    redis.set('musicstore', JSON.stringify(musicstore.data));
-    console.log('done!');
-  } catch (e) {
-    console.error('failed fetching musicstore: ', e);
-    throw new Error(e);
-  }
+    redis.set('Musicstore', JSON.stringify(musicstore));
+    console.log('musicstore Data stored!');
 
-  // set musikersucht cache
-  try {
-    console.log('fetching data from musikersucht...');
-    const musikersucht = await axios.get('http://drilbur:3001/musikersucht');
-    redis.set('musikersucht', JSON.stringify(musikersucht.data));
+    redis.set('musikersucht', JSON.stringify(musikersucht));
+    console.log('Musikersucht Data stored!');
     console.log('done!');
   } catch (e) {
-    console.error('failed fetching musikersucht: ', e);
+    console.error('failed fetching data: ', e);
     throw new Error(e);
   }
 }
