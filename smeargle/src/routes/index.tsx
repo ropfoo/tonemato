@@ -1,6 +1,7 @@
 import { createResource } from 'solid-js';
 import { isServer } from 'solid-js/web';
 import { useRouteData } from 'solid-start';
+import Teaser, { EntryTeaser } from '~/components/Teaser';
 
 async function fetchRalts() {
   console.log('server: ', isServer);
@@ -18,16 +19,12 @@ export default function Home() {
   const [data] = useRouteData<typeof routeData>();
 
   return (
-    <main class='text-center mx-auto text-gray-700 p-4'>
-      <h1 class='max-6-xs text-6xl text-sky-700 font-thin uppercase my-16'>
-        Hello world test 2!
-      </h1>
-
-      {data()?.cache.backstagepro.data.pages[0].map((entry: any) => (
-        <div>
-          <p>{entry.title}</p>
-        </div>
-      ))}
+    <main class='mx-auto  p-4 font-montserrat'>
+      <div class='grid grid-cols-2 gap-6'>
+        {data()?.cache.backstagepro.data.pages[0].map((teaser: EntryTeaser) => (
+          <Teaser teaser={teaser} />
+        ))}
+      </div>
     </main>
   );
 }
