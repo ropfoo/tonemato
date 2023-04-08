@@ -6,10 +6,10 @@ export default async function updateCache() {
   try {
     console.log('fetching data');
     const { data: { backstagepro, musicstore, musikersucht } } = await axios.get('http://drilbur:3001/scrape');
-    redis.set('Backstagepro', JSON.stringify(backstagepro));
+    redis.set('backstagepro', JSON.stringify(backstagepro));
     console.log('backstagepro Data stored!');
 
-    redis.set('Musicstore', JSON.stringify(musicstore));
+    redis.set('musicstore', JSON.stringify(musicstore));
     console.log('musicstore Data stored!');
 
     redis.set('musikersucht', JSON.stringify(musikersucht));
