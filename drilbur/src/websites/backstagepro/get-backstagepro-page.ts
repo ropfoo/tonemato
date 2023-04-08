@@ -54,9 +54,8 @@ export async function getBackstageproPage({
 
     const previewImageUrl = $(teaser)
       .find('img')
-      .attr('data-lzsrc')
-      .replace('/small/', '/large/');
-    console.log(previewImageUrl);
+      ?.attr('data-lzsrc')
+      ?.replace('/small/', '/large/');
 
     entries.push({
       url,
