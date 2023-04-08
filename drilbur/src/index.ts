@@ -1,14 +1,5 @@
 import express from 'express';
-import {
-  BackstageproInstrument,
-  MusicStoreCategory,
-  MusicStoreInstrument,
-  MusikersuchtCategory,
-  MusikersuchtInstrument,
-  scrapeBackstagepro,
-  scrapeMusicStore,
-  scrapeMusikersucht,
-} from './websites';
+import scrapeSites from './websites'
 const app = express();
 
 app.get('/', (req, res) => {
@@ -17,34 +8,13 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/musicstore', async (req, res) => {
-  const musicStoreResult = await scrapeMusicStore({
-    instrument: MusicStoreInstrument.guitar,
-    category: MusicStoreCategory['looking for musician'],
-  });
-  res.json({
-    data: musicStoreResult,
-  });
-});
+app.get('/scrape', async (req, res) => {
+  const scrapeResults = await scrapeSites(
+    'guitar',
+    'looking for musician'
+    )
 
-app.get('/musikersucht', async (req, res) => {
-  const musicStoreResult = await scrapeMusikersucht({
-    instrument: MusikersuchtInstrument.guitar,
-    category: MusikersuchtCategory['looking for musician'],
-  });
-  res.json({
-    data: musicStoreResult,
-  });
-});
-
-app.get('/backstagepro', async (req, res) => {
-  const musicStoreResult = await scrapeBackstagepro({
-    instrument: BackstageproInstrument.guitar,
-    category: BackstageproInstrument['looking for musician'],
-  });
-  res.json({
-    data: musicStoreResult,
-  });
-});
+  return res.json(scrapeResults)
+})
 
 app.listen(3001);
