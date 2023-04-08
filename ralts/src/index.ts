@@ -1,8 +1,14 @@
 import express from 'express';
+import cors from 'cors';
 import { getCache } from './cache/get-cache';
 import updateCache from './cache/update-cache';
 
 const app = express();
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+  })
+);
 
 app.get('/', async (req, res) => {
   const cache = await getCache();
