@@ -5,9 +5,10 @@ dist
 .vercel
 .netlify
 netlify
+.turbo
 
 # dependencies
-/node_modules
+node_modules
 
 # IDEs and editors
 /.idea

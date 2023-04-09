@@ -5,8 +5,8 @@
   "workspaces": {
     "packages": [
       "drilbur",
-      "ralts",
-      "smeargle"
+      "smeargle",
+      "packages/*"
     ]
   },
   "scripts": {
@@ -18,8 +18,5 @@
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/RopFoo/tonemato/issues"
-  },
-  "homepage": "https://github.com/RopFoo/tonemato#readme"
+  "packageManager": "npm@8.19.2"
 }
