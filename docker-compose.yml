@@ -24,7 +24,7 @@ services:
     build:
       context: ./ralts
       dockerfile: Dockerfile
-    command: npm run dev2
+    command: npm run dev
     ports:
       - '3005:3005'
     depends_on:
