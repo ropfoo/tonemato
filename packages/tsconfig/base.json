@@ -5,7 +5,7 @@
     "outDir": "dist",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "lib": ["es6", "dom"],
+    "lib": ["es6"],
     "esModuleInterop": true,
     "strict": false
   },
