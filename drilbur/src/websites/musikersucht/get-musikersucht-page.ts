@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { load } from 'cheerio';
 import { createDate } from '../../helper/create-date';
-import { EntryTeaser } from '../../types';
+import { Teaser } from 'tonemato-types';
 
 export async function getMusikersuchtPage({
   url,
@@ -17,7 +17,7 @@ export async function getMusikersuchtPage({
   const $ = load(data);
   const teasers = $('tr');
 
-  const entries: EntryTeaser[] = [];
+  const entries: Teaser[] = [];
 
   teasers.each((i, teaser) => {
     const url = `https://musiker-sucht.de/${$(teaser).find('a').attr().href}`;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { load } from 'cheerio';
 import { createDate } from '../../helper/create-date';
-import { EntryTeaser } from '../../types';
+import { Teaser } from 'tonemato-types';
 
 export async function getBackstageproPage({
   url,
@@ -16,7 +16,7 @@ export async function getBackstageproPage({
   const $ = load(data);
   const teasers = $('.media-object');
 
-  const entries: EntryTeaser[] = [];
+  const entries: Teaser[] = [];
 
   teasers.each((i, teaser) => {
     const url = `https://www.backstagepro.de${$(teaser).find('a').attr().href}`;
