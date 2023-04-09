@@ -4,17 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "tsc && node dist/index.js",
-    "dev": "nodemon --watch src/**/*.ts --exec ts-node src/index.ts && tsc && node dist/index.js",
-    "dev2": "nodemon --legacy-watch --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
+    "build": "tsup src/index.ts --format cjs",
+    "lint": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsup src/index.ts --format cjs --watch --onSuccess \"node dist/index.js\""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.17",
-    "nodemon": "^2.0.22",
-    "ts-node": "^10.9.1",
+    "tsup": "^6.7.0",
     "typescript": "^5.0.2"
   },
   "dependencies": {
