@@ -1,21 +1,36 @@
-FROM node:18-alpine
+FROM node:18-alpine AS builder
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
+RUN apk update
+# Set working directory
+WORKDIR /app
+RUN npm install -g turbo
+COPY . .
+RUN turbo prune --scope=ralts --docker
 
-ENV PORT 3005
+# Add lockfile and package.json's of isolated subworkspace
+FROM node:18-alpine AS installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
+WORKDIR /app
 
-# Create app directory
-RUN mkdir -p /usr/src/ralts
-WORKDIR /usr/src/ralts
+# First install dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/package-lock.json ./package-lock.json
+RUN npm i -g npm@8.19.2 
 
-# Installing dependencies
-COPY package*.json /usr/src/ralts/
 RUN npm install
 
-# Copying source files
-COPY . /usr/src/ralts
+# Build the project and its dependencies
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
 
-# Building app
-RUN npm run build
-EXPOSE 3005
+RUN npm run build --filter=ralts...
 
-# Running the app
-CMD npm start
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+COPY --from=installer /app .
+
+CMD node ralts/dist/index.js
