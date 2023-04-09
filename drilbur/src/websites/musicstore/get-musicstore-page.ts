@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { load } from 'cheerio';
 import { createDate } from '../../helper/create-date';
-import { EntryTeaser } from '../../types';
+import { Teaser } from 'tonemato-types';
 
 export async function getMusicStorePage({
   url,
@@ -16,7 +16,7 @@ export async function getMusicStorePage({
   const $ = load(data);
   const teasers = $('.teaser');
 
-  const entries: EntryTeaser[] = [];
+  const entries: Teaser[] = [];
 
   teasers.each((i, teaser) => {
     const url = $(teaser).find('.teaser-content a').attr().href;

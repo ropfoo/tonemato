@@ -1,4 +1,6 @@
-export type EntryTeaser = {
+import { Domain } from './general';
+
+export type Teaser = {
   url: string;
   date: string;
   title: string;
@@ -8,5 +10,3 @@ export type EntryTeaser = {
   previewImageUrl?: string;
   origin: Domain;
 };
-
-export type Domain = 'backstagepro' | 'musikersucht' | 'musicstore';

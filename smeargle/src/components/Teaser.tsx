@@ -1,19 +1,8 @@
 import dayjs from 'dayjs';
-
-export type EntryTeaser = {
-  url: string;
-  date: string;
-  title: string;
-  description?: string;
-  zipCode: string;
-  city: string;
-  previewImageUrl?: string;
-  origin: Domain;
-};
-export type Domain = 'backstagepro' | 'musikersucht' | 'musicstore';
+import type { Teaser } from 'tonemato-types';
 
 interface TeaserProps {
-  teaser: EntryTeaser;
+  teaser: Teaser;
 }
 
 export default function Teaser({ teaser }: TeaserProps) {
