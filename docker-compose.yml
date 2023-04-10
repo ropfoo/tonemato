@@ -14,9 +14,9 @@ services:
       timeout: 20s
       retries: 10
       start_period: 0s
-    # volumes:
-    #   - ./drilbur:/app
-    #   - /app/node_modules
+    volumes:
+      - ./apps/drilbur:/app/apps/drilbur
+      - /app/apps/drilbur/node_modules
 
   # Ralts
   ralts:
@@ -24,15 +24,16 @@ services:
     build:
       context: .
       dockerfile: ./apps/ralts/Dockerfile
-    # command: npm run dev
+    command: npm run dev
     ports:
       - '3005:3005'
     depends_on:
       drilbur:
         condition: service_healthy
-  #   volumes:
-  #     - ./ralts:/usr/src/ralts
-  #     - /usr/src/ralts/node_modules
+    volumes:
+      - ./apps/ralts:/app/apps/ralts
+      - /app/apps/ralts/node_modules
+
 
   # Redis
   redis:
@@ -49,9 +50,9 @@ services:
     build:
       context: .
       dockerfile: ./apps/smeargle/Dockerfile
-    # command: npm run dev
+    command: npm run dev
     ports:
       - '3000:3000'
-  #   volumes:
-  #     - ./smeargle:/usr/src/smeargle
-  #     - /usr/src/smeargle/node_modules
+    volumes:
+      - ./apps/smeargle:/app/apps/smeargle
+      - /app/apps/smeargle/node_modules
