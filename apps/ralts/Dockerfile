@@ -33,4 +33,4 @@ WORKDIR /app
 
 COPY --from=installer /app .
 
-CMD node ralts/dist/index.js
+CMD node apps/ralts/dist/index.js

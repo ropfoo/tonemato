@@ -37,4 +37,4 @@ WORKDIR /app
 
 COPY --from=installer /app .
 
-CMD node drilbur/dist/index.js
+CMD node apps/drilbur/dist/index.js

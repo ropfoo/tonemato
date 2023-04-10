@@ -33,4 +33,4 @@ WORKDIR /app
 
 COPY --from=installer /app .
 
-CMD node smeargle/dist/server.js
+CMD node apps/smeargle/dist/server.js
