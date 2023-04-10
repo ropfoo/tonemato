@@ -4,9 +4,7 @@
   "description": "",
   "workspaces": {
     "packages": [
-      "drilbur",
-      "ralts",
-      "smeargle",
+      "apps/*",
       "packages/*"
     ]
   },

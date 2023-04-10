@@ -5,7 +5,7 @@ services:
     container_name: drilbur
     build:
       context: .
-      dockerfile: ./drilbur/Dockerfile
+      dockerfile: ./apps/drilbur/Dockerfile
     ports:
       - '3001:3001'
     healthcheck:
@@ -23,7 +23,7 @@ services:
     container_name: ralts
     build:
       context: .
-      dockerfile: ./ralts/Dockerfile
+      dockerfile: ./apps/ralts/Dockerfile
     # command: npm run dev
     ports:
       - '3005:3005'
@@ -48,7 +48,7 @@ services:
     container_name: smeargle
     build:
       context: .
-      dockerfile: ./smeargle/Dockerfile
+      dockerfile: ./apps/smeargle/Dockerfile
     # command: npm run dev
     ports:
       - '3000:3000'
