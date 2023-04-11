@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/drilbur/Dockerfile
+    command: npm run dev
     ports:
       - '3001:3001'
     healthcheck:
