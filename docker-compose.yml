@@ -35,7 +35,6 @@ services:
       - ./apps/ralts:/app/apps/ralts
       - /app/apps/ralts/node_modules
 
-
   # Redis
   redis:
     image: redis:latest
