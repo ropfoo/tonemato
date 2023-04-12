@@ -17,7 +17,8 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "prettier": "latest",
+    "prettier": "^2.8.7",
+    "prettier-plugin-tailwindcss": "^0.2.7",
     "turbo": "latest"
   },
   "repository": {
