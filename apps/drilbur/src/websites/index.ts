@@ -16,20 +16,22 @@ import {
 
 // final scrape function that calls platform specific scrapers
 export default async (instrument: string, category: string) => {
-  return (await Promise.all([
-    scrapeBackstagepro({
-      instrument: BackstageproInstrument[instrument],
-      category: BackstageproCategory[category],
-    }),
-    scrapeMusicStore({
-      instrument: MusicStoreInstrument[instrument],
-      category: MusicStoreCategory[category],
-    }),
-    scrapeMusikersucht({
-      instrument: MusikersuchtInstrument[instrument],
-      category: MusikersuchtCategory[category],
-    }),
-  ])).map((val, index, arr) => ({
+  return (
+    await Promise.all([
+      scrapeBackstagepro({
+        instrument: BackstageproInstrument[instrument],
+        category: BackstageproCategory[category],
+      }),
+      scrapeMusicStore({
+        instrument: MusicStoreInstrument[instrument],
+        category: MusicStoreCategory[category],
+      }),
+      scrapeMusikersucht({
+        instrument: MusikersuchtInstrument[instrument],
+        category: MusikersuchtCategory[category],
+      }),
+    ])
+  ).map((val, index, arr) => ({
     backstagepro: arr[0], // same order as scrape order above
     musicstore: arr[1],
     musikersucht: arr[2],

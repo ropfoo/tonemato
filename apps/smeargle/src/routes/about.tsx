@@ -1,5 +1,5 @@
-import { A } from "solid-start";
-import Counter from "~/components/Counter";
+import { A } from 'solid-start';
+import Counter from '~/components/Counter';
 
 export default function About() {
   return (
@@ -9,21 +9,21 @@ export default function About() {
       </h1>
       <Counter />
       <p class="mt-8">
-        Visit{" "}
+        Visit{' '}
         <a
           href="https://solidjs.com"
           target="_blank"
           class="text-sky-600 hover:underline"
         >
           solidjs.com
-        </a>{" "}
+        </a>{' '}
         to learn how to build Solid apps.
       </p>
       <p class="my-4">
         <A href="/" class="text-sky-600 hover:underline">
           Home
         </A>
-        {" - "}
+        {' - '}
         <span>About Page</span>
       </p>
     </main>

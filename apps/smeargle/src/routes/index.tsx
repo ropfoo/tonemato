@@ -1,13 +1,13 @@
-import { createResource, Show } from "solid-js";
-import { isServer } from "solid-js/web";
-import { useRouteData } from "solid-start";
-import { Teaser as TeaserType } from "tonemato-types";
-import Teaser from "~/components/Teaser";
+import { createResource, Show } from 'solid-js';
+import { isServer } from 'solid-js/web';
+import { useRouteData } from 'solid-start';
+import { Teaser as TeaserType } from 'tonemato-types';
+import Teaser from '~/components/Teaser';
 
 async function fetchRalts() {
-  console.log("server: ", isServer);
+  console.log('server: ', isServer);
   const response = await fetch(
-    isServer ? "http://ralts:3005/" : "http://localhost:3005/"
+    isServer ? 'http://ralts:3005/' : 'http://localhost:3005/'
   );
   return await response.json();
 }
