@@ -23,9 +23,8 @@ export default function Home() {
 
   return (
     <main class="mx-auto  p-4 font-montserrat">
-      <p>Hello</p>
       <Show when={!data.error} fallback={error}>
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-11">
           {data()?.cache?.backstagepro?.pages[0]?.map((teaser: TeaserType) => (
             <Teaser teaser={teaser} />
           ))}
