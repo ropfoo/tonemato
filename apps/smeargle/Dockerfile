@@ -18,7 +18,6 @@ WORKDIR /app
 COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
-RUN npm i -g npm@8.19.2 
 
 RUN npm install
 
