@@ -33,7 +33,7 @@ export default function Teaser({ teaser }: TeaserProps) {
       </div>
       <div class='flex justify-between mt-2'>
         <p class='font-bold'>{dayjs(teaser.date).format('DD.MM.YYYY')}</p>
-        <p>{teaser.origin}</p>
+        <p>{teaser.domain}</p>
       </div>
     </div>
   );

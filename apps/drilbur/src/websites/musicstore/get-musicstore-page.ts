@@ -36,7 +36,7 @@ export async function getMusicStorePage({
       zipCode,
       city,
       previewImageUrl,
-      origin: 'musicstore',
+      domain: 'musicstore',
     });
   });
 

@@ -65,7 +65,7 @@ export async function getBackstageproPage({
       zipCode,
       city,
       previewImageUrl,
-      origin: 'backstagepro',
+      domain: 'backstagepro',
     });
   });
 

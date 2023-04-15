@@ -8,5 +8,5 @@ export type Teaser = {
   zipCode: string;
   city: string;
   previewImageUrl?: string;
-  origin: Domain;
+  domain: Domain;
 };
