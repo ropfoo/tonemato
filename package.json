@@ -1,0 +1,30 @@
+{
+  "name": "tonemato",
+  "version": "1.0.0",
+  "description": "",
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "prettier": "latest",
+    "turbo": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RopFoo/tonemato.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "packageManager": "npm@9.5.1"
+}
