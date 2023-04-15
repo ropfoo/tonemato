@@ -27,7 +27,7 @@ export default function Teaser({ teaser }: TeaserProps) {
         <div class="mt-4" />
         <div class="flex flex-col justify-between">
           <div>
-            <h3 class="mb-2 font-bold">{teaser.title}</h3>
+            <h3 class="font-montserrat mb-2 font-bold">{teaser.title}</h3>
             <div class="mt-4" />
 
             <p class="h-16 overflow-hidden text-clip text-sm">
@@ -39,10 +39,12 @@ export default function Teaser({ teaser }: TeaserProps) {
       <div class="mt-2 flex justify-between text-xs text-gray-400">
         <div class="flex items-center">
           <div class="mr-2 h-2 w-2 rounded-full bg-purple-700" />
-          <span class="mr-2 font-bold text-black">{teaser.city}</span>
+          <span class="font-montserrat mr-2 font-bold text-black">
+            {teaser.city}
+          </span>
           <span>{teaser.zipCode}</span>
         </div>
-        <p>{dayjs(teaser.date).format('DD.MM.YYYY')}</p>
+        <p class="font-montserrat">{dayjs(teaser.date).format('DD.MM.YYYY')}</p>
       </div>
     </A>
   );

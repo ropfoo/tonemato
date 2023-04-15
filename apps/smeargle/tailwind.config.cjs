@@ -10,6 +10,7 @@ module.exports = {
     },
     fontFamily: {
       montserrat: ['Montserrat', 'sans-serif'],
+      poppins: ['Poppins', 'sans-serif'],
     },
   },
   plugins: [],
