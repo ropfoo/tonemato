@@ -7,10 +7,12 @@ services:
       context: .
       dockerfile: ./apps/drilbur/Dockerfile
     command: npm run dev
+    env_file:
+      - .env
     ports:
-      - '3001:3001'
+      - ${DRILBUR_PORT}:${DRILBUR_PORT}
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://drilbur:3001/']
+      test: ['CMD', 'curl', '-f', 'http://drilbur:$DRILBUR_PORT/']
       interval: 5s
       timeout: 20s
       retries: 10
@@ -26,8 +28,10 @@ services:
       context: .
       dockerfile: ./apps/ralts/Dockerfile
     command: npm run dev
+    env_file:
+      - .env
     ports:
-      - '3005:3005'
+      - ${VITE_RALTS_PORT}:${VITE_RALTS_PORT}
     depends_on:
       drilbur:
         condition: service_healthy
@@ -51,8 +55,10 @@ services:
       context: .
       dockerfile: ./apps/smeargle/Dockerfile
     command: npm run dev
+    env_file:
+      - .env
     ports:
-      - '3000:3000'
+      - ${SMEARGLE_PORT}:${SMEARGLE_PORT}
     volumes:
       - ./apps/smeargle:/app/apps/smeargle
       - /app/apps/smeargle/node_modules
