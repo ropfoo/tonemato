@@ -2,7 +2,6 @@
 import { Suspense } from 'solid-js';
 import {
   useLocation,
-  A,
   Body,
   ErrorBoundary,
   FileRoutes,
@@ -16,6 +15,7 @@ import {
 import './root.css';
 import '../styles/fonts.css';
 import Header from './components/Header';
+import Layout from './components/Layout';
 
 export default function Root() {
   const location = useLocation();
@@ -26,7 +26,7 @@ export default function Root() {
   return (
     <Html lang="en">
       <Head>
-        <Title>SolidStart - With TailwindCSS</Title>
+        <Title>tonemato</Title>
         <Meta charset="utf-8" />
         <Meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -34,11 +34,11 @@ export default function Root() {
         <Suspense>
           <ErrorBoundary>
             <Header />
-            <div class="px-4 pt-[140px] sm:px-8 lg:px-16">
+            <Layout>
               <Routes>
                 <FileRoutes />
               </Routes>
-            </div>
+            </Layout>
           </ErrorBoundary>
         </Suspense>
         <Scripts />
