@@ -24,7 +24,7 @@ export async function getMusicStorePage({
     const address = $(teaser).find('.city').text();
     const zipCode = address?.substring(0, 5);
     const city = address?.substring(5, address?.length).replace(', ', '');
-    const title = $(teaser).find('.teaser-body h4').text();
+    const title = $(teaser).find('.teaser-body h4').text().trim();
     const description = $(teaser).find('.teaser-text').text();
     const previewImageUrl = $(teaser).find('img').attr('src');
 

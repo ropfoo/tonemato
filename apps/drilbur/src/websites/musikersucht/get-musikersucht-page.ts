@@ -31,7 +31,7 @@ export async function getMusikersuchtPage({
       ?.substring(5, address?.length)
       .replace('...', '')
       .replace(' ', '');
-    const title = $(teaser).find('td:eq(0)').text();
+    const title = $(teaser).find('td:eq(0)').text().trim();
     const description = $(teaser).find('td:eq(1)').text();
     if (day) {
       entries.push({

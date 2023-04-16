@@ -45,7 +45,7 @@ export async function getBackstageproPage({
     const address = $(teaser).find('h3').text();
     const zipCode = address?.substring(0, 5);
     const city = address?.substring(5, address?.length).replace(' ', '');
-    const title = $(teaser).find('h2').text();
+    const title = $(teaser).find('h2').text().trim();
     const description = $(teaser)
       .find('.infotable')
       .find('tr:first')
