@@ -2,6 +2,10 @@ import express from 'express';
 import scrapeSites from './websites';
 const app = express();
 
+const {
+  DRILBUR_PORT
+} = process.env
+
 app.get('/', (req, res) => {
   res.json({
     test: 'hello this is a test',
@@ -14,4 +18,4 @@ app.get('/scrape', async (req, res) => {
   return res.json(scrapeResults);
 });
 
-app.listen(3001);
+app.listen(DRILBUR_PORT || 3001);
