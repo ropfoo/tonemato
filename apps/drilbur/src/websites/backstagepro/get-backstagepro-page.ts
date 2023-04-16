@@ -23,7 +23,7 @@ export async function getBackstageproPage({
 
     const unformattedDate = $(teaser)
       .find('.feedhide')
-      .find('span:eq(1)')
+      .find('span:last')
       .text()
       .replace(', ', '')
       .replace('Januar', '01.')
