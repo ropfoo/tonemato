@@ -11,7 +11,7 @@ export default function Teaser({ teaser }: TeaserProps) {
   return (
     <A href={teaser.url} target="_blank" class="group relative">
       <HoverIndicator />
-      <div class="bg-teaser-presley flex h-[300px] flex-col overflow-hidden rounded-2xl p-5  text-white">
+      <div class="bg-teaser-presley flex h-[300px] flex-col overflow-hidden rounded-2xl  p-5 text-white md:p-8 lg:p-5 ">
         <div class="flex justify-between">
           <img
             class="h-20 w-20 rounded-2xl object-cover "
