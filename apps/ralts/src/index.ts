@@ -16,10 +16,22 @@ app.get('/', async (req, res) => {
 
   res.json({
     type: 'cache',
-    test: 'hello from ralts',
     cache,
   });
 });
+console.log(process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === 'development') {
+  app.get('/nocache', async (req, res) => {
+    await updateCache();
+    const cache = await getCache();
+
+    return res.json({
+      type: 'cache',
+      cache
+    })
+  })
+}
 
 app.listen(3005, async () => {
   try {
