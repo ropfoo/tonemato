@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <main>
       <Show when={!data.error} fallback={error}>
-        <div class="grid  grid-cols-1 gap-11 sm:grid-cols-2 sm:gap-y-16 md:grid-cols-3 xl:grid-cols-4">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-y-12 lg:grid-cols-3 lg:gap-11 lg:gap-y-16 xl:grid-cols-4">
           {data()?.cache?.backstagepro?.pages[0]?.map((teaser: TeaserType) => (
             <Teaser teaser={teaser} />
           ))}

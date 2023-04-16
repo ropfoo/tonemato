@@ -18,7 +18,7 @@ export default function Teaser({ teaser }: TeaserProps) {
             src={teaser.previewImageUrl}
             alt=""
           />
-          <div class="text-night flex h-5 items-center rounded-full bg-white px-2 text-right">
+          <div class="text-wolf flex h-5 items-center rounded-full bg-black px-2 text-right">
             <p class="text-xs">{teaser.domain}</p>
           </div>
         </div>

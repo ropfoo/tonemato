@@ -34,7 +34,7 @@ export default function Root() {
         <Suspense>
           <ErrorBoundary>
             <Header />
-            <div class="p-10 pt-[160px]">
+            <div class="px-4 pt-[140px] sm:px-8 lg:px-16">
               <Routes>
                 <FileRoutes />
               </Routes>
