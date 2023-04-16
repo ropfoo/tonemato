@@ -23,7 +23,7 @@ export async function getBackstageproPage({
 
     const unformattedDate = $(teaser)
       .find('.feedhide')
-      .find('span:eq(1)')
+      .find('span:last')
       .text()
       .replace(', ', '')
       .replace('Januar', '01.')
@@ -41,6 +41,7 @@ export async function getBackstageproPage({
       .replace(' ', '');
 
     const date = createDate(unformattedDate, 'backstagepro');
+    console.log(unformattedDate, date.toJSON());
 
     const address = $(teaser).find('h3').text();
     const zipCode = address?.substring(0, 5);
