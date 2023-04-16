@@ -1,12 +1,16 @@
 import axios from 'axios';
 import redis from './redis';
 
+const {
+  DRILBUR_PORT,
+} = process.env
+
 export default async function updateCache() {
   try {
     console.log('fetching data');
     const {
       data: { backstagepro, musicstore, musikersucht },
-    } = await axios.get('http://drilbur:3001/scrape');
+    } = await axios.get(`http://drilbur:${DRILBUR_PORT}/scrape`);
 
     redis.set('backstagepro', JSON.stringify(backstagepro));
     console.log('backstagepro Data stored!');
