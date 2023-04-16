@@ -22,9 +22,9 @@ export default function Home() {
   const error = <div>something went wrong</div>;
 
   return (
-    <main class="mx-auto  p-4 font-montserrat">
+    <main class="font-poppins mx-auto p-4">
       <Show when={!data.error} fallback={error}>
-        <div class="grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-11">
+        <div class="grid  grid-cols-1 gap-11 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
           {data()?.cache?.backstagepro?.pages[0]?.map((teaser: TeaserType) => (
             <Teaser teaser={teaser} />
           ))}
