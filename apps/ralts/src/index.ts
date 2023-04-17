@@ -7,7 +7,8 @@ import { isCacheStale } from './cache/is-cache-stale';
 const {
   VITE_RALTS_PORT,
   SMEARGLE_PORT,
-  SMEARGLE_DOMAIN
+  SMEARGLE_DOMAIN,
+  NODE_ENV
 } = process.env
 
 const app = express();
@@ -22,10 +23,21 @@ app.get('/', async (req, res) => {
 
   res.json({
     type: 'cache',
-    test: 'hello from ralts',
     cache,
   });
 });
+
+if (NODE_ENV === 'development') {
+  app.get('/nocache', async (req, res) => {
+    await updateCache();
+    const cache = await getCache();
+
+    return res.json({
+      type: 'cache',
+      cache
+    })
+  })
+}
 
 app.listen(VITE_RALTS_PORT || 3005, async () => {
   try {
