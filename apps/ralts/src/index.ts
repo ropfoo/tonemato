@@ -4,10 +4,16 @@ import { getCache } from './cache/get-cache';
 import updateCache from './cache/update-cache';
 import { isCacheStale } from './cache/is-cache-stale';
 
+const {
+  VITE_RALTS_PORT,
+  SMEARGLE_PORT,
+  SMEARGLE_DOMAIN
+} = process.env
+
 const app = express();
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: `${SMEARGLE_DOMAIN}:${SMEARGLE_PORT}`,
   })
 );
 
@@ -21,7 +27,7 @@ app.get('/', async (req, res) => {
   });
 });
 
-app.listen(3005, async () => {
+app.listen(VITE_RALTS_PORT || 3005, async () => {
   try {
     console.log('ralts is starting');
 

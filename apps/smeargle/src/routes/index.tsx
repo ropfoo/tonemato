@@ -4,10 +4,16 @@ import { useRouteData } from 'solid-start';
 import { Teaser as TeaserType } from 'tonemato-types';
 import Teaser from '~/components/Teaser';
 
+const {
+  VITE_RALTS_PORT,
+  VITE_RALTS_DOMAIN
+} = import.meta.env
+
 async function fetchRalts() {
   console.log('server: ', isServer);
+  
   const response = await fetch(
-    isServer ? 'http://ralts:3005/' : 'http://localhost:3005/'
+    isServer ? `http://ralts:${VITE_RALTS_PORT || 3005}/` : `${VITE_RALTS_DOMAIN}:${VITE_RALTS_PORT || 3005}/`
   );
   return await response.json();
 }
