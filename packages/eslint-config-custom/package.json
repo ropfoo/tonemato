@@ -1,0 +1,13 @@
+{
+  "name": "eslint-config-custom",
+  "main": "index.js",
+  "version": "1.0.0",
+  "dependencies": {
+    "eslint": "latest",
+    "eslint-plugin-prettier": "latest",
+    "eslint-config-turbo": "latest",
+    "eslint-plugin-solid": "latest",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0"
+  }
+}
