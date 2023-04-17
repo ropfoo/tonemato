@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",
-    "start": "solid-start start"
+    "start": "solid-start start",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "type": "module",
   "devDependencies": {
@@ -13,7 +14,8 @@
     "tailwindcss": "^3.2.4",
     "typescript": "^4.9.4",
     "vite": "^4.1.4",
-    "tonemato-types": "*"
+    "tonemato-types": "*",
+    "eslint-config-custom": "*"
   },
   "dependencies": {
     "@solidjs/meta": "^0.28.2",
