@@ -12,12 +12,16 @@
     "build": "turbo run build",
     "clean": "turbo run clean",
     "dev": "dotenv -- turbo run dev",
+    "dev:drilbur": "dotenv -- turbo run dev --filter=drilbur",
+    "dev:ralts": "dotenv -- turbo run dev --filter=ralts",
+    "dev:smeargle": "dotenv -- turbo run dev --filter=smeargle",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test"
   },
   "devDependencies": {
     "dotenv-cli": "^7.2.1",
+    "esbuild": "^0.17.17",
     "prettier": "^2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.7",
     "turbo": "latest"
