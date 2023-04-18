@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-custom",
+  "name": "eslint-config-web",
   "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
