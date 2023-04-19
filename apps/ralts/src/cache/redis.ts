@@ -5,10 +5,4 @@ const redis = new Redis({
   host: 'host.docker.internal',
 });
 
-export const cacheKeys = {
-  backstagepro: 'backstagepro',
-  musicstore: 'musicstore',
-  musikersucht: 'musikersucht',
-} as const;
-
 export default redis;
