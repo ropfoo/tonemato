@@ -9,6 +9,8 @@ services:
     command: npm run dev
     env_file:
       - .env
+    environment:
+      - IS_DOCKER=true
     ports:
       - ${DRILBUR_PORT}:${DRILBUR_PORT}
     healthcheck:
@@ -30,6 +32,8 @@ services:
     command: npm run dev
     env_file:
       - .env
+    environment:
+      - IS_DOCKER=true
     ports:
       - ${VITE_RALTS_PORT}:${VITE_RALTS_PORT}
     depends_on:
@@ -57,6 +61,8 @@ services:
     command: npm run dev
     env_file:
       - .env
+    environment:
+      - VITE_IS_DOCKER=true
     ports:
       - ${SMEARGLE_PORT}:${SMEARGLE_PORT}
     volumes:
