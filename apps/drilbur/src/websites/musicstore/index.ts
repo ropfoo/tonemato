@@ -21,8 +21,8 @@ export async function scrapeMusicStore({
 
   for (let index = 1; index <= pageCount; index++) {
     const page = await getMusicStorePage({ url, pageCount: index });
-    pages.push(page);
+    pages.push(...page);
   }
 
-  return { pages };
+  return pages;
 }

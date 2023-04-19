@@ -21,8 +21,8 @@ export async function scrapeBackstagepro({
 
   for (let index = 0; index <= pageCount; index++) {
     const page = await getBackstageproPage({ url, pageCount: index });
-    pages.push(page);
+    pages.push(...page);
   }
 
-  return { pages };
+  return pages;
 }

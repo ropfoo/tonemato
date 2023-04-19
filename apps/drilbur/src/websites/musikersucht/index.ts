@@ -25,8 +25,8 @@ export async function scrapeMusikersucht({
       url,
       pageCount: index,
     });
-    pages.push(page);
+    pages.push(...page);
   }
 
-  return { pages };
+  return pages;
 }
