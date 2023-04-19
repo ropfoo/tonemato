@@ -9,6 +9,6 @@ module.exports = {
 
   rules: {
     'prettier/prettier': 'warn',
-    'no-unused-var': 0
+    'no-unused-vars': 0
   },
 };
