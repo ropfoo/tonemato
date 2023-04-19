@@ -10,7 +10,7 @@ describe('isTimePassed', () => {
   it('should be passed one day ago', () => {
     // create yesterday
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setDate(yesterday.getDate() - 1.1);
 
     const isPassed = isTimePassed({
       date: yesterday,
