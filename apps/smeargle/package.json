@@ -10,17 +10,18 @@
   "type": "module",
   "devDependencies": {
     "autoprefixer": "^10.4.13",
+    "eslint-config-web": "*",
     "postcss": "^8.4.21",
     "solid-start-node": "^0.2.19",
     "tailwindcss": "^3.2.4",
-    "typescript": "^4.9.4",
-    "vite": "^4.1.4",
     "tonemato-types": "*",
-    "eslint-config-web": "*"
+    "typescript": "^4.9.4",
+    "vite": "^4.1.4"
   },
   "dependencies": {
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.8.2",
+    "clsx": "^1.2.1",
     "dayjs": "^1.11.7",
     "solid-js": "^1.7.2",
     "solid-start": "^0.2.26",
