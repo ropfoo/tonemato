@@ -35,6 +35,10 @@ module.exports = {
       borderWidth: {
         1: '0.063rem',
       },
+      boxShadow: {
+        'filter-dark': '0px 3px 10px rgba(79, 77, 182, 0.39)',
+        'filter-light': '0px 3px 10px rgba(79, 77, 182, 0.04)',
+      },
     },
     fontFamily: {
       montserrat: ['Montserrat', 'sans-serif'],
