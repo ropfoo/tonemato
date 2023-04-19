@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsup index.ts --format cjs",
-    "lint": "tsc",
     "start": "node dist/index.js",
     "dev": "tsup index.ts --format cjs --watch --onSuccess \"node dist/index.js\"",
     "test": "jest"

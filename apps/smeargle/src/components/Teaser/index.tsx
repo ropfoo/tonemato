@@ -1,36 +1,36 @@
 import { A } from '@solidjs/router';
 import dayjs from 'dayjs';
-import type { Teaser } from 'tonemato-types';
+import type { Teaser as TeaserType } from 'tonemato-types';
 import HoverIndicator from './HoverIndicator';
 
 interface TeaserProps {
-  teaser: Teaser;
+  teaser: TeaserType;
 }
 
-export default function Teaser({ teaser }: TeaserProps) {
+export default function Teaser(props: TeaserProps) {
   return (
-    <A href={teaser.url} target="_blank" class="group relative">
+    <A href={props.teaser.url} target="_blank" class="group relative">
       <HoverIndicator />
       <div class="bg-teaser-presley flex h-[300px] flex-col overflow-hidden rounded-2xl  p-5 text-white md:p-8 lg:p-5 ">
         <div class="flex justify-between">
           <img
             class="h-20 w-20 rounded-2xl object-cover "
-            src={teaser.previewImageUrl}
+            src={props.teaser.previewImageUrl}
             alt=""
           />
           <div class="text-wolf flex h-5 items-center rounded-full bg-black px-2 text-right">
-            <p class="text-xs">{teaser.domain}</p>
+            <p class="text-xs">{props.teaser.domain}</p>
           </div>
         </div>
 
         <div class="mt-4" />
         <div class="flex flex-col justify-between">
           <div>
-            <h3 class="font-montserrat mb-2 font-bold">{teaser.title}</h3>
+            <h3 class="font-montserrat mb-2 font-bold">{props.teaser.title}</h3>
             <div class="mt-4" />
 
             <p class="h-16 overflow-hidden text-clip text-sm">
-              {teaser.description}
+              {props.teaser.description}
             </p>
           </div>
         </div>
@@ -39,11 +39,13 @@ export default function Teaser({ teaser }: TeaserProps) {
         <div class="flex items-center">
           <div class="bg-presley mr-2 h-2 w-2 rounded-full" />
           <span class="mr-2 font-bold text-black dark:text-white">
-            {teaser.city}
+            {props.teaser.city}
           </span>
-          <span>{teaser.zipCode}</span>
+          <span>{props.teaser.zipCode}</span>
         </div>
-        <p class="font-montserrat">{dayjs(teaser.date).format('DD.MM.YYYY')}</p>
+        <p class="font-montserrat">
+          {dayjs(props.teaser.date).format('DD.MM.YYYY')}
+        </p>
       </div>
     </A>
   );
