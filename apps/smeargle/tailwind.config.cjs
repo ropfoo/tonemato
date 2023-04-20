@@ -11,6 +11,8 @@ module.exports = {
       presley: '#5855C7',
       amy: '#1F1F27',
       whinehouse: '#181621',
+      janis: '#272552',
+      joplin: '#000413',
       snow: '#F4F3FF',
       wolf: '#9B9B9B',
       onyx: '#3E3E3E',
@@ -36,7 +38,7 @@ module.exports = {
         1: '0.063rem',
       },
       boxShadow: {
-        'filter-dark': '0px 3px 10px rgba(79, 77, 182, 0.39)',
+        'filter-dark': '0px 3px 10px rgba(79, 77, 182, 0.2)',
         'filter-light': '0px 3px 10px rgba(79, 77, 182, 0.04)',
       },
     },
