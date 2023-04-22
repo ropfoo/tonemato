@@ -1,12 +1,19 @@
 import { clsx } from 'clsx';
 import SearchIcon from '../Icons/SearchIcon';
+import { headerOpen } from '../Header';
+import { FilterName } from './types';
+import { filterStore } from '.';
 
-interface FilterCategoryProps {
-  name: string;
+interface SectionPreviewProps {
+  name: FilterName;
   position: 'start' | 'center' | 'end';
 }
 
-export default function FilterCategory(props: FilterCategoryProps) {
+export default function SectionPreview(props: SectionPreviewProps) {
+  const [_, setIsHeaderOpen] = headerOpen;
+
+  const [filterState] = filterStore;
+
   return (
     <button
       class={clsx(
@@ -17,8 +24,9 @@ export default function FilterCategory(props: FilterCategoryProps) {
           'text-left': props.position === 'end',
         }
       )}
+      onClick={() => setIsHeaderOpen(true)}
     >
-      <p>{props.name}</p>
+      <p>{filterState[props.name].value}</p>
       {props.position === 'end' && (
         <div class="ml-6">
           <SearchIcon />
