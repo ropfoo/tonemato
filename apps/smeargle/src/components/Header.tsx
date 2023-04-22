@@ -1,25 +1,38 @@
+import { Show, createSignal, onMount } from 'solid-js';
 import clsx from 'clsx';
 import logoLarge from '../../public/assets/logo-large.svg';
 import logoSmall from '../../public/assets/logo-small.svg';
 import Filter from './Filter';
-import { Show, createSignal } from 'solid-js';
 
 export const headerOpen = createSignal(false);
 
 export default function Header() {
   const [isHeaderOpen, setIsHeaderOpen] = headerOpen;
+
+  onMount(() => {
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        setIsHeaderOpen(false);
+      }
+
+      if (e.metaKey && e.key === 'k') {
+        setIsHeaderOpen(true);
+      }
+    });
+  });
+
   return (
     <>
       <header
         class={clsx(
-          'border-b-1 dark:border-whinehouse border-snow fixed z-20 w-full items-center bg-white px-4 pt-4 transition-all duration-200 dark:bg-black sm:px-8 lg:px-16',
+          'border-b-1 dark:border-whinehouse border-snow fixed z-20 w-full items-center bg-white px-4 pt-4 transition-all duration-200 duration-300 dark:bg-black sm:px-8 lg:px-16',
           {
             'min-h-[80px]': !isHeaderOpen(),
             'min-h-[160px]': isHeaderOpen(),
           }
         )}
       >
-        <div class="grid sm:grid-cols-[200px_1fr_100px]">
+        <div class="grid sm:grid-cols-[160px_1fr_160px]">
           <div>
             <img
               class="hidden w-[155px] md:flex"
