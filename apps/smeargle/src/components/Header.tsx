@@ -12,10 +12,10 @@ export default function Header() {
     <>
       <header
         class={clsx(
-          'border-b-1 dark:border-whinehouse border-snow fixed z-20 w-full items-center bg-white px-4 pt-4 transition-all duration-300 dark:bg-black sm:px-8 lg:px-16',
+          'border-b-1 dark:border-whinehouse border-snow fixed z-20 w-full items-center bg-white px-4 pt-4 transition-all duration-200 dark:bg-black sm:px-8 lg:px-16',
           {
             'min-h-[80px]': !isHeaderOpen(),
-            'min-h-[260px]': isHeaderOpen(),
+            'min-h-[160px]': isHeaderOpen(),
           }
         )}
       >
