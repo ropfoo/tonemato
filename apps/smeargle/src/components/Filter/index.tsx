@@ -11,13 +11,13 @@ export const filterStore = createStore<FilterState>({
   activeFilter: null,
   filter: {
     category: {
-      value: 'Bands und Musiker',
+      value: '',
     },
     instrument: {
-      value: 'Alle',
+      value: '',
     },
     location: {
-      value: 'Überall',
+      value: '',
     },
   },
 });
