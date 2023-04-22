@@ -25,7 +25,7 @@ export default function Header() {
     <>
       <header
         class={clsx(
-          'border-b-1 dark:border-whinehouse border-snow fixed z-20 w-full items-center bg-white px-4 pt-4 transition-all duration-200 duration-300 dark:bg-black sm:px-8 lg:px-16',
+          'border-b-1 dark:border-whinehouse border-snow fixed z-20 w-full items-center bg-white px-4 pt-4 transition-all duration-300 dark:bg-black sm:px-8 lg:px-16',
           {
             'min-h-[80px]': !isHeaderOpen(),
             'min-h-[160px]': isHeaderOpen(),
@@ -51,7 +51,7 @@ export default function Header() {
       <Show when={isHeaderOpen()}>
         <div
           onClick={() => setIsHeaderOpen(false)}
-          class="fixed top-0 z-10 h-full w-full bg-black opacity-70"
+          class="fixed top-0 z-10 h-full w-full bg-black opacity-80"
         />
       </Show>
     </>
