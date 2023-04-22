@@ -1,47 +1,73 @@
 import clsx from 'clsx';
-import FilterCategory from './FilterCategory';
+import SectionPreview from './SectionPreview';
 import { headerOpen } from '../Header';
 import { Transition } from 'solid-transition-group';
+import FilterComboBox from './FilterComboBox';
+import { categoryOptiones, instrumentOptions } from './data';
+import { createStore } from 'solid-js/store';
+import { FilterState } from './types';
+
+export const filterStore = createStore<FilterState>({
+  category: {
+    value: 'Bands und Musiker',
+  },
+  instrument: {
+    value: 'Alle',
+  },
+  location: {
+    value: 'Überall',
+  },
+});
 
 export default function Filter() {
   const [isHeaderOpen] = headerOpen;
+  const [filterState] = filterStore;
 
   const Separator = () => <div class="bg-janis h-6 w-[1px]" />;
 
   return (
     <div class="flex w-full justify-center">
-      <Transition name={isHeaderOpen() ? 'slide-fade2' : 'slide-fade'}>
+      <Transition
+        name={isHeaderOpen() ? 'slide-fade-filter-detail' : 'slide-fade'}
+      >
         {!isHeaderOpen() && (
           <div
             class={clsx(
-              'bg-joplin border-1 border-janis shadow-filter-dark flex h-12 w-fit items-center rounded-full transition-all duration-300',
-              {
-                // 'h-20  translate-y-12': isHeaderOpen(),
-                // 'h-12  translate-y-0': !isHeaderOpen(),
-              }
+              'bg-joplin border-1 border-janis shadow-filter-dark flex h-12 w-fit items-center rounded-full transition-all duration-300'
             )}
           >
-            <FilterCategory
-              position="start"
-              name={isHeaderOpen() ? 'This is more' : 'Kategorie'}
-            />
+            <SectionPreview position="start" name="category" />
             <Separator />
-            <FilterCategory position="center" name="Instrument" />
+            <SectionPreview position="center" name="instrument" />
             <Separator />
-            <FilterCategory position="end" name="Ort" />
+            <SectionPreview position="end" name="location" />
           </div>
         )}
         {isHeaderOpen() && (
           <div
             class={clsx(
-              'bg-joplin border-1 border-janis shadow-filter-dark absolute flex h-20 w-full max-w-[500px] translate-y-[50px] items-center rounded-full transition-all duration-300'
+              'bg-joplin border-1 border-janis shadow-filter-dark absolute flex h-20 w-fit translate-y-[50px] items-center rounded-full transition-all duration-300'
             )}
           >
-            <FilterCategory position="start" name={'Was suchst du?'} />
-            <Separator />
-            <FilterCategory position="center" name="Instrument" />
-            <Separator />
-            <FilterCategory position="end" name="Ort" />
+            <FilterComboBox
+              name="category"
+              label="Suche"
+              value={filterState.category.value}
+              options={categoryOptiones}
+            />
+            <div class="mr-2" />
+            <FilterComboBox
+              name="instrument"
+              label="Instrument"
+              value={filterState.instrument.value}
+              options={instrumentOptions}
+            />
+            <div class="mr-2" />
+            <FilterComboBox
+              name="location"
+              label="Ort"
+              value={filterState.location.value}
+            />
           </div>
         )}
       </Transition>
