@@ -1,4 +1,4 @@
-import { FilterOption } from './types';
+import { FilterName, FilterOption } from './types';
 
 export const categoryOptiones: FilterOption[] = [
   {
@@ -17,10 +17,6 @@ export const categoryOptiones: FilterOption[] = [
 
 export const instrumentOptions: FilterOption[] = [
   {
-    text: 'Alle',
-    value: 'Alle',
-  },
-  {
     text: 'Gesang',
     value: 'Gesang',
   },
@@ -37,3 +33,11 @@ export const instrumentOptions: FilterOption[] = [
     value: 'Schlagzeug',
   },
 ];
+
+export const filterPlaceholder: {
+  [name in FilterName]: { simple: string; detail: string };
+} = {
+  category: { simple: 'Bands und Musiker', detail: 'Bands und Musiker' },
+  instrument: { simple: 'Instrument', detail: 'Alle' },
+  location: { simple: 'Ort', detail: 'Überall' },
+};

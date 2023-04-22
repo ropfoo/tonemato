@@ -1,9 +1,10 @@
-import clsx from 'clsx';
-import { For, Show, createSignal } from 'solid-js';
-import { FilterName, FilterOption } from './types';
-import { Transition } from 'solid-transition-group';
-import { filterStore } from '.';
+import { For, Show, createEffect, createSignal } from 'solid-js';
 import { produce } from 'solid-js/store';
+import { Transition } from 'solid-transition-group';
+import clsx from 'clsx';
+import { FilterName, FilterOption } from './types';
+import { filterStore } from '.';
+import { filterPlaceholder } from './data';
 
 interface FilterComboBoxProps {
   name: FilterName;
@@ -13,31 +14,56 @@ interface FilterComboBoxProps {
 }
 
 export default function FilterComboBox(props: FilterComboBoxProps) {
-  const [isOpen, setIsOpen] = createSignal(false);
+  const [isInputFocussed, setIsInputFocussed] = createSignal(false);
+  const [inputValue, setInputValue] = createSignal(props.value);
 
   const [filterState, setFilterState] = filterStore;
 
+  let inputRef: HTMLInputElement;
+
+  createEffect(() => {
+    if (filterState.activeFilter === props.name) {
+      inputRef.focus();
+    }
+  });
+
+  const handleInputChange = (
+    e: InputEvent & {
+      currentTarget: HTMLInputElement;
+    }
+  ) => setInputValue(e.currentTarget.value);
+
+  const handleInputKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      const option = props.options?.find(
+        (op) => op.text.toLowerCase() === inputValue().toLocaleLowerCase()
+      );
+      if (option) handleOptionClick(option);
+    }
+  };
+
   const handleFilterSelect = () => {
-    if (filterState.activeFilter === props.name) return setIsOpen(true);
+    inputRef.focus();
+    if (filterState.activeFilter === props.name) return;
     setFilterState('activeFilter', props.name);
   };
 
   const handleOptionClick = (option: FilterOption) => {
+    setInputValue(option.text);
     setFilterState(
       produce((fs) => {
         fs.filter[props.name].value = option.value;
       })
     );
-
-    setIsOpen(false);
   };
 
   return (
     <div class="relative h-full ">
-      <div
+      <button
+        // tabIndex={props.name === 'category' ? 1 : 2}
         onClick={handleFilterSelect}
         class={clsx(
-          ' hover:dark:shadow-filter-dark flex h-full flex-col justify-center rounded-full px-6 transition-all ',
+          'hover:dark:shadow-filter-dark flex h-full cursor-pointer flex-col justify-center rounded-full px-6 transition-all ',
           {
             'min-w-[220px]': props.name === 'category',
             'min-w-[180px]': props.name === 'instrument',
@@ -47,25 +73,42 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
           }
         )}
       >
-        <p class="dark:text-snow text-[10px] font-bold">{props.label}</p>
-        <p class="dark:text-presley">{props.value}</p>
-      </div>
+        <p class="dark:text-snow mb-1 text-xs font-bold">{props.label}</p>
+        <input
+          ref={(ref) => (inputRef = ref)}
+          class="dark:text-presley bg-transparent  outline-none"
+          type="text"
+          placeholder={filterPlaceholder[props.name].detail}
+          value={inputValue()}
+          onInput={handleInputChange}
+          onFocus={() => setIsInputFocussed(true)}
+          onBlur={() => setIsInputFocussed(false)}
+          onKeyDown={handleInputKeyDown}
+        />
+      </button>
 
       <Transition name="slide-fade">
         <Show
           when={
-            isOpen() && props.options && filterState.activeFilter === props.name
+            // isInputFocussed() &&
+            props.options &&
+            filterState.activeFilter === props.name &&
+            props.options.filter((op) => op.text === inputValue()).length !== 1
           }
         >
-          <div class="dark:shadow-filter-dark absolute top-20 mt-2 w-full rounded-2xl px-6 py-4 dark:bg-black">
-            <For each={props.options}>
+          <div class="dark:shadow-filter-dark absolute top-20 mt-4 w-full rounded-2xl px-6 py-4 dark:bg-black">
+            <For
+              each={props.options?.filter((op) =>
+                op.text.toLowerCase().startsWith(inputValue().toLowerCase())
+              )}
+            >
               {(option) => (
-                <div
+                <button
                   onClick={() => handleOptionClick(option)}
-                  class="dark:text-presley"
+                  class="dark:text-presley block py-2"
                 >
                   <p>{option.text}</p>
-                </div>
+                </button>
               )}
             </For>
           </div>

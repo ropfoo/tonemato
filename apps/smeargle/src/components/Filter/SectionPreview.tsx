@@ -3,6 +3,7 @@ import SearchIcon from '../Icons/SearchIcon';
 import { headerOpen } from '../Header';
 import { FilterName } from './types';
 import { filterStore } from '.';
+import { filterPlaceholder } from './data';
 
 interface SectionPreviewProps {
   name: FilterName;
@@ -22,16 +23,20 @@ export default function SectionPreview(props: SectionPreviewProps) {
   return (
     <button
       class={clsx(
-        'text-presley dark:text-elvis/80 font-poppins flex h-full w-full items-center px-4 text-sm',
+        'text-presley dark:text-elvis/80 font-poppins flex h-full  items-center px-4 text-sm',
         {
-          'pl-6 text-right': props.position === 'start',
+          ' pl-6 text-right': props.position === 'start',
           'text-center': props.position === 'center',
           'text-left': props.position === 'end',
         }
       )}
       onClick={handleOpen}
     >
-      <p>{filterState.filter[props.name].value}</p>
+      <p>
+        {filterState.filter[props.name].value
+          ? filterState.filter[props.name].value
+          : filterPlaceholder[props.name].simple}
+      </p>
       {props.position === 'end' && (
         <div class="ml-6">
           <SearchIcon />
