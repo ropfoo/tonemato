@@ -8,5 +8,6 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:solid/typescript'],
   rules: {
     'prettier/prettier': 'warn',
+    'no-unused-vars': 0,
   },
 };
