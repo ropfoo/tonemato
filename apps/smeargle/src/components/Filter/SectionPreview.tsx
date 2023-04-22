@@ -12,7 +12,12 @@ interface SectionPreviewProps {
 export default function SectionPreview(props: SectionPreviewProps) {
   const [_, setIsHeaderOpen] = headerOpen;
 
-  const [filterState] = filterStore;
+  const [filterState, setFilterState] = filterStore;
+
+  const handleOpen = () => {
+    setIsHeaderOpen(true);
+    setFilterState('activeFilter', props.name);
+  };
 
   return (
     <button
@@ -24,9 +29,9 @@ export default function SectionPreview(props: SectionPreviewProps) {
           'text-left': props.position === 'end',
         }
       )}
-      onClick={() => setIsHeaderOpen(true)}
+      onClick={handleOpen}
     >
-      <p>{filterState[props.name].value}</p>
+      <p>{filterState.filter[props.name].value}</p>
       {props.position === 'end' && (
         <div class="ml-6">
           <SearchIcon />

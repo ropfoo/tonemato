@@ -8,14 +8,17 @@ import { createStore } from 'solid-js/store';
 import { FilterState } from './types';
 
 export const filterStore = createStore<FilterState>({
-  category: {
-    value: 'Bands und Musiker',
-  },
-  instrument: {
-    value: 'Alle',
-  },
-  location: {
-    value: 'Überall',
+  activeFilter: null,
+  filter: {
+    category: {
+      value: 'Bands und Musiker',
+    },
+    instrument: {
+      value: 'Alle',
+    },
+    location: {
+      value: 'Überall',
+    },
   },
 });
 
@@ -52,21 +55,21 @@ export default function Filter() {
             <FilterComboBox
               name="category"
               label="Suche"
-              value={filterState.category.value}
+              value={filterState.filter.category.value}
               options={categoryOptiones}
             />
             <div class="mr-2" />
             <FilterComboBox
               name="instrument"
               label="Instrument"
-              value={filterState.instrument.value}
+              value={filterState.filter.instrument.value}
               options={instrumentOptions}
             />
             <div class="mr-2" />
             <FilterComboBox
               name="location"
               label="Ort"
-              value={filterState.location.value}
+              value={filterState.filter.location.value}
             />
           </div>
         )}

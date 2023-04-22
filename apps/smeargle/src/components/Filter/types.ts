@@ -5,4 +5,7 @@ export type FilterOption = {
 
 export type FilterName = 'category' | 'instrument' | 'location';
 
-export type FilterState = { [name in FilterName]: { value: string } };
+export type FilterState = {
+  activeFilter: FilterName | null;
+  filter: { [name in FilterName]: { value: string } };
+};
