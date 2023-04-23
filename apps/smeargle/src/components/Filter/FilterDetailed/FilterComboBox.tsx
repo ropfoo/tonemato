@@ -27,9 +27,9 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
   let inputRef: HTMLInputElement;
 
   createEffect(() => {
-    if (filterState.activeFilter === props.name) {
-      inputRef.focus();
-    }
+    filterState.activeFilter === props.name
+      ? inputRef.focus()
+      : inputRef.blur();
   });
 
   const isInputInOptions = () => {
