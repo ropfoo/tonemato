@@ -20,7 +20,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
     handleInputChange,
     inputValue,
     handleInputKeyDown,
-    handleOptionClick,
+    selectOption,
     isInputInOptions,
     handleBlur,
   } = useComboBoxInput(props);
@@ -94,7 +94,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
             >
               {(option) => (
                 <button
-                  onClick={() => handleOptionClick(option)}
+                  onClick={() => selectOption(option)}
                   class="dark:text-elvis hover:bg-whinehouse block w-full rounded-lg text-left"
                 >
                   <p class="p-2">{option.text}</p>

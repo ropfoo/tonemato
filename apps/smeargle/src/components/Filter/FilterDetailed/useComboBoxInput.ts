@@ -16,6 +16,18 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
     return props.options?.filter((op) => op.text === inputValue()).length === 1;
   };
 
+  const isTextInput = () => !props.options;
+
+  const handleTextInput = () => {
+    if (isTextInput()) {
+      setFilterState(
+        produce((fs) => {
+          fs.filter[props.name].value = inputValue();
+        })
+      );
+    }
+  };
+
   // check if input value matches a filter option
   const getOptionMatchingInput = () => {
     const option = props.options?.find(
@@ -24,7 +36,7 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
     return option;
   };
 
-  const handleOptionClick = (option: FilterOption) => {
+  const selectOption = (option: FilterOption) => {
     setInputValue(option.text);
     setFilterState(
       produce((fs) => {
@@ -49,18 +61,28 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
       );
       return;
     }
+
+    if (isTextInput()) {
+      handleTextInput();
+      return;
+    }
+
     const option = getOptionMatchingInput();
-    option && handleOptionClick(option);
+    option && selectOption(option);
     // if () handleOptionClick(option);
   };
 
   const handleInputKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      const option = getOptionMatchingInput();
+      if (isTextInput()) {
+        handleTextInput();
+        return;
+      }
 
+      const option = getOptionMatchingInput();
       if (!option) return;
 
-      handleOptionClick(option);
+      selectOption(option);
 
       // check if last filter option is reached
       if (filterState.filter[props.name].position >= 3) {
@@ -77,7 +99,7 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
     handleInputChange,
     inputValue,
     handleInputKeyDown,
-    handleOptionClick,
+    selectOption,
     isInputInOptions,
     handleBlur,
   };
