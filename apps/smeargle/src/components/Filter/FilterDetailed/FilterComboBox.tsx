@@ -1,21 +1,26 @@
-import { For, Show, createEffect, createSignal } from 'solid-js';
-import { produce } from 'solid-js/store';
+import { For, Show, createEffect } from 'solid-js';
 import { Transition } from 'solid-transition-group';
 import clsx from 'clsx';
-import { FilterName, FilterOption } from './types';
-import { filterStore } from '.';
-import { filterPlaceholder } from './data';
+import { FilterName, FilterOption } from '../types';
+import { filterStore } from '..';
+import { filterPlaceholder } from '../data';
+import { useComboBoxInput } from './useComboBoxInput';
 
-interface FilterComboBoxProps {
+export interface FilterComboBoxProps {
   name: FilterName;
   label: string;
   value: string;
   options?: FilterOption[];
+  isDropdown?: boolean;
 }
 
 export default function FilterComboBox(props: FilterComboBoxProps) {
-  const [isInputFocussed, setIsInputFocussed] = createSignal(false);
-  const [inputValue, setInputValue] = createSignal(props.value);
+  const {
+    handleInputChange,
+    inputValue,
+    handleInputKeyDown,
+    handleOptionClick,
+  } = useComboBoxInput(props);
 
   const [filterState, setFilterState] = filterStore;
 
@@ -27,19 +32,9 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
     }
   });
 
-  const handleInputChange = (
-    e: InputEvent & {
-      currentTarget: HTMLInputElement;
-    }
-  ) => setInputValue(e.currentTarget.value);
-
-  const handleInputKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      const option = props.options?.find(
-        (op) => op.text.toLowerCase() === inputValue().toLocaleLowerCase()
-      );
-      if (option) handleOptionClick(option);
-    }
+  const isInputInOptions = () => {
+    if (props.isDropdown) return false;
+    return props.options?.filter((op) => op.text === inputValue()).length === 1;
   };
 
   const handleFilterSelect = () => {
@@ -48,19 +43,9 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
     setFilterState('activeFilter', props.name);
   };
 
-  const handleOptionClick = (option: FilterOption) => {
-    setInputValue(option.text);
-    setFilterState(
-      produce((fs) => {
-        fs.filter[props.name].value = option.value;
-      })
-    );
-  };
-
   return (
     <div class="relative h-full ">
       <button
-        // tabIndex={props.name === 'category' ? 1 : 2}
         onClick={handleFilterSelect}
         class={clsx(
           'hover:dark:shadow-filter-dark flex h-full cursor-pointer flex-col justify-center rounded-full px-6 transition-all ',
@@ -81,26 +66,30 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
           placeholder={filterPlaceholder[props.name].detail}
           value={inputValue()}
           onInput={handleInputChange}
-          onFocus={() => setIsInputFocussed(true)}
-          onBlur={() => setIsInputFocussed(false)}
           onKeyDown={handleInputKeyDown}
+          disabled={props.isDropdown}
         />
       </button>
 
       <Transition name="slide-fade">
         <Show
           when={
-            // isInputFocussed() &&
             props.options &&
             filterState.activeFilter === props.name &&
-            props.options.filter((op) => op.text === inputValue()).length !== 1
+            !isInputInOptions()
           }
         >
           <div class="dark:shadow-filter-dark absolute top-20 mt-4 w-full rounded-2xl px-6 py-4 dark:bg-black">
             <For
-              each={props.options?.filter((op) =>
-                op.text.toLowerCase().startsWith(inputValue().toLowerCase())
-              )}
+              each={
+                props.isDropdown
+                  ? props.options
+                  : props.options?.filter((op) =>
+                      op.text
+                        .toLowerCase()
+                        .startsWith(inputValue().toLowerCase())
+                    )
+              }
             >
               {(option) => (
                 <button

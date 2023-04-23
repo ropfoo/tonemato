@@ -1,9 +1,9 @@
 import { clsx } from 'clsx';
-import SearchIcon from '../Icons/SearchIcon';
-import { headerOpen } from '../Header';
-import { FilterName } from './types';
-import { filterStore } from '.';
-import { filterPlaceholder } from './data';
+import SearchIcon from '../../Icons/SearchIcon';
+import { headerOpen } from '../../Header';
+import { FilterName } from '../types';
+import { filterStore } from '../';
+import { filterPlaceholder } from '../data';
 
 interface SectionPreviewProps {
   name: FilterName;
