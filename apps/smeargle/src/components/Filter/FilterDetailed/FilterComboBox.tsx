@@ -11,6 +11,7 @@ export interface FilterComboBoxProps {
   label: string;
   value: string;
   options?: FilterOption[];
+  // turn combobox into dropdown (no text input)
   isDropdown?: boolean;
 }
 
@@ -20,6 +21,8 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
     inputValue,
     handleInputKeyDown,
     handleOptionClick,
+    isInputInOptions,
+    handleBlur,
   } = useComboBoxInput(props);
 
   const [filterState, setFilterState] = filterStore;
@@ -31,11 +34,6 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
       ? inputRef.focus()
       : inputRef.blur();
   });
-
-  const isInputInOptions = () => {
-    if (props.isDropdown) return false;
-    return props.options?.filter((op) => op.text === inputValue()).length === 1;
-  };
 
   const handleFilterSelect = () => {
     inputRef.focus();
@@ -61,12 +59,15 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
         <p class="dark:text-snow mb-1 text-xs font-bold">{props.label}</p>
         <input
           ref={(ref) => (inputRef = ref)}
-          class="dark:text-presley bg-transparent  outline-none"
+          class={clsx('dark:text-presley bg-transparent  outline-none', {
+            'cursor-pointer': props.isDropdown,
+          })}
           type="text"
           placeholder={filterPlaceholder[props.name].detail}
           value={inputValue()}
           onInput={handleInputChange}
           onKeyDown={handleInputKeyDown}
+          onBlur={handleBlur}
           disabled={props.isDropdown}
         />
       </button>
@@ -79,7 +80,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
             !isInputInOptions()
           }
         >
-          <div class="dark:shadow-filter-dark absolute top-20 mt-4 w-full rounded-2xl px-6 py-4 dark:bg-black">
+          <div class="dark:shadow-filter-dark absolute top-20 mt-4 w-full rounded-2xl px-4 py-4 dark:bg-black">
             <For
               each={
                 props.isDropdown
@@ -94,9 +95,9 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
               {(option) => (
                 <button
                   onClick={() => handleOptionClick(option)}
-                  class="dark:text-presley block py-2"
+                  class="dark:text-elvis hover:bg-whinehouse block w-full rounded-lg text-left"
                 >
-                  <p>{option.text}</p>
+                  <p class="p-2">{option.text}</p>
                 </button>
               )}
             </For>

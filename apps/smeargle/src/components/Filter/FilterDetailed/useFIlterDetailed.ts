@@ -12,7 +12,13 @@ export function useFilterDetailed() {
     );
 
     if (nextFilter) {
-      const [nextFilterName] = nextFilter;
+      const [nextFilterName, nextFilterState] = nextFilter;
+
+      if (nextFilterState.value) {
+        focusNextSection(nextFilterName as FilterName);
+        return;
+      }
+
       setFilterState('activeFilter', nextFilterName as FilterName);
     }
   };

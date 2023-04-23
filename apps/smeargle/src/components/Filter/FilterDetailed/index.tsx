@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import FilterComboBox from './FilterComboBox';
 import { filterStore } from '..';
-import { categoryOptiones, instrumentOptions } from '../data';
+import { categoryOptions, instrumentOptions } from '../data';
 
 export default function FilterDetailed() {
   const [filterState] = filterStore;
@@ -15,8 +15,8 @@ export default function FilterDetailed() {
       <FilterComboBox
         name="category"
         label="Suche"
-        value={filterState.filter.category.value}
-        options={categoryOptiones}
+        value={categoryOptions[2].text}
+        options={categoryOptions}
         isDropdown
       />
       <div class="mr-2" />

@@ -9,7 +9,20 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
   const [inputValue, setInputValue] = createSignal(props.value);
   const [filterState, setFilterState] = filterStore;
 
-  const { focusNextSection } = useFilterDetailed();
+  const { focusNextSection, submitFilter } = useFilterDetailed();
+
+  const isInputInOptions = () => {
+    if (props.isDropdown) return false;
+    return props.options?.filter((op) => op.text === inputValue()).length === 1;
+  };
+
+  // check if input value matches a filter option
+  const getOptionMatchingInput = () => {
+    const option = props.options?.find(
+      (op) => op.text.toLowerCase() === inputValue().toLocaleLowerCase()
+    );
+    return option;
+  };
 
   const handleOptionClick = (option: FilterOption) => {
     setInputValue(option.text);
@@ -18,7 +31,7 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
         fs.filter[props.name].value = option.value;
       })
     );
-    if (props.isDropdown) focusNextSection(props.name);
+    focusNextSection(props.name);
   };
 
   const handleInputChange = (
@@ -27,12 +40,23 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
     }
   ) => setInputValue(e.currentTarget.value);
 
+  const handleBlur = () => {
+    if (inputValue() === '') {
+      setFilterState(
+        produce((fs) => {
+          fs.filter[props.name].value = '';
+        })
+      );
+      return;
+    }
+    const option = getOptionMatchingInput();
+    option && handleOptionClick(option);
+    // if () handleOptionClick(option);
+  };
+
   const handleInputKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      // check if input value matches a filter option
-      const option = props.options?.find(
-        (op) => op.text.toLowerCase() === inputValue().toLocaleLowerCase()
-      );
+      const option = getOptionMatchingInput();
 
       if (!option) return;
 
@@ -41,7 +65,7 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
       // check if last filter option is reached
       if (filterState.filter[props.name].position >= 3) {
         // if the last filter option is active submit
-        return;
+        return submitFilter();
       }
 
       // jump to the next filter option
@@ -54,5 +78,7 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
     inputValue,
     handleInputKeyDown,
     handleOptionClick,
+    isInputInOptions,
+    handleBlur,
   };
 }
