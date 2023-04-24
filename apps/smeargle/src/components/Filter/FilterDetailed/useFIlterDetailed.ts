@@ -1,3 +1,4 @@
+import { unwrap } from 'solid-js/store';
 import { filterStore } from '..';
 import { FilterName } from '../types';
 
@@ -24,7 +25,8 @@ export function useFilterDetailed() {
   };
 
   const submitFilter = () => {
-    console.log('filter submitted');
+    const filterData = unwrap(filterState.filter);
+    console.log('filter submitted', filterData);
   };
 
   return { submitFilter, focusNextSection };

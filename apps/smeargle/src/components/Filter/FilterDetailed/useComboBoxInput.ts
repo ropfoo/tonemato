@@ -28,7 +28,12 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
     }
   };
 
-  // check if input value matches a filter option
+  const hasFilterAllValues = () =>
+    !Object.values(filterState.filter)
+      .map((f) => !!f.value)
+      .includes(false);
+
+  // return option that matches the text input
   const getOptionMatchingInput = () => {
     const option = props.options?.find(
       (op) => op.text.toLowerCase() === inputValue().toLocaleLowerCase()
@@ -74,18 +79,13 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
 
   const handleInputKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      if (isTextInput()) {
-        handleTextInput();
-        return;
-      }
+      // check if combo box is textinput
+      isTextInput() && handleTextInput();
 
       const option = getOptionMatchingInput();
-      if (!option) return;
+      option && selectOption(option);
 
-      selectOption(option);
-
-      // check if last filter option is reached
-      if (filterState.filter[props.name].position >= 3) {
+      if (hasFilterAllValues()) {
         // if the last filter option is active submit
         return submitFilter();
       }
