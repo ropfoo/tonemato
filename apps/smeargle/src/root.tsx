@@ -12,8 +12,8 @@ import {
   Title,
 } from 'solid-start';
 import './root.css';
-import '../styles/fonts.css';
-import '../styles/animations.css';
+import './styles/fonts.css';
+import './styles/animations.css';
 import Header from './components/Header';
 import Layout from './components/Layout';
 

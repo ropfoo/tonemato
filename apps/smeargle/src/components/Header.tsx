@@ -1,7 +1,7 @@
 import { Show, createSignal, onMount } from 'solid-js';
 import clsx from 'clsx';
-import logoLarge from '../../public/assets/logo-large.svg';
-import logoSmall from '../../public/assets/logo-small.svg';
+import logoLarge from '/assets/logo-large.svg';
+import logoSmall from '/assets/logo-small.svg';
 import Filter from './Filter';
 
 export const headerOpen = createSignal(false);
