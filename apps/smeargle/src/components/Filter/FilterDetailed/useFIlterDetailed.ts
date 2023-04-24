@@ -1,10 +1,11 @@
 import { unwrap } from 'solid-js/store';
 import { filterStore } from '..';
 import { FilterName } from '../types';
+import { headerOpen } from '~/components/Header';
 
 export function useFilterDetailed() {
   const [filterState, setFilterState] = filterStore;
-
+  const [_, setIsHeaderOpen] = headerOpen;
   const focusNextSection = (currentSection: FilterName) => {
     const currentPosition = filterState.filter[currentSection].position;
 
@@ -27,6 +28,7 @@ export function useFilterDetailed() {
   const submitFilter = () => {
     const filterData = unwrap(filterState.filter);
     console.log('filter submitted', filterData);
+    setIsHeaderOpen(false);
   };
 
   return { submitFilter, focusNextSection };

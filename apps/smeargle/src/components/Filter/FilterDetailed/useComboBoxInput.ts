@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 import { FilterName, FilterOption } from '../types';
 import { filterStore } from '..';
 import { produce } from 'solid-js/store';
@@ -10,6 +10,16 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
   const [filterState, setFilterState] = filterStore;
 
   const { focusNextSection, submitFilter } = useFilterDetailed();
+
+  createEffect(() => {
+    if (props.value) {
+      setFilterState(
+        produce((fs) => {
+          fs.filter[props.name].value = props.value;
+        })
+      );
+    }
+  });
 
   const isInputInOptions = () => {
     if (props.isDropdown) return false;
