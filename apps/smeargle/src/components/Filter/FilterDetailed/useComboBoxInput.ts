@@ -1,23 +1,18 @@
-import { createEffect, createSignal } from 'solid-js';
-import { FilterName, FilterOption } from '../types';
-import { filterStore } from '..';
-import { produce } from 'solid-js/store';
+import { createSignal, onMount } from 'solid-js';
+import { FilterOption } from '../types';
 import { FilterComboBoxProps } from './FilterComboBox';
 import { useFilterDetailed } from './useFIlterDetailed';
+import { useFilterContext } from '..';
 
 export function useComboBoxInput(props: FilterComboBoxProps) {
   const [inputValue, setInputValue] = createSignal(props.value);
-  const [filterState, setFilterState] = filterStore;
+  const [filterState, { updateValue }] = useFilterContext();
 
   const { focusNextSection, submitFilter } = useFilterDetailed();
 
-  createEffect(() => {
+  onMount(() => {
     if (props.value) {
-      setFilterState(
-        produce((fs) => {
-          fs.filter[props.name].value = props.value;
-        })
-      );
+      updateValue(props.name, props.value);
     }
   });
 
@@ -28,19 +23,12 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
 
   const isTextInput = () => !props.options;
 
-  const handleTextInput = () => {
-    if (isTextInput()) {
-      setFilterState(
-        produce((fs) => {
-          fs.filter[props.name].value = inputValue();
-        })
-      );
-    }
-  };
+  const handleTextInput = () =>
+    isTextInput() && updateValue(props.name, inputValue());
 
   const hasFilterAllValues = () =>
     !Object.values(filterState.filter)
-      .map((f) => !!f.value)
+      .map((f) => !!f)
       .includes(false);
 
   // return option that matches the text input
@@ -53,11 +41,7 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
 
   const selectOption = (option: FilterOption) => {
     setInputValue(option.text);
-    setFilterState(
-      produce((fs) => {
-        fs.filter[props.name].value = option.value;
-      })
-    );
+    updateValue(props.name, option.value);
     focusNextSection(props.name);
   };
 
@@ -69,11 +53,7 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
 
   const handleBlur = () => {
     if (inputValue() === '') {
-      setFilterState(
-        produce((fs) => {
-          fs.filter[props.name].value = '';
-        })
-      );
+      updateValue(props.name, '');
       return;
     }
 

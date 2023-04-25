@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import FilterComboBox from './FilterComboBox';
-import { filterStore } from '..';
 import { categoryOptions, instrumentOptions } from '../data';
+import { useFilterContext } from '..';
 
 export default function FilterDetailed() {
-  const [filterState] = filterStore;
+  const [filterState] = useFilterContext();
 
   return (
     <div
@@ -23,14 +23,14 @@ export default function FilterDetailed() {
       <FilterComboBox
         name="instrument"
         label="Instrument"
-        value={filterState.filter.instrument.value}
+        value={filterState.filter.instrument}
         options={instrumentOptions}
       />
       <div class="mr-2" />
       <FilterComboBox
         name="location"
         label="Ort"
-        value={filterState.filter.location.value}
+        value={filterState.filter.location}
       />
     </div>
   );

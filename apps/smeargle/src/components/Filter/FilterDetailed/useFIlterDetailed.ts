@@ -1,33 +1,36 @@
 import { unwrap } from 'solid-js/store';
-import { filterStore } from '..';
+import { useFilterContext } from '..';
 import { FilterName } from '../types';
 import { headerOpen } from '~/components/Header';
+import { filterData } from '../data';
 
 export function useFilterDetailed() {
-  const [filterState, setFilterState] = filterStore;
-  const [_, setIsHeaderOpen] = headerOpen;
-  const focusNextSection = (currentSection: FilterName) => {
-    const currentPosition = filterState.filter[currentSection].position;
+  const [filterState, { setActive }] = useFilterContext();
 
-    const nextFilter = Object.entries(filterState.filter).find(
+  const [_, setIsHeaderOpen] = headerOpen;
+
+  const focusNextSection = (currentSection: FilterName) => {
+    const currentPosition = filterData[currentSection].position;
+
+    const nextFilter = Object.entries(filterData).find(
       ([_, filter]) => filter.position === currentPosition + 1
     );
 
     if (nextFilter) {
-      const [nextFilterName, nextFilterState] = nextFilter;
-
-      if (nextFilterState.value) {
+      const [nextFilterName] = nextFilter as [FilterName, { position: number }];
+      console.log(nextFilterName);
+      if (filterState.filter[nextFilterName]) {
         focusNextSection(nextFilterName as FilterName);
         return;
       }
 
-      setFilterState('activeFilter', nextFilterName as FilterName);
+      setActive(nextFilterName as FilterName);
     }
   };
 
   const submitFilter = () => {
-    const filterData = unwrap(filterState.filter);
-    console.log('filter submitted', filterData);
+    const filteValues = unwrap(filterState.filter);
+    console.log('filter submitted', filteValues);
     setIsHeaderOpen(false);
   };
 

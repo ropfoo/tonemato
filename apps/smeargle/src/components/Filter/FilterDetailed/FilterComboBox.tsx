@@ -2,9 +2,9 @@ import { For, Show, createEffect } from 'solid-js';
 import { Transition } from 'solid-transition-group';
 import clsx from 'clsx';
 import { FilterName, FilterOption } from '../types';
-import { filterStore } from '..';
 import { filterPlaceholder } from '../data';
 import { useComboBoxInput } from './useComboBoxInput';
+import { useFilterContext } from '..';
 
 export interface FilterComboBoxProps {
   name: FilterName;
@@ -25,7 +25,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
     handleBlur,
   } = useComboBoxInput(props);
 
-  const [filterState, setFilterState] = filterStore;
+  const [filterState, { setActive }] = useFilterContext();
 
   let inputRef: HTMLInputElement;
 
@@ -38,7 +38,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
   const handleFilterSelect = () => {
     inputRef.focus();
     if (filterState.activeFilter === props.name) return;
-    setFilterState('activeFilter', props.name);
+    setActive(props.name);
   };
 
   return (

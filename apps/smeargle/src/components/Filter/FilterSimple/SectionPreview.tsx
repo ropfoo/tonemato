@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import SearchIcon from '../../Icons/SearchIcon';
 import { headerOpen } from '../../Header';
 import { FilterName } from '../types';
-import { filterStore } from '../';
+import { useFilterContext } from '../';
 import { filterPlaceholder } from '../data';
 
 interface SectionPreviewProps {
@@ -13,11 +13,11 @@ interface SectionPreviewProps {
 export default function SectionPreview(props: SectionPreviewProps) {
   const [_, setIsHeaderOpen] = headerOpen;
 
-  const [filterState, setFilterState] = filterStore;
+  const [filterState, { setActive }] = useFilterContext();
 
   const handleOpen = () => {
     setIsHeaderOpen(true);
-    setFilterState('activeFilter', props.name);
+    setActive(props.name);
   };
 
   return (
@@ -33,8 +33,8 @@ export default function SectionPreview(props: SectionPreviewProps) {
       onClick={handleOpen}
     >
       <p>
-        {filterState.filter[props.name].value
-          ? filterState.filter[props.name].value
+        {filterState.filter[props.name]
+          ? filterState.filter[props.name]
           : filterPlaceholder[props.name].simple}
       </p>
       {props.position === 'end' && (
