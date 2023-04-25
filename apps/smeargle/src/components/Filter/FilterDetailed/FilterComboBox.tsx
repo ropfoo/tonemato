@@ -46,12 +46,12 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
       <button
         onClick={handleFilterSelect}
         class={clsx(
-          'hover:dark:shadow-filter-dark flex h-full cursor-pointer flex-col justify-center rounded-full px-6 transition-all ',
+          'hover:dark:shadow-filter-dark hover:shadow-filter-light flex h-full cursor-pointer flex-col justify-center rounded-full px-6 transition-all ',
           {
             'min-w-[220px]': props.name === 'category',
             'min-w-[180px]': props.name === 'instrument',
             'min-w-[160px]': props.name === 'location',
-            'dark:shadow-filter-dark dark:bg-black':
+            'dark:shadow-filter-dark shadow-filter-light bg-white dark:bg-black':
               props.name === filterState.activeFilter,
           }
         )}
@@ -59,7 +59,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
         <p class="dark:text-snow mb-1 text-xs font-bold">{props.label}</p>
         <input
           ref={(ref) => (inputRef = ref)}
-          class={clsx('dark:text-presley bg-transparent  outline-none', {
+          class={clsx('text-presley bg-transparent  outline-none', {
             'cursor-pointer': props.isDropdown,
           })}
           type="text"
@@ -80,7 +80,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
             !isInputInOptions()
           }
         >
-          <div class="dark:shadow-filter-dark absolute top-20 mt-4 w-full rounded-2xl px-4 py-4 dark:bg-black">
+          <div class="dark:shadow-filter-dark shadow-filter-light absolute top-20 mt-4 w-full rounded-2xl bg-white p-4 dark:bg-black">
             <For
               each={
                 props.isDropdown
@@ -95,7 +95,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
               {(option) => (
                 <button
                   onClick={() => selectOption(option)}
-                  class="dark:text-elvis hover:bg-whinehouse block w-full rounded-lg text-left"
+                  class="dark:text-elvis dark:hover:bg-whinehouse hover:bg-elvis/50 block w-full rounded-lg text-left"
                 >
                   <p class="p-2">{option.text}</p>
                 </button>

@@ -51,7 +51,7 @@ export default function Header() {
       <Show when={isHeaderOpen()}>
         <div
           onClick={() => setIsHeaderOpen(false)}
-          class="fixed top-0 z-10 h-full w-full bg-black opacity-80"
+          class="fixed top-0 z-10 h-full w-full bg-black opacity-30 dark:opacity-80"
         />
       </Show>
     </>

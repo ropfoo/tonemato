@@ -9,7 +9,7 @@ export default function FilterDetailed() {
   return (
     <div
       class={clsx(
-        'bg-joplin border-1 border-janis shadow-filter-dark absolute flex h-20 w-fit translate-y-[50px] items-center rounded-full transition-all duration-300'
+        'dark:bg-joplin border-1 dark:border-janis border-elvis dark:shadow-filter-dark shadow-filter-light bg-snow absolute flex h-20 w-fit translate-y-[55px] items-center rounded-full transition-all duration-300'
       )}
     >
       <FilterComboBox

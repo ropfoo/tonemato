@@ -25,7 +25,7 @@ export default function SectionPreview(props: SectionPreviewProps) {
       class={clsx(
         'text-presley dark:text-elvis/80 font-poppins flex h-full  items-center px-4 text-sm',
         {
-          ' pl-6 text-right': props.position === 'start',
+          'pl-6 text-right': props.position === 'start',
           'text-center': props.position === 'center',
           'text-left': props.position === 'end',
         }
