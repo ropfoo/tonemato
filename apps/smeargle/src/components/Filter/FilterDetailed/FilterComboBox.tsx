@@ -91,6 +91,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
                         .startsWith(inputValue().toLowerCase())
                     )
               }
+              fallback={<p class="text-wolf">Nicht verfügbar</p>}
             >
               {(option) => (
                 <button
