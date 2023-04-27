@@ -8,7 +8,15 @@ export default async function updateCache() {
     console.log('fetching data');
     const { data } = await axios.get(`http://drilbur:${DRILBUR_PORT}/scrape`);
 
-    redis.set('data', JSON.stringify(data));
+    // Transform all fetched teasers in a flattened form and store it in 'data'
+    redis.set(
+      'data',
+      JSON.stringify(
+        Object.keys(data)
+          .map((domain) => data[domain].pages.flat())
+          .flat()
+      )
+    );
     console.log('Teasers stored!');
 
     redis.set('timestamp', new Date().toJSON());

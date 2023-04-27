@@ -16,14 +16,20 @@ app.use(
 
 app.get('/', async (req, res) => {
   const teasers = await getCache();
-  return res.json(teasers);
+  return res.json({
+    type: 'cache',
+    teasers,
+  });
 });
 
 if (NODE_ENV === 'development') {
   app.get('/nocache', async (req, res) => {
     await updateCache();
     const teasers = await getCache();
-    return res.json(teasers);
+    return res.json({
+      type: 'nocache',
+      teasers,
+    });
   });
 }
 
