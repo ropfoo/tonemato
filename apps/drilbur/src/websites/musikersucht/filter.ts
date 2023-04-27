@@ -6,6 +6,8 @@ export type MusikersuchtFilter = {
 export enum MusikersuchtInstrument {
   guitar = 4,
   bass = 2,
+  drums = 6,
+  vocals = 7,
 }
 
 export enum MusikersuchtCategory {

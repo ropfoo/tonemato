@@ -6,6 +6,8 @@ export type BackstagepoFilter = {
 export enum BackstageproInstrument {
   guitar = 'guitar',
   bass = 'bass',
+  drums = 'drums',
+  vocals = 'vocals_classic',
 }
 
 export enum BackstageproCategory {
