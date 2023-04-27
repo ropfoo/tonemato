@@ -31,5 +31,9 @@ export default async (instrument: string, category: string) => {
         category: MusikersuchtCategory[category],
       }),
     ])
-  ).flat();
+  ).map((val, index, arr) => ({
+    backstagepro: arr[0], // same order as scrape order above
+    musicstore: arr[1],
+    musikersucht: arr[2],
+  }))[0];
 };
