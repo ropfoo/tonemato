@@ -14,7 +14,7 @@ export default function FilterSimple() {
       <Separator />
       <SectionPreview position="center" name="instrument" />
       <Separator />
-      <SectionPreview position="end" name="location" />
+      <SectionPreview position="end" name="zipCode" />
     </div>
   );
 }

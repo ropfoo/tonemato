@@ -2,7 +2,7 @@ import { clsx } from 'clsx';
 import SearchIcon from '../../Icons/SearchIcon';
 import { headerOpen } from '../../Header';
 import { FilterName } from '../types';
-import { useFilterContext } from '../';
+import { useFilterContext } from '../FilterProvider';
 import { filterPlaceholder } from '../data';
 
 interface SectionPreviewProps {

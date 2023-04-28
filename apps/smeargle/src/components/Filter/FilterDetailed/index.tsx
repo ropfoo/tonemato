@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import FilterComboBox from './FilterComboBox';
 import { categoryOptions, instrumentOptions } from '../data';
-import { useFilterContext } from '..';
+import { useFilterContext } from '../FilterProvider';
 
 export default function FilterDetailed() {
   const [filterState] = useFilterContext();
@@ -28,9 +28,9 @@ export default function FilterDetailed() {
       />
       <div class="mr-2" />
       <FilterComboBox
-        name="location"
+        name="zipCode"
         label="Ort"
-        value={filterState.filter.location}
+        value={filterState.filter.zipCode.toString()}
       />
     </div>
   );

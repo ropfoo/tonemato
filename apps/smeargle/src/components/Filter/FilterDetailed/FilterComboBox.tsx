@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { FilterName, FilterOption } from '../types';
 import { filterPlaceholder } from '../data';
 import { useComboBoxInput } from './useComboBoxInput';
-import { useFilterContext } from '..';
+import { useFilterContext } from '../FilterProvider';
 
 export interface FilterComboBoxProps {
   name: FilterName;
@@ -44,13 +44,14 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
   return (
     <div class="relative h-full ">
       <button
+        type="button"
         onClick={handleFilterSelect}
         class={clsx(
           'hover:dark:shadow-filter-dark hover:shadow-filter-light flex h-full cursor-pointer flex-col justify-center rounded-full px-6 transition-all ',
           {
             'min-w-[220px]': props.name === 'category',
             'min-w-[180px]': props.name === 'instrument',
-            'min-w-[160px]': props.name === 'location',
+            'min-w-[160px]': props.name === 'zipCode',
             'dark:shadow-filter-dark shadow-filter-light bg-white dark:bg-black':
               props.name === filterState.activeFilter,
           }
@@ -95,6 +96,7 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
             >
               {(option) => (
                 <button
+                  type="button"
                   onClick={() => selectOption(option)}
                   class="dark:text-elvis dark:hover:bg-whinehouse hover:bg-elvis/50 block w-full rounded-lg text-left"
                 >

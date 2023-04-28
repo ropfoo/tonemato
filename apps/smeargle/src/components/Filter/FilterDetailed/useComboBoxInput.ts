@@ -2,7 +2,7 @@ import { createSignal, onMount } from 'solid-js';
 import { FilterOption } from '../types';
 import { FilterComboBoxProps } from './FilterComboBox';
 import { useFilterDetailed } from './useFIlterDetailed';
-import { useFilterContext } from '..';
+import { useFilterContext } from '../FilterProvider';
 
 export function useComboBoxInput(props: FilterComboBoxProps) {
   const [inputValue, setInputValue] = createSignal(props.value);

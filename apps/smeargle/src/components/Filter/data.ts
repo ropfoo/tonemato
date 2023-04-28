@@ -39,15 +39,15 @@ export const filterPlaceholder: {
 } = {
   category: { simple: 'Bands und Musiker', detail: 'Bands und Musiker' },
   instrument: { simple: 'Instrument', detail: 'Instrument wählen' },
-  location: { simple: 'Ort', detail: 'Überall' },
+  zipCode: { simple: 'Ort', detail: 'Überall' },
 };
 
 export const filterDefaultState: FilterState = {
   activeFilter: null,
   filter: {
-    category: '',
-    instrument: '',
-    location: '',
+    category: 'all',
+    instrument: 'bass',
+    zipCode: 0,
   },
 };
 
@@ -58,7 +58,7 @@ export const filterData = {
   instrument: {
     position: 2,
   },
-  location: {
+  zipCode: {
     position: 3,
   },
 };
