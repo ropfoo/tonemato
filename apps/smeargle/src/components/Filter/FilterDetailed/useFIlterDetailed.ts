@@ -1,14 +1,14 @@
-import { unwrap } from 'solid-js/store';
 import { useFilterContext } from '../FilterProvider';
 import { FilterName } from '../types';
 import { headerOpen } from '~/components/Header';
 import { filterData } from '../data';
 import { useTeasers } from '~/hooks/useTeasers';
+import { useFilterStorage } from './useFilterStorage';
 
 export function useFilterDetailed() {
   const [filterState, { setActive }] = useFilterContext();
   const [, setIsHeaderOpen] = headerOpen;
-
+  const { storeFilterState } = useFilterStorage();
   const teasers = useTeasers();
 
   const focusNextSection = (currentSection: FilterName) => {
@@ -31,9 +31,13 @@ export function useFilterDetailed() {
   };
 
   const submitFilter = async () => {
-    const filteValues = unwrap(filterState.filter);
-    console.log('filter submitted', filteValues);
+    // store filter in local storage
+    storeFilterState();
+
+    // refetch with current filter state
     await teasers.refetch();
+
+    // close header after refetch to prevent transition issues
     setIsHeaderOpen(false);
   };
 

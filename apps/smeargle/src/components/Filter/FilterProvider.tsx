@@ -1,9 +1,10 @@
 import { createStore, produce } from 'solid-js/store';
 import { FilterContextType, FilterName, FilterState } from './types';
 import { categoryOptions, filterDefaultState, instrumentOptions } from './data';
-import { createContext, useContext } from 'solid-js';
+import { createContext, onMount, useContext } from 'solid-js';
 import { JSX } from 'solid-js/web/types/jsx';
 import { Category, Instrument } from 'tonemato-types';
+import { useFilterStorage } from './FilterDetailed/useFilterStorage';
 
 const FilterContext = createContext<FilterContextType>([
   filterDefaultState,
@@ -22,6 +23,14 @@ interface FilterProviderProps {
 export default function FilterProvider(props: FilterProviderProps) {
   const [filterState, setFilterState] =
     createStore<FilterState>(filterDefaultState);
+
+  const { getFilterStorage } = useFilterStorage();
+
+  onMount(() => {
+    // initial check if filter is stored in local storage
+    const filterStorage = getFilterStorage();
+    if (filterStorage) setFilterState('filter', filterStorage);
+  });
 
   const setActive = (name: FilterName) => setFilterState('activeFilter', name);
 
