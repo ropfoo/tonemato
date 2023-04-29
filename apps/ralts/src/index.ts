@@ -15,13 +15,12 @@ app.use(
   })
 );
 
-app.get('/', async (req: Request<TeaserRequestParams>, res) => {
+app.get('/', async (req: Request<any, any, any, TeaserRequestParams>, res) => {
   const cache = await getCache();
 
-  console.log('params: ', req.params);
   const { category, instrument, zipCode } = req.query;
   console.log('Request', category, instrument, zipCode);
-  if (instrument === 'Gitarre') {
+  if (instrument === 'guitar') {
     // to see change in ui
     console.log('its Gitarre lel now you get nothin!');
     return res.json({
