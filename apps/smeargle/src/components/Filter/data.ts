@@ -1,38 +1,21 @@
+import { TeaserRequestParams } from 'tonemato-types';
 import { FilterName, FilterOption, FilterState } from './types';
 
-export const categoryOptions: FilterOption[] = [
-  {
-    text: 'Band',
-    value: 'Band',
-  },
-  {
-    text: 'Musiker',
-    value: 'Musiker',
-  },
-  {
-    text: 'Bands und Musiker',
-    value: 'Bands und Musiker',
-  },
-];
+export const categoryOptions: FilterOption<TeaserRequestParams['category']> = {
+  all: 'Bands und Musiker',
+  bsm: 'Band',
+  msb: 'Musiker',
+};
 
-export const instrumentOptions: FilterOption[] = [
-  {
-    text: 'Gesang',
-    value: 'Gesang',
-  },
-  {
-    text: 'Bass',
-    value: 'Bass',
-  },
-  {
-    text: 'Gitarre',
-    value: 'Gitarre',
-  },
-  {
-    text: 'Schlagzeug',
-    value: 'Schlagzeug',
-  },
-];
+export const instrumentOptions: FilterOption<
+  TeaserRequestParams['instrument']
+> = {
+  all: 'Alle',
+  vocals: 'Gesang',
+  bass: 'Bass',
+  guitar: 'Gitarre',
+  drums: 'Schlagzeug',
+};
 
 export const filterPlaceholder: {
   [name in FilterName]: { simple: string; detail: string };
@@ -45,9 +28,9 @@ export const filterPlaceholder: {
 export const filterDefaultState: FilterState = {
   activeFilter: null,
   filter: {
-    category: 'all',
-    instrument: 'bass',
-    zipCode: 0,
+    category: { text: categoryOptions.all, value: 'all' },
+    instrument: { text: instrumentOptions.all, value: 'all' },
+    zipCode: null,
   },
 };
 

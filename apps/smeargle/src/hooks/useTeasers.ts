@@ -10,9 +10,9 @@ export function useTeasers() {
     () => ['teasers'],
     () =>
       getTeasers({
-        instrument: filterState.filter.instrument,
-        category: filterState.filter.category,
-        zipCode: filterState.filter.zipCode,
+        instrument: filterState.filter.instrument?.value ?? 'all',
+        category: filterState.filter.category?.value ?? 'all',
+        zipCode: filterState.filter.zipCode?.value ?? '',
       }),
     { refetchOnMount: false }
   );

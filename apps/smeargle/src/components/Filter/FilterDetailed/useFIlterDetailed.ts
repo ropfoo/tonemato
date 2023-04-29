@@ -20,7 +20,7 @@ export function useFilterDetailed() {
 
     if (nextFilter) {
       const [nextFilterName] = nextFilter as [FilterName, { position: number }];
-      console.log(nextFilterName);
+
       if (filterState.filter[nextFilterName]) {
         focusNextSection(nextFilterName as FilterName);
         return;

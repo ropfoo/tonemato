@@ -34,7 +34,7 @@ export default function SectionPreview(props: SectionPreviewProps) {
     >
       <p>
         {filterState.filter[props.name]
-          ? filterState.filter[props.name]
+          ? filterState.filter[props.name]?.text
           : filterPlaceholder[props.name].simple}
       </p>
       {props.position === 'end' && (

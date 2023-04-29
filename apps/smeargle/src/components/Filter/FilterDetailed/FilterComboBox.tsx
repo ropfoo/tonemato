@@ -1,21 +1,15 @@
 import { For, Show, createEffect } from 'solid-js';
 import { Transition } from 'solid-transition-group';
 import clsx from 'clsx';
-import { FilterName, FilterOption } from '../types';
+import { FilterComboBoxProps, FilterName } from '../types';
 import { filterPlaceholder } from '../data';
 import { useComboBoxInput } from './useComboBoxInput';
 import { useFilterContext } from '../FilterProvider';
+import { TeaserRequestParams } from 'tonemato-types';
 
-export interface FilterComboBoxProps {
-  name: FilterName;
-  label: string;
-  value: string;
-  options?: FilterOption[];
-  // turn combobox into dropdown (no text input)
-  isDropdown?: boolean;
-}
-
-export default function FilterComboBox(props: FilterComboBoxProps) {
+export default function FilterComboBox(
+  props: FilterComboBoxProps<TeaserRequestParams[FilterName]>
+) {
   const {
     handleInputChange,
     inputValue,
@@ -85,22 +79,20 @@ export default function FilterComboBox(props: FilterComboBoxProps) {
             <For
               each={
                 props.isDropdown
-                  ? props.options
-                  : props.options?.filter((op) =>
-                      op.text
-                        .toLowerCase()
-                        .startsWith(inputValue().toLowerCase())
+                  ? Object.entries(props.options!)
+                  : Object.entries(props.options!).filter(([key, op]) =>
+                      op.toLowerCase().startsWith(inputValue().toLowerCase())
                     )
               }
               fallback={<p class="text-wolf">Nicht verfügbar</p>}
             >
-              {(option) => (
+              {([value, text]) => (
                 <button
                   type="button"
-                  onClick={() => selectOption(option)}
+                  onClick={() => selectOption({ text, value })}
                   class="dark:text-elvis dark:hover:bg-whinehouse hover:bg-elvis/50 block w-full rounded-lg text-left"
                 >
-                  <p class="p-2">{option.text}</p>
+                  <p class="p-2">{text}</p>
                 </button>
               )}
             </For>

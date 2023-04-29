@@ -1,11 +1,15 @@
 import { createSignal, onMount } from 'solid-js';
-import { FilterOption } from '../types';
-import { FilterComboBoxProps } from './FilterComboBox';
-import { useFilterDetailed } from './useFIlterDetailed';
+import { FilterComboBoxProps, FilterName, FilterOption } from '../types';
 import { useFilterContext } from '../FilterProvider';
+import { TeaserRequestParams } from 'tonemato-types';
+import { useFilterDetailed } from './useFilterDetailed';
 
-export function useComboBoxInput(props: FilterComboBoxProps) {
-  const [inputValue, setInputValue] = createSignal(props.value);
+export function useComboBoxInput(
+  props: FilterComboBoxProps<TeaserRequestParams[FilterName]>
+) {
+  const [inputValue, setInputValue] = createSignal(
+    props.options ? props.options[props.value] : props.value
+  );
   const [filterState, { updateValue }] = useFilterContext();
 
   const { focusNextSection, submitFilter } = useFilterDetailed();
@@ -18,7 +22,11 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
 
   const isInputInOptions = () => {
     if (props.isDropdown) return false;
-    return props.options?.filter((op) => op.text === inputValue()).length === 1;
+    if (!props.options) return false;
+    return (
+      Object.entries(props.options).filter(([, text]) => text === inputValue())
+        .length === 1
+    );
   };
 
   const isTextInput = () => !props.options;
@@ -33,13 +41,25 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
 
   // return option that matches the text input
   const getOptionMatchingInput = () => {
-    const option = props.options?.find(
-      (op) => op.text.toLowerCase() === inputValue().toLocaleLowerCase()
+    if (!props.options) return null;
+
+    const optionEntries = Object.entries(props.options).find(
+      ([_, text]) => text?.toLowerCase() === inputValue()?.toLowerCase()
     );
-    return option;
+
+    if (!optionEntries) return null;
+
+    return {
+      text: optionEntries[1],
+      value: optionEntries[0],
+    };
   };
 
-  const selectOption = (option: FilterOption) => {
+  const selectOption = (option: {
+    text: string;
+    value: TeaserRequestParams[FilterName];
+  }) => {
+    console.log(option);
     setInputValue(option.text);
     updateValue(props.name, option.value);
     focusNextSection(props.name);
@@ -64,7 +84,6 @@ export function useComboBoxInput(props: FilterComboBoxProps) {
 
     const option = getOptionMatchingInput();
     option && selectOption(option);
-    // if () handleOptionClick(option);
   };
 
   const handleInputKeyDown = (e: KeyboardEvent) => {
