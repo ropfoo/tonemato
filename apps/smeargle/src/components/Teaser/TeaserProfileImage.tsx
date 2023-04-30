@@ -7,7 +7,7 @@ interface TeaserProfileImageProps {
 
 export default function TeaserProfileImage(props: TeaserProfileImageProps) {
   return (
-    <div class="border-1 border-janis bg-janis/20 overflow-hidden rounded-2xl object-cover outline-none">
+    <div class="border-1 dark:border-janis border-snow dark:bg-janis/20 bg-snow/50 overflow-hidden rounded-2xl object-cover outline-none">
       <Show when={props.imageUrl} fallback={<div class="h-20 w-20 " />}>
         <img
           class=" h-20 w-20 object-cover transition-transform duration-700 group-hover:scale-110"

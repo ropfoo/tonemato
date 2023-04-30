@@ -23,9 +23,9 @@ module.exports = {
     extend: {
       backgroundImage: {
         'teaser-elvis':
-          'linear-gradient(299.63deg, #EAEAFF 0%, #EAEAFF 0%, #EDEDFF 0.01%, #FDFDFF 49.23%, #F9F9FF 91.67%)',
+          'radial-gradient(73.26% 81.37% at 23.09% 29.52%, rgba(143, 188, 255, 0.21) 0%, rgba(232, 232, 255, 0.21) 29.27%, rgba(243, 241, 255, 0.24) 50.4%, rgba(199, 216, 255, 0.048) 71.92%, rgba(194, 219, 255, 0.132) 100%) ',
         'teaser-presley':
-          ' radial-gradient(73.26% 81.37% at 23.09% 29.52%, rgba(0, 102, 254, 0.24) 0%, rgba(51, 50, 113, 0.228) 29.27%, rgba(29, 21, 71, 0.24) 50.4%, rgba(60, 89, 157, 0.048) 71.92%, rgba(0, 37, 91, 0.234) 100%) ',
+          'radial-gradient(73.26% 81.37% at 23.09% 29.52%, rgba(0, 102, 254, 0.24) 0%, rgba(51, 50, 113, 0.228) 29.27%, rgba(29, 21, 71, 0.24) 50.4%, rgba(60, 89, 157, 0.048) 71.92%, rgba(0, 37, 91, 0.234) 100%) ',
         'teaser-jimmy':
           'linear-gradient(299.63deg, #E1FFFA 0%, #F7FFFD 45.83%, #F2FFFD 100%)',
         'teaser-hendrix':

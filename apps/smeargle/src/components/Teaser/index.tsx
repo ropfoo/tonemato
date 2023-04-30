@@ -12,10 +12,10 @@ export default function Teaser(props: TeaserProps) {
   return (
     <A href={props.teaser.url} target="_blank" class="group relative">
       <HoverIndicator />
-      <div class="bg-teaser-presley border-1 border-janis/50 group-hover:border-presley/80 flex h-[300px] flex-col overflow-hidden rounded-2xl p-5  text-white transition-colors md:p-8 lg:p-5 ">
+      <div class="dark:bg-teaser-presley bg-teaser-elvis border-1 dark:border-janis/50 border-snow group-hover:border-elvis dark:group-hover:border-presley/80 text-onyx flex h-[300px] flex-col overflow-hidden rounded-2xl p-5 transition-colors dark:text-white md:p-8 lg:p-5 ">
         <div class="flex justify-between">
           <TeaserProfileImage imageUrl={props.teaser.previewImageUrl} alt="" />
-          <div class="text-wolf flex h-5 items-center rounded-full bg-black px-2 text-right">
+          <div class="text-wolf flex h-5 items-center rounded-full bg-white px-2 text-right dark:bg-black">
             <p class="text-xs">{props.teaser.domain}</p>
           </div>
         </div>
