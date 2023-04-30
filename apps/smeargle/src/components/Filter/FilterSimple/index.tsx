@@ -7,7 +7,7 @@ export default function FilterSimple() {
   return (
     <div
       class={clsx(
-        'dark:bg-joplin border-1 dark:border-janis border-elvis dark:shadow-filter-dark shadow-filter-light flex h-12 w-fit items-center rounded-full transition-all duration-300'
+        'dark:bg-joplin border-1 dark:border-janis border-elvis dark:shadow-filter-dark shadow-filter-light absolute flex h-12 w-fit items-center rounded-full transition-all duration-300'
       )}
     >
       <SectionPreview position="start" name="category" />
