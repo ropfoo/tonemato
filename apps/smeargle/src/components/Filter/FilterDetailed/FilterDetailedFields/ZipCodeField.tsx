@@ -11,5 +11,12 @@ interface ZipCodeFieldProps
 }
 
 export default function ZipCodeField(props: ZipCodeFieldProps) {
-  return <FilterComboBox name="zipCode" label="Ort" value={props.value} />;
+  return (
+    <FilterComboBox
+      name="zipCode"
+      label="PLZ"
+      value={props.value}
+      hasSubmitButton
+    />
+  );
 }

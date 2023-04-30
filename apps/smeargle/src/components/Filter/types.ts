@@ -37,4 +37,5 @@ export interface FilterComboBoxProps<
   options?: FilterOption<T>;
   // turn combobox into dropdown (no text input)
   isDropdown?: boolean;
+  hasSubmitButton?: boolean;
 }

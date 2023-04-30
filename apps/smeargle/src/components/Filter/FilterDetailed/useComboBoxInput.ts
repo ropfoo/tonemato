@@ -12,7 +12,7 @@ export function useComboBoxInput(
   );
   const [filterState, { updateValue }] = useFilterContext();
 
-  const { focusNextSection, submitFilter } = useFilterDetailed();
+  const { focusNextSection } = useFilterDetailed();
 
   onMount(() => {
     if (props.value) {
@@ -59,7 +59,6 @@ export function useComboBoxInput(
     text: string;
     value: TeaserRequestParams[FilterName];
   }) => {
-    console.log(option);
     setInputValue(option.text);
     updateValue(props.name, option.value);
     focusNextSection(props.name);
@@ -93,14 +92,6 @@ export function useComboBoxInput(
 
       const option = getOptionMatchingInput();
       option && selectOption(option);
-
-      if (hasFilterAllValues()) {
-        // if the last filter option is active submit
-        return submitFilter();
-      }
-
-      // jump to the next filter option
-      focusNextSection(props.name);
     }
   };
 

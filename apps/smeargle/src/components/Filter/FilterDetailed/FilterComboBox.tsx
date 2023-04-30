@@ -6,6 +6,7 @@ import { filterPlaceholder } from '../data';
 import { useComboBoxInput } from './useComboBoxInput';
 import { useFilterContext } from '../FilterProvider';
 import { TeaserRequestParams } from 'tonemato-types';
+import SearchIcon from '~/components/Icons/SearchIcon';
 
 export default function FilterComboBox(
   props: FilterComboBoxProps<TeaserRequestParams[FilterName]>
@@ -41,30 +42,47 @@ export default function FilterComboBox(
         type="button"
         onClick={handleFilterSelect}
         class={clsx(
-          'hover:dark:shadow-filter-dark hover:shadow-filter-light flex h-full cursor-pointer flex-col justify-center rounded-full px-6 transition-all ',
+          'hover:dark:shadow-filter-dark hover:shadow-filter-light flex h-full cursor-pointer items-center justify-center rounded-full px-6 transition-all ',
           {
-            'min-w-[220px]': props.name === 'category',
-            'min-w-[180px]': props.name === 'instrument',
-            'min-w-[160px]': props.name === 'zipCode',
+            'pr-3': props.hasSubmitButton,
             'dark:shadow-filter-dark shadow-filter-light bg-white dark:bg-black':
               props.name === filterState.activeFilter,
           }
         )}
       >
-        <p class="dark:text-snow mb-1 text-xs font-bold">{props.label}</p>
-        <input
-          ref={(ref) => (inputRef = ref)}
-          class={clsx('text-presley bg-transparent  outline-none', {
-            'cursor-pointer': props.isDropdown,
-          })}
-          type="text"
-          placeholder={filterPlaceholder[props.name].detail}
-          value={inputValue()}
-          onInput={handleInputChange}
-          onKeyDown={handleInputKeyDown}
-          onBlur={handleBlur}
-          disabled={props.isDropdown}
-        />
+        <div class="flex h-full w-full flex-col items-start justify-center">
+          <p class="dark:text-snow mb-1 text-xs font-bold">{props.label}</p>
+          <input
+            ref={(ref) => (inputRef = ref)}
+            class={clsx('text-presley bg-transparent  outline-none', {
+              'cursor-pointer': props.isDropdown,
+              'max-w-[150px]': props.name === 'category',
+              'max-w-[140px]': props.name === 'instrument',
+              'max-w-[90px]': props.name === 'zipCode',
+            })}
+            type="text"
+            placeholder={filterPlaceholder[props.name].detail}
+            value={inputValue()}
+            onInput={handleInputChange}
+            onKeyDown={handleInputKeyDown}
+            onBlur={handleBlur}
+            disabled={props.isDropdown}
+          />
+        </div>
+        <Show when={props.hasSubmitButton}>
+          <button
+            type="submit"
+            class="bg-stewart ml-4 flex h-[50px] items-center justify-center rounded-full px-4"
+          >
+            <div class="scale-125">
+              <SearchIcon />
+            </div>
+            <div class="mr-1" />
+            <p class="font-poppins text-xs font-bold tracking-wide text-white dark:text-black">
+              suchen
+            </p>
+          </button>
+        </Show>
       </button>
 
       <Transition name="slide-fade">
