@@ -8,7 +8,6 @@ export default function SearchIcon() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle class="fill-stewart" cx="14" cy="14" r="14" />
         <circle
           class="dark:stroke-joplin stroke-white"
           cx="12.2952"

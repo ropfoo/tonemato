@@ -39,7 +39,9 @@ export default function SectionPreview(props: SectionPreviewProps) {
       </p>
       {props.position === 'end' && (
         <div class="ml-6">
-          <SearchIcon />
+          <div class="bg-stewart rounded-full">
+            <SearchIcon />
+          </div>
         </div>
       )}
     </button>

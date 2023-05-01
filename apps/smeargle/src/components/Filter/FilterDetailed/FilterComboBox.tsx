@@ -7,6 +7,7 @@ import { useComboBoxInput } from './useComboBoxInput';
 import { useFilterContext } from '../FilterProvider';
 import { TeaserRequestParams } from 'tonemato-types';
 import SearchIcon from '~/components/Icons/SearchIcon';
+import { useTeasers } from '~/hooks/useTeasers';
 
 export default function FilterComboBox(
   props: FilterComboBoxProps<TeaserRequestParams[FilterName]>
@@ -21,6 +22,8 @@ export default function FilterComboBox(
   } = useComboBoxInput(props);
 
   const [filterState, { setActive }] = useFilterContext();
+
+  const [, { isLoading }] = useTeasers();
 
   let inputRef: HTMLInputElement;
 
@@ -66,18 +69,18 @@ export default function FilterComboBox(
             onInput={handleInputChange}
             onKeyDown={handleInputKeyDown}
             onBlur={handleBlur}
-            disabled={props.isDropdown}
+            disabled={props.isDropdown || isLoading()}
           />
         </div>
         <Show when={props.hasSubmitButton}>
           <button
             type="submit"
-            class="bg-stewart ml-4 flex h-[50px] items-center justify-center rounded-full px-4"
+            disabled={isLoading()}
+            class="bg-stewart ml-4 flex h-[50px] items-center justify-center rounded-full px-5 pl-4 hover:brightness-125 disabled:brightness-50"
           >
             <div class="scale-125">
               <SearchIcon />
             </div>
-            <div class="mr-1" />
             <p class="font-poppins text-xs font-bold tracking-wide text-white dark:text-black">
               suchen
             </p>

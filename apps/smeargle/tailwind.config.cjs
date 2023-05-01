@@ -34,6 +34,10 @@ module.exports = {
           'linear-gradient(299.63deg, #FFEDED 0%, #FFFBF9 45.83%, #FFFCFB 100%)',
         'teaser-stewart':
           'linear-gradient(299.63deg, #830101 0%, #251313 47.71%, #121111 100%)',
+        'teaser-ghost':
+          'radial-gradient(73.26% 81.37% at 23.09% 29.52%, rgba(165, 165, 165, 0.174) 0%, rgba(226, 226, 226, 0.21) 29.27%, rgba(236, 236, 236, 0.24) 50.4%, rgba(188, 188, 188, 0.048) 71.92%, rgba(188, 188, 188, 0.132) 100%)',
+        'teaser-ghost-dark':
+          'radial-gradient(73.26% 81.37% at 23.09% 29.52%, rgba(255, 255, 255, 0.24) 0%, rgba(111, 111, 111, 0.228) 25%, rgba(66, 66, 66, 0.24) 50%, rgba(157, 157, 157, 0.048) 67.19%, rgba(87, 87, 87, 0.234) 100%)',
       },
       borderWidth: {
         1: '0.063rem',

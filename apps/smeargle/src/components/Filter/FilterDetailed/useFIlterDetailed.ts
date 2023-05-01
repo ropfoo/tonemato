@@ -9,7 +9,7 @@ export function useFilterDetailed() {
   const [filterState, { setActive }] = useFilterContext();
   const [, setIsHeaderOpen] = headerOpen;
   const { storeFilterState } = useFilterStorage();
-  const teasers = useTeasers();
+  const [teasers] = useTeasers();
 
   const focusNextSection = (currentSection: FilterName) => {
     const currentPosition = filterData[currentSection].position;
