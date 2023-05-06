@@ -1,12 +1,14 @@
 import axios from 'axios';
 import redis from './redis';
 
-const { DRILBUR_PORT } = process.env;
+const { DRILBUR_PORT, DRILBUR_DOMAIN, IS_DOCKER } = process.env;
 
 export default async function updateCache() {
   try {
     console.log('fetching data');
-    const { data } = await axios.get(`http://drilbur:${DRILBUR_PORT}/scrape`);
+    const { data } = await axios.get(
+      `${IS_DOCKER ? 'http://drilbur' : DRILBUR_DOMAIN}:${DRILBUR_PORT}/scrape`
+    );
 
     // Transform all fetched teasers in a flattened form and store it in 'data'
     redis.set(

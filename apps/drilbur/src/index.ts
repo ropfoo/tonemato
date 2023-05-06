@@ -2,9 +2,7 @@ import express from 'express';
 import scrapeSites from './websites';
 const app = express();
 
-const {
-  DRILBUR_PORT
-} = process.env
+const { DRILBUR_PORT } = process.env;
 
 app.get('/', (req, res) => {
   res.json({
