@@ -10,7 +10,7 @@ export default async function updateCache() {
 
     // Transform all fetched teasers in a flattened form and store it in 'data'
     redis.set(
-      'data',
+      'raw',
       JSON.stringify(
         Object.keys(data)
           .map((domain) => data[domain].pages.flat())

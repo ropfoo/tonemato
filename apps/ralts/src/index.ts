@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import { getCache } from './cache/get-cache';
 import updateCache from './cache/update-cache';
 import { isCacheStale } from './cache/is-cache-stale';
+import { getCache } from './cache/get-cache';
 
 const { VITE_RALTS_PORT, SMEARGLE_PORT, SMEARGLE_DOMAIN, NODE_ENV } =
   process.env;
@@ -15,7 +15,7 @@ app.use(
 );
 
 app.get('/', async (req, res) => {
-  const teasers = await getCache();
+  const teasers = await getCache('raw');
   return res.json({
     type: 'cache',
     teasers,
@@ -25,7 +25,7 @@ app.get('/', async (req, res) => {
 if (NODE_ENV === 'development') {
   app.get('/nocache', async (req, res) => {
     await updateCache();
-    const teasers = await getCache();
+    const teasers = await getCache('raw');
     return res.json({
       type: 'nocache',
       teasers,
