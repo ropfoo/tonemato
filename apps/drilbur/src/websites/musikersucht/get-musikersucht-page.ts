@@ -41,7 +41,7 @@ export async function getMusikersuchtPage({
         description,
         zipCode,
         city,
-        domain: 'musicstore',
+        domain: 'musikersucht',
       });
     }
   });

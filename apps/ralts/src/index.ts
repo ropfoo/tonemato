@@ -1,15 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import { getCache } from './cache/get-cache';
 import updateCache from './cache/update-cache';
 import { isCacheStale } from './cache/is-cache-stale';
+import { getCache } from './cache/get-cache';
 
-const {
-  VITE_RALTS_PORT,
-  SMEARGLE_PORT,
-  SMEARGLE_DOMAIN,
-  NODE_ENV
-} = process.env
+const { VITE_RALTS_PORT, SMEARGLE_PORT, SMEARGLE_DOMAIN, NODE_ENV } =
+  process.env;
 
 const app = express();
 app.use(
@@ -19,24 +15,22 @@ app.use(
 );
 
 app.get('/', async (req, res) => {
-  const cache = await getCache();
-
-  res.json({
+  const teasers = await getCache('raw');
+  return res.json({
     type: 'cache',
-    cache,
+    teasers,
   });
 });
 
 if (NODE_ENV === 'development') {
   app.get('/nocache', async (req, res) => {
     await updateCache();
-    const cache = await getCache();
-
+    const teasers = await getCache('raw');
     return res.json({
-      type: 'cache',
-      cache
-    })
-  })
+      type: 'nocache',
+      teasers,
+    });
+  });
 }
 
 app.listen(VITE_RALTS_PORT || 3005, async () => {

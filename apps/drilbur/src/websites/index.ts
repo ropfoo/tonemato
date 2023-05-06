@@ -35,5 +35,5 @@ export default async (instrument: string, category: string) => {
     backstagepro: arr[0], // same order as scrape order above
     musicstore: arr[1],
     musikersucht: arr[2],
-  }))[0]; // remove wrapping array with one element from Promise.all
+  }))[0];
 };

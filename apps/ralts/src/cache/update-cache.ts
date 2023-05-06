@@ -1,27 +1,25 @@
 import axios from 'axios';
 import redis from './redis';
 
-const {
-  DRILBUR_PORT,
-  DRILBUR_DOMAIN,
-  IS_DOCKER
-} = process.env
+const { DRILBUR_PORT, DRILBUR_DOMAIN, IS_DOCKER } = process.env;
 
 export default async function updateCache() {
   try {
     console.log('fetching data');
-    const {
-      data: { backstagepro, musicstore, musikersucht },
-    } = await axios.get(`${IS_DOCKER ? 'http://drilbur' : DRILBUR_DOMAIN}:${DRILBUR_PORT}/scrape`);
+    const { data } = await axios.get(
+      `${IS_DOCKER ? 'http://drilbur' : DRILBUR_DOMAIN}:${DRILBUR_PORT}/scrape`
+    );
 
-    redis.set('backstagepro', JSON.stringify(backstagepro));
-    console.log('backstagepro Data stored!');
-
-    redis.set('musicstore', JSON.stringify(musicstore));
-    console.log('musicstore Data stored!');
-
-    redis.set('musikersucht', JSON.stringify(musikersucht));
-    console.log('Musikersucht Data stored!');
+    // Transform all fetched teasers in a flattened form and store it in 'data'
+    redis.set(
+      'raw',
+      JSON.stringify(
+        Object.keys(data)
+          .map((domain) => data[domain].pages.flat())
+          .flat()
+      )
+    );
+    console.log('Teasers stored!');
 
     redis.set('timestamp', new Date().toJSON());
 
