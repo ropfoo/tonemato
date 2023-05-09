@@ -58,7 +58,7 @@ export default function FilterComboBox(
           <input
             ref={(ref) => (inputRef = ref)}
             class={clsx('text-presley bg-transparent  outline-none', {
-              'cursor-pointer': props.isDropdown,
+              'pointer-events-none cursor-pointer': props.isDropdown,
               'max-w-[150px]': props.name === 'category',
               'max-w-[140px]': props.name === 'instrument',
               'max-w-[90px]': props.name === 'zipCode',
