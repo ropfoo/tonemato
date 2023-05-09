@@ -8,7 +8,11 @@ export function useComboBoxInput(
   props: FilterComboBoxProps<TeaserRequestParams[FilterName]>
 ) {
   const [inputValue, setInputValue] = createSignal(
-    props.options ? props.options[props.value] : props.value
+    props.value
+      ? props.options && props.value
+        ? props.options[props.value]
+        : props.value
+      : ''
   );
   const [filterState, { updateValue }] = useFilterContext();
 
@@ -60,7 +64,7 @@ export function useComboBoxInput(
     value: TeaserRequestParams[FilterName];
   }) => {
     setInputValue(option.text);
-    updateValue(props.name, option.value);
+    updateValue(props.name, option.value ?? '');
     focusNextSection(props.name);
   };
 
