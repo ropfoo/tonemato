@@ -11,7 +11,7 @@ interface SectionPreviewProps {
 }
 
 export default function SectionPreview(props: SectionPreviewProps) {
-  const [_, setIsHeaderOpen] = headerOpen;
+  const [, setIsHeaderOpen] = headerOpen;
 
   const [filterState, { setActive }] = useFilterContext();
 

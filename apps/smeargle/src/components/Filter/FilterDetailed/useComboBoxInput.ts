@@ -44,7 +44,7 @@ export function useComboBoxInput(
     if (!props.options) return null;
 
     const optionEntries = Object.entries(props.options).find(
-      ([_, text]) => text?.toLowerCase() === inputValue()?.toLowerCase()
+      ([, text]) => text?.toLowerCase() === inputValue()?.toLowerCase()
     );
 
     if (!optionEntries) return null;
