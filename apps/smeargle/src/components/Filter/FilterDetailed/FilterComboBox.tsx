@@ -29,12 +29,11 @@ export default function FilterComboBox(
 
   createEffect(() => {
     filterState.activeFilter === props.name
-      ? inputRef.focus()
+      ? requestAnimationFrame(() => inputRef.focus())
       : inputRef.blur();
   });
 
   const handleFilterSelect = () => {
-    inputRef.focus();
     if (filterState.activeFilter === props.name) return;
     setActive(props.name);
   };
