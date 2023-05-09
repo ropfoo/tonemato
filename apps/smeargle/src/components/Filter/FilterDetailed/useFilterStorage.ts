@@ -10,9 +10,9 @@ export function useFilterStorage() {
 
   const getFilterStorage = () => {
     const filterStorage = localStorage.getItem('filter');
-    return filterStorage
-      ? (JSON.parse(filterStorage) as FilterState['filter'])
-      : null;
+    return (
+      filterStorage && (JSON.parse(filterStorage) as FilterState['filter'])
+    );
   };
 
   return { storeFilterState, getFilterStorage };
