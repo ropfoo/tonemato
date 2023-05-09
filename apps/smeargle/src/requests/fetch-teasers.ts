@@ -1,15 +1,12 @@
 import { TeaserRequestParams } from 'tonemato-types';
-
-const { VITE_RALTS_PORT, VITE_RALTS_DOMAIN } = import.meta.env;
+import url from '~/constants/url';
 
 export async function getTeasers(params: TeaserRequestParams) {
   const { instrument, category, zipCode } = params;
   const query = `instrument=${instrument}&category=${category}&zipCode=${zipCode}`;
 
   try {
-    const response = await fetch(
-      `${VITE_RALTS_DOMAIN}:${VITE_RALTS_PORT || 3005}/?${query}`
-    );
+    const response = await fetch(`${url.ralts}/?${query}`);
 
     return await response.json();
   } catch (e) {
