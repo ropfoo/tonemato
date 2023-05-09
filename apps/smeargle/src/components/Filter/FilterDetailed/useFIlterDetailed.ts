@@ -20,12 +20,6 @@ export function useFilterDetailed() {
 
     if (nextFilter) {
       const [nextFilterName] = nextFilter as [FilterName, { position: number }];
-
-      if (filterState.filter[nextFilterName]) {
-        focusNextSection(nextFilterName as FilterName);
-        return;
-      }
-
       setActive(nextFilterName as FilterName);
     }
   };

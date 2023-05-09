@@ -88,14 +88,16 @@ export default function FilterComboBox(
       </button>
 
       <Transition name="slide-fade">
-        <Show
-          when={
-            props.options &&
-            filterState.activeFilter === props.name &&
-            !isInputInOptions()
-          }
-        >
-          <div class="dark:shadow-filter-dark shadow-filter-light absolute top-20 mt-4 w-full rounded-2xl bg-white p-4 dark:bg-black">
+        <Show when={props.options && filterState.activeFilter === props.name}>
+          <div
+            class={clsx(
+              'dark:shadow-filter-dark border-1 shadow-filter-light absolute top-20 mt-4 w-full rounded-2xl bg-white p-4 dark:bg-black',
+              {
+                'border-hendrix': isInputInOptions(),
+                'border-white dark:border-black': !isInputInOptions(),
+              }
+            )}
+          >
             <For
               each={
                 props.isDropdown
@@ -110,7 +112,13 @@ export default function FilterComboBox(
                 <button
                   type="button"
                   onClick={() => selectOption({ text, value })}
-                  class="dark:text-elvis dark:hover:bg-whinehouse hover:bg-elvis/50 block w-full rounded-lg text-left"
+                  class={clsx(
+                    'dark:hover:bg-whinehouse hover:bg-elvis/50 block w-full rounded-lg text-left',
+                    {
+                      'text-hendrix': isInputInOptions(),
+                      'dark:text-elvis': !isInputInOptions(),
+                    }
+                  )}
                 >
                   <p class="p-2">{text}</p>
                 </button>
