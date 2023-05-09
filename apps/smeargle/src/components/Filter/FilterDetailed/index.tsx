@@ -19,10 +19,10 @@ export default function FilterDetailed() {
       <CategorySelector value={filterState.filter.category?.value ?? 'all'} />
       <div class="mr-2" />
       <InstrumentSelector
-        value={filterState.filter.instrument?.value ?? 'all'}
+        value={filterState.filter.instrument?.value ?? null}
       />
       <div class="mr-2" />
-      <ZipCodeField value={filterState.filter.zipCode?.value ?? ''} />
+      <ZipCodeField value={filterState.filter.zipCode?.value ?? null} />
     </Form>
   );
 }

@@ -6,7 +6,7 @@ import { useTeasers } from '~/hooks/useTeasers';
 import { useFilterStorage } from './useFilterStorage';
 
 export function useFilterDetailed() {
-  const [filterState, { setActive }] = useFilterContext();
+  const [, { setActive }] = useFilterContext();
   const [, setIsHeaderOpen] = headerOpen;
   const { storeFilterState } = useFilterStorage();
   const [teasers] = useTeasers();
@@ -15,7 +15,7 @@ export function useFilterDetailed() {
     const currentPosition = filterData[currentSection].position;
 
     const nextFilter = Object.entries(filterData).find(
-      ([_, filter]) => filter.position === currentPosition + 1
+      ([, filter]) => filter.position === currentPosition + 1
     );
 
     if (nextFilter) {

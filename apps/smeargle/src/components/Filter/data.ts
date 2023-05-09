@@ -29,7 +29,7 @@ export const filterDefaultState: FilterState = {
   activeFilter: null,
   filter: {
     category: { text: categoryOptions.all, value: 'all' },
-    instrument: { text: instrumentOptions.all, value: 'all' },
+    instrument: null,
     zipCode: null,
   },
 };

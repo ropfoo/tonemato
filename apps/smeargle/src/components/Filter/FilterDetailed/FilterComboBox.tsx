@@ -30,10 +30,11 @@ export default function FilterComboBox(
   createEffect(() => {
     filterState.activeFilter === props.name
       ? requestAnimationFrame(() => inputRef.focus())
-      : inputRef.blur();
+      : requestAnimationFrame(() => inputRef.blur());
   });
 
   const handleFilterSelect = () => {
+    inputRef.focus();
     if (filterState.activeFilter === props.name) return;
     setActive(props.name);
   };
@@ -64,7 +65,7 @@ export default function FilterComboBox(
             })}
             type="text"
             placeholder={filterPlaceholder[props.name].detail}
-            value={inputValue()}
+            value={inputValue() ?? ''}
             onInput={handleInputChange}
             onKeyDown={handleInputKeyDown}
             onBlur={handleBlur}
@@ -103,7 +104,11 @@ export default function FilterComboBox(
                 props.isDropdown
                   ? Object.entries(props.options!)
                   : Object.entries(props.options!).filter(([key, op]) =>
-                      op.toLowerCase().startsWith(inputValue().toLowerCase())
+                      inputValue()
+                        ? op
+                            ?.toLowerCase()
+                            .startsWith(inputValue()?.toLowerCase())
+                        : true
                     )
               }
               fallback={<p class="text-wolf">Nicht verfügbar</p>}

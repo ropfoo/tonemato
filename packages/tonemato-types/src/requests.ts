@@ -1,7 +1,7 @@
 import { Category, Instrument } from './general';
 
 export type TeaserRequestParams = {
-  instrument: Instrument;
+  instrument: Instrument | null;
   category: Category;
-  zipCode: string;
+  zipCode: string | null;
 };
