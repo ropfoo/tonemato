@@ -1,0 +1,10 @@
+version: '3'
+
+tasks:
+  dev:
+    cmds:
+      - ./bin/air
+
+  install:
+    cmds:
+      - curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s
