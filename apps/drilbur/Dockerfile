@@ -4,11 +4,11 @@ WORKDIR /app
 
 RUN go install github.com/cosmtrek/air@latest
 
-ADD ./apps/drilbur .
+COPY ./apps/drilbur .
 
 RUN go mod download
 
 # live reload
-RUN air init
+# RUN air init
 
 CMD ["air"]
