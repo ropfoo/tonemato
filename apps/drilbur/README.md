@@ -1,19 +1,19 @@
 # WIP Readme
 
-### 1. install [task](https://taskfile.dev/installation/)
-
 ```bash
-brew install go-task
+bash drilbur.sh
 ```
 
-### 2. run task install
+## Run Project in Dev Mode
+
+#### 1. install dev tools
 
 ```bash
-task install
+bash drilbur.sh install
 ```
 
-### 3. run dev
+#### 2. dev
 
 ```bash
-task dev
+bash drilbur.sh dev
 ```
