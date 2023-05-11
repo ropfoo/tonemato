@@ -24,9 +24,9 @@ func main() {
 		})
 	})
 
-	router.GET("/mock/musikersucht", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "musikersucht.html", gin.H{
-			"title": "🍅 Musikersucht Mock",
+	router.GET("/mock/musicstore", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "musicstore.html", gin.H{
+			"title": "🍅 Musicstore Mock",
 		})
 	})
 

@@ -1,23 +1,17 @@
 package scrape
 
 import (
+	"drilbur/pkg/date"
+	"drilbur/pkg/model"
 	"fmt"
+	"strings"
 
 	"github.com/gocolly/colly"
 )
 
-type Teaser struct {
-	Url             string
-	Date            string
-	Title           string
-	Description     string
-	ZipCode         string
-	City            string
-	PreviewImageUrl string
-	Domain          string
-}
+type Teaser = model.Teaser
 
-func Start() string {
+func Start() []Teaser {
 	fmt.Println("Start the scraping fun!")
 	collector := colly.NewCollector()
 
@@ -27,23 +21,51 @@ func Start() string {
 
 		var newTeaser Teaser
 
+		// Url
+		element.ForEach(".teaser-content a", func(index int, urlElement *colly.HTMLElement) {
+			newTeaser.Url = urlElement.Attr("href")
+		})
+
+		// Date
+		element.ForEach(".date", func(index int, dateElement *colly.HTMLElement) {
+			newTeaser.Date = date.GetByGermanFormat(dateElement.Text)
+		})
+
+		// Title
 		element.ForEach(".teaser-body h4", func(index int, titleElement *colly.HTMLElement) {
 			newTeaser.Title = titleElement.Text
 		})
 
-		element.ForEach(".teaser-text", func(index int, titleElement *colly.HTMLElement) {
-			newTeaser.Description = titleElement.Text
+		// Description
+		element.ForEach(".teaser-text", func(index int, textElement *colly.HTMLElement) {
+			descriptionWithoutLineBreaks := strings.ReplaceAll(textElement.Text, "\n", " ")
+			newTeaser.Description = strings.TrimSpace(
+				strings.ReplaceAll(descriptionWithoutLineBreaks, "  ", ""),
+			)
 		})
+
+		// ZipCode
+		// City
+		element.ForEach(".city", func(index int, cityElement *colly.HTMLElement) {
+			newTeaser.ZipCode = cityElement.Text[0:5]
+			newTeaser.City = cityElement.Text[7:]
+		})
+
+		// PreviewImageUrl
+		element.ForEach("img", func(index int, imageElement *colly.HTMLElement) {
+			if index == 1 {
+				newTeaser.PreviewImageUrl = imageElement.Attr("src")
+			}
+		})
+
+		// Domain
+		newTeaser.Domain = model.Musicstore
 
 		teasers = append(teasers, newTeaser)
 
 	})
 
-	collector.OnScraped(func(r *colly.Response) {
-		fmt.Println("yay its done!!", teasers)
-	})
+	collector.Visit("http://localhost:8080/mock/musicstore")
 
-	collector.Visit("http://localhost:8080/mock")
-
-	return "Test the scrape!!"
+	return teasers
 }

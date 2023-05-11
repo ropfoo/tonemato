@@ -10,5 +10,5 @@ type Teaser struct {
 	ZipCode         string    `json:"zipCode"`
 	City            string    `json:"city"`
 	PreviewImageUrl string    `json:"previewImageUrl"`
-	Domain          string    `json:"domain"`
+	Domain          Domain    `json:"domain"`
 }
