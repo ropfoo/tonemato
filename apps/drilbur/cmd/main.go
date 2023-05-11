@@ -13,20 +13,26 @@ func main() {
 
 	router := gin.Default()
 
-	router.LoadHTMLGlob("cmd/mock/*")
+	router.LoadHTMLGlob("cmd/mock/html/*")
 
 	router.GET("/", func(c *gin.Context) {
 
-		lel := scrape.Start()
+		musikersucht := scrape.Start()
 
 		c.JSON(http.StatusOK, gin.H{
-			"hello": lel,
+			"musikersucht": musikersucht,
 		})
 	})
 
-	router.GET("/mock", func(c *gin.Context) {
+	router.GET("/mock/musikersucht", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "musikersucht.html", gin.H{
-			"title": "Main website",
+			"title": "🍅 Musikersucht Mock",
+		})
+	})
+
+	router.GET("/mock/backstagepro", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "backstagepro.html", gin.H{
+			"title": "🍅 Backstagepro Mock",
 		})
 	})
 
