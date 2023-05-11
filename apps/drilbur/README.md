@@ -1,7 +1,23 @@
 # WIP Readme
 
+Add a `drilbur` alias to your `~/.bashrc` or `~/.zshrc`.
+
+```nano
+alias drilbur="bash drilbur.sh"
+```
+
+This is not required but a handy alternative to
+
 ```bash
+# /apps/drilbur
 bash drilbur.sh
+```
+
+Now in the drilbur folder you can simply run
+
+```bash
+# /apps/drilbur
+drilbur
 ```
 
 ## Run Project in Dev Mode
@@ -9,11 +25,11 @@ bash drilbur.sh
 #### 1. install dev tools
 
 ```bash
-bash drilbur.sh install
+drilbur install
 ```
 
-#### 2. dev
+#### 2. run dev mode
 
 ```bash
-bash drilbur.sh dev
+drilbur dev
 ```

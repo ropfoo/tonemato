@@ -2,7 +2,7 @@
 
 if [[ $1 == "" ]]
 then
-    echo "Usage:    bash drilbur.sh [COMMAND]"
+    echo "Usage:    drilbur [COMMAND]"
     echo ""
     echo "Commands:"
     echo "----------"
