@@ -17,10 +17,10 @@ func main() {
 
 	router.GET("/", func(c *gin.Context) {
 
-		musikersucht := scrape.Start()
+		musicstore := scrape.Musicstore()
 
 		c.JSON(http.StatusOK, gin.H{
-			"musikersucht": musikersucht,
+			"musicstore": musicstore,
 		})
 	})
 

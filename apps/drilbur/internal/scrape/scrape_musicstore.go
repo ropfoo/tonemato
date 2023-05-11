@@ -11,7 +11,7 @@ import (
 
 type Teaser = model.Teaser
 
-func Start() []Teaser {
+func Musicstore() []Teaser {
 	fmt.Println("Start the scraping fun!")
 	collector := colly.NewCollector()
 
