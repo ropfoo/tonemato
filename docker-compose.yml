@@ -15,75 +15,54 @@ services:
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://drilbur:$DRILBUR_PORT/']
       interval: 5s
-      timeout: 20s
-      retries: 10
+      timeout: 300s
+      retries: 200
       start_period: 0s
     volumes:
       - ./apps/drilbur:/app
-  # drilbur:
-  #   container_name: drilbur
-  #   build:
-  #     context: .
-  #     dockerfile: ./apps/drilbur/Dockerfile
-  #   command: npm run dev
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     - IS_DOCKER=true
-  #   ports:
-  #     - ${DRILBUR_PORT}:${DRILBUR_PORT}
-  #   healthcheck:
-  #     test: ['CMD', 'curl', '-f', 'http://drilbur:$DRILBUR_PORT/']
-  #     interval: 5s
-  #     timeout: 20s
-  #     retries: 10
-  #     start_period: 0s
-  #   volumes:
-  #     - ./apps/drilbur:/app/apps/drilbur
-  #     - /app/apps/drilbur/node_modules
 
   # Ralts
-  # ralts:
-  #   container_name: ralts
-  #   build:
-  #     context: .
-  #     dockerfile: ./apps/ralts/Dockerfile
-  #   command: npm run dev
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     - IS_DOCKER=true
-  #   ports:
-  #     - ${VITE_RALTS_PORT}:${VITE_RALTS_PORT}
-  #   depends_on:
-  #     drilbur:
-  #       condition: service_healthy
-  #   volumes:
-  #     - ./apps/ralts:/app/apps/ralts
-  #     - /app/apps/ralts/node_modules
+  ralts:
+    container_name: ralts
+    build:
+      context: .
+      dockerfile: ./apps/ralts/Dockerfile
+    command: npm run dev
+    env_file:
+      - .env
+    environment:
+      - IS_DOCKER=true
+    ports:
+      - ${VITE_RALTS_PORT}:${VITE_RALTS_PORT}
+    depends_on:
+      drilbur:
+        condition: service_healthy
+    volumes:
+      - ./apps/ralts:/app/apps/ralts
+      - /app/apps/ralts/node_modules
 
-  # # Redis
-  # redis:
-  #   image: redis:latest
-  #   container_name: redis
-  #   hostname: redis
-  #   # network_mode: bridge
-  #   ports:
-  #     - 6379:6379
+  # Redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    hostname: redis
+    # network_mode: bridge
+    ports:
+      - 6379:6379
 
-  # # Smeargle
-  # smeargle:
-  #   container_name: smeargle
-  #   build:
-  #     context: .
-  #     dockerfile: ./apps/smeargle/Dockerfile
-  #   command: npm run dev
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     - VITE_IS_DOCKER=true
-  #   ports:
-  #     - ${SMEARGLE_PORT}:${SMEARGLE_PORT}
-  #   volumes:
-  #     - ./apps/smeargle:/app/apps/smeargle
-  #     - /app/apps/smeargle/node_modules
+  # Smeargle
+  smeargle:
+    container_name: smeargle
+    build:
+      context: .
+      dockerfile: ./apps/smeargle/Dockerfile
+    command: npm run dev
+    env_file:
+      - .env
+    environment:
+      - VITE_IS_DOCKER=true
+    ports:
+      - ${SMEARGLE_PORT}:${SMEARGLE_PORT}
+    volumes:
+      - ./apps/smeargle:/app/apps/smeargle
+      - /app/apps/smeargle/node_modules

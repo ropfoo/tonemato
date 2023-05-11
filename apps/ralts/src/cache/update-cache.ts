@@ -7,7 +7,7 @@ export default async function updateCache() {
   try {
     console.log('fetching data');
     const { data } = await axios.get(
-      `${IS_DOCKER ? 'http://drilbur' : DRILBUR_DOMAIN}:${DRILBUR_PORT}/scrape`
+      `${IS_DOCKER ? 'http://drilbur' : DRILBUR_DOMAIN}:${DRILBUR_PORT}`
     );
 
     // Transform all fetched teasers in a flattened form and store it in 'data'
@@ -15,7 +15,7 @@ export default async function updateCache() {
       'raw',
       JSON.stringify(
         Object.keys(data)
-          .map((domain) => data[domain].pages.flat())
+          .map((domain) => data[domain])
           .flat()
       )
     );

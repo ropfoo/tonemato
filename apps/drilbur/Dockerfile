@@ -2,6 +2,9 @@ FROM golang:alpine
 
 WORKDIR /app
 
+RUN apk add curl
+RUN apk update
+
 RUN go install github.com/cosmtrek/air@latest
 
 COPY ./apps/drilbur .
