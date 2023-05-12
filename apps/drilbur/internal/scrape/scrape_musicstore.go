@@ -28,7 +28,7 @@ func Musicstore() []Teaser {
 
 		// Date
 		element.ForEach(".date", func(index int, dateElement *colly.HTMLElement) {
-			newTeaser.Date = date.GetByGermanFormat(dateElement.Text)
+			newTeaser.Date, _ = date.GetByGermanFormat(dateElement.Text)
 		})
 
 		// Title

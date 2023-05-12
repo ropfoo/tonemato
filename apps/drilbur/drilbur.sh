@@ -23,3 +23,9 @@ then
     ./bin/air
 fi
 
+if [[ $1 == "test" ]]
+then
+    echo "running drilbur tests ⛏"
+    go test ./...
+fi
+
