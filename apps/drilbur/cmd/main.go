@@ -2,14 +2,12 @@ package main
 
 import (
 	"drilbur/internal/scrape"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	fmt.Println("Hello from the go based drilbur!!! wuhu! lets go stuff!")
 
 	router := gin.Default()
 
