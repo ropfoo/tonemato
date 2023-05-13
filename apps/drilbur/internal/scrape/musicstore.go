@@ -2,18 +2,17 @@ package scrape
 
 import (
 	"drilbur/pkg/date"
-	"strings"
 	"time"
 
 	"github.com/gocolly/colly"
 )
 
-type MusicstoreScrape struct {
+type MusicstorePage struct {
 	Config
 }
 
 // Url
-func (ms *MusicstoreScrape) getUrl(el *colly.HTMLElement) string {
+func (mp *MusicstorePage) getUrl(el *colly.HTMLElement) string {
 	var url string
 	el.ForEach(".teaser-content a", func(index int, urlElement *colly.HTMLElement) {
 		url = urlElement.Attr("href")
@@ -22,7 +21,7 @@ func (ms *MusicstoreScrape) getUrl(el *colly.HTMLElement) string {
 }
 
 // Date
-func (ms *MusicstoreScrape) getDate(el *colly.HTMLElement) time.Time {
+func (mp *MusicstorePage) getDate(el *colly.HTMLElement) time.Time {
 	var time time.Time
 	el.ForEach(".date", func(index int, dateElement *colly.HTMLElement) {
 		time, _ = date.GetByFormat(dateElement.Text, date.DMYDot)
@@ -31,7 +30,7 @@ func (ms *MusicstoreScrape) getDate(el *colly.HTMLElement) time.Time {
 }
 
 // Title
-func (ms *MusicstoreScrape) getTitle(el *colly.HTMLElement) string {
+func (mp *MusicstorePage) getTitle(el *colly.HTMLElement) string {
 	var title string
 	el.ForEach(".teaser-body h4", func(index int, titleElement *colly.HTMLElement) {
 		title = titleElement.Text
@@ -40,19 +39,16 @@ func (ms *MusicstoreScrape) getTitle(el *colly.HTMLElement) string {
 }
 
 // Description
-func (ms *MusicstoreScrape) getDescription(el *colly.HTMLElement) string {
+func (mp *MusicstorePage) getDescription(el *colly.HTMLElement) string {
 	var description string
 	el.ForEach(".teaser-text", func(index int, textElement *colly.HTMLElement) {
-		descriptionWithoutLineBreaks := strings.ReplaceAll(textElement.Text, "\n", " ")
-		description = strings.TrimSpace(
-			strings.ReplaceAll(descriptionWithoutLineBreaks, "  ", ""),
-		)
+		description = PrettifyDescription(textElement.Text)
 	})
 	return description
 }
 
 // ZipCode
-func (ms *MusicstoreScrape) getZipCode(el *colly.HTMLElement) string {
+func (mp *MusicstorePage) getZipCode(el *colly.HTMLElement) string {
 	var zipCode string
 	el.ForEach(".city", func(index int, cityElement *colly.HTMLElement) {
 		zipCode = cityElement.Text[0:5]
@@ -62,7 +58,7 @@ func (ms *MusicstoreScrape) getZipCode(el *colly.HTMLElement) string {
 }
 
 // City
-func (ms *MusicstoreScrape) getCity(el *colly.HTMLElement) string {
+func (mp *MusicstorePage) getCity(el *colly.HTMLElement) string {
 	var city string
 	el.ForEach(".city", func(index int, cityElement *colly.HTMLElement) {
 		city = cityElement.Text[7:]
@@ -71,9 +67,9 @@ func (ms *MusicstoreScrape) getCity(el *colly.HTMLElement) string {
 }
 
 // Preview Image Url
-func (ms *MusicstoreScrape) getPreviewImageUrl(el *colly.HTMLElement) string {
+func (mp *MusicstorePage) getPreviewImageUrl(el *colly.HTMLElement) string {
 	var previewImageUrl string
-	el.ForEach("img", func(index int, imageElement *colly.HTMLElement) {
+	el.ForEach(".teaser-image img", func(index int, imageElement *colly.HTMLElement) {
 		if index == 1 {
 			previewImageUrl = imageElement.Attr("src")
 		}
@@ -81,10 +77,11 @@ func (ms *MusicstoreScrape) getPreviewImageUrl(el *colly.HTMLElement) string {
 	return previewImageUrl
 }
 
-func (ms *MusicstoreScrape) getDomain() string {
+// Domain
+func (mp *MusicstorePage) getDomain() string {
 	return "musicstore"
 }
 
-func (ms *MusicstoreScrape) config() Config {
-	return ms.Config
+func (mp *MusicstorePage) config() Config {
+	return mp.Config
 }

@@ -13,16 +13,26 @@ func main() {
 	router.LoadHTMLGlob("cmd/mock/html/*")
 
 	router.GET("/", func(c *gin.Context) {
-		musicstoreScrape := scrape.MusicstoreScrape{
+		musicstorePage := scrape.MusicstorePage{
 			Config: scrape.Config{
-				Url:   "http://localhost:8080/mock/musicstore",
-				Entry: ".teaser",
+				Url:          "http://localhost:8080/mock/musicstore",
+				TeaserTarget: ".teaser",
 			},
 		}
-		musicstoreTeasers := scrape.Init(&musicstoreScrape)
+
+		musikersuchtPage := scrape.MusikersuchtPage{
+			Config: scrape.Config{
+				Url:          "http://localhost:8080/mock/musikersucht",
+				TeaserTarget: ".table-striped tr",
+			},
+		}
+
+		musikersuchtTeasers := scrape.Teasers(&musikersuchtPage)
+		musicstoreTeasers := scrape.Teasers(&musicstorePage)
 
 		c.JSON(http.StatusOK, gin.H{
-			"musicstore": musicstoreTeasers,
+			"musikersucht": musikersuchtTeasers,
+			"musicstore":   musicstoreTeasers,
 		})
 
 	})

@@ -8,8 +8,8 @@ import (
 )
 
 type Config struct {
-	Url   string
-	Entry string
+	Url          string
+	TeaserTarget string
 }
 
 type TeaserScraper interface {
@@ -20,18 +20,19 @@ type TeaserScraper interface {
 	getZipCode(*colly.HTMLElement) string
 	getCity(*colly.HTMLElement) string
 	getPreviewImageUrl(*colly.HTMLElement) string
-	getDomain() string
+	getDomain() model.Domain
 	config() Config
 }
 
-func Init(scraper TeaserScraper) []model.Teaser {
+func Teasers(scraper TeaserScraper) []model.Teaser {
 	collector := colly.NewCollector()
 
 	teasers := make([]model.Teaser, 0)
 	config := scraper.config()
 
-	collector.OnHTML(config.Entry, func(element *colly.HTMLElement) {
+	collector.OnHTML(config.TeaserTarget, func(element *colly.HTMLElement) {
 		var newTeaser model.Teaser
+
 		newTeaser.Url = scraper.getUrl(element)
 		newTeaser.Date = scraper.getDate(element)
 		newTeaser.Title = scraper.getTitle(element)
@@ -40,7 +41,10 @@ func Init(scraper TeaserScraper) []model.Teaser {
 		newTeaser.City = scraper.getCity(element)
 		newTeaser.PreviewImageUrl = scraper.getPreviewImageUrl(element)
 		newTeaser.Domain = scraper.getDomain()
-		teasers = append(teasers, newTeaser)
+
+		if newTeaser.Title != "" || newTeaser.Description != "" {
+			teasers = append(teasers, newTeaser)
+		}
 	})
 
 	collector.Visit(config.Url)
