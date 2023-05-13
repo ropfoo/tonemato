@@ -8,18 +8,23 @@ import (
 )
 
 func main() {
-
 	router := gin.Default()
 
 	router.LoadHTMLGlob("cmd/mock/html/*")
 
 	router.GET("/", func(c *gin.Context) {
-
-		musicstore := scrape.Musicstore()
+		musicstoreScrape := scrape.MusicstoreScrape{
+			Config: scrape.Config{
+				Url:   "http://localhost:8080/mock/musicstore",
+				Entry: ".teaser",
+			},
+		}
+		musicstoreTeasers := scrape.Init(&musicstoreScrape)
 
 		c.JSON(http.StatusOK, gin.H{
-			"musicstore": musicstore,
+			"musicstore": musicstoreTeasers,
 		})
+
 	})
 
 	router.GET("/mock/musicstore", func(c *gin.Context) {
