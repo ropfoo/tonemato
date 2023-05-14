@@ -2,7 +2,6 @@ package scrape
 
 import (
 	"drilbur/pkg/model"
-	"time"
 
 	"github.com/gocolly/colly"
 )
@@ -13,34 +12,17 @@ type Config struct {
 }
 
 type TeaserScraper interface {
-	getUrl(*colly.HTMLElement) string
-	getDate(*colly.HTMLElement) time.Time
-	getTitle(*colly.HTMLElement) string
-	getDescription(*colly.HTMLElement) string
-	getZipCode(*colly.HTMLElement) string
-	getCity(*colly.HTMLElement) string
-	getPreviewImageUrl(*colly.HTMLElement) string
-	getDomain() model.Domain
+	scrape(*colly.HTMLElement) model.Teaser
 	config() Config
 }
 
 func Teasers(scraper TeaserScraper) []model.Teaser {
 	collector := colly.NewCollector()
-
-	teasers := make([]model.Teaser, 0)
 	config := scraper.config()
+	teasers := make([]model.Teaser, 0)
 
 	collector.OnHTML(config.TeaserTarget, func(element *colly.HTMLElement) {
-		var newTeaser model.Teaser
-
-		newTeaser.Url = scraper.getUrl(element)
-		newTeaser.Date = scraper.getDate(element)
-		newTeaser.Title = scraper.getTitle(element)
-		newTeaser.Description = scraper.getDescription(element)
-		newTeaser.ZipCode = scraper.getZipCode(element)
-		newTeaser.City = scraper.getCity(element)
-		newTeaser.PreviewImageUrl = scraper.getPreviewImageUrl(element)
-		newTeaser.Domain = scraper.getDomain()
+		newTeaser := scraper.scrape(element)
 
 		if newTeaser.Title != "" || newTeaser.Description != "" {
 			teasers = append(teasers, newTeaser)
