@@ -3,7 +3,6 @@ package scrape
 import (
 	"drilbur/pkg/date"
 	"drilbur/pkg/model"
-	"time"
 
 	"github.com/gocolly/colly"
 )
@@ -30,11 +29,7 @@ func (mp *MusikersuchtPage) scrape(el *colly.HTMLElement) model.Teaser {
 			teaser.Description = PrettifyDescription(textElement.Text[7:])
 			// Date
 			dateString := textElement.Text[:6]
-			teaser.Date = date.AddMissingYear(
-				dateString,
-				date.DMYDot,
-				time.Now().Year(),
-			)
+			teaser.Date = date.AddMissingYear(dateString, date.DMYDot)
 		}
 		// ZipCode
 		// City

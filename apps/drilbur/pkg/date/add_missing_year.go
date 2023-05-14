@@ -1,30 +1,26 @@
 package date
 
 import (
-	"fmt"
 	"time"
 )
 
 var prevDate time.Time = time.Now()
 
-// Adds missing year based on occurance by starting with the current year
+// Adds missing year based on occurance by starting with the current date
+// This should be called in an array of sorted day-month pairs.
 //
 // # Examples
 //
 // 23.05 => 23.05.2023
 //
-// 10.07 => 10.07.2023
+// 10.02 => 10.07.2023
 //
 // 04.04 => 04.04.2022
-func AddMissingYear(dateString string, format Format, startYear int) time.Time {
-
+func AddMissingYear(dateString string, format Format) time.Time {
 	// convert to time.Time based on format
 	dateByFormat, _ := GetByFormat(dateString, format)
-
-	// prevDate = time.Date(startYear, 1, dateByFormat.Day(), 0, 0, 0, 0, time.Local)
 	newYear := prevDate.Year()
 
-	fmt.Println(dateByFormat.Month(), prevDate.Month())
 	if dateByFormat.Month() > prevDate.Month() {
 		newYear = prevDate.Year() - 1
 	}
@@ -36,9 +32,6 @@ func AddMissingYear(dateString string, format Format, startYear int) time.Time {
 		0, 0, 0, 0,
 		time.Local,
 	)
-
 	prevDate = date
-
 	return date
-
 }

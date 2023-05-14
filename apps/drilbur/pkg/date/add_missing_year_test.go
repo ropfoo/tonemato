@@ -42,7 +42,7 @@ func TestAddMissingYear(t *testing.T) {
 	}
 
 	for _, td := range testData {
-		gotDate := AddMissingYear(td.GotDate, td.Format, 2023)
+		gotDate := AddMissingYear(td.GotDate, td.Format)
 		wantDate, _ := time.Parse(time.RFC3339, td.WantDate)
 
 		if wantDate.Compare(gotDate) != 0 {
