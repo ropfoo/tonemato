@@ -3,11 +3,13 @@ package scrape
 import (
 	"drilbur/pkg/date"
 	"drilbur/pkg/model"
+	"fmt"
 
 	"github.com/gocolly/colly"
 )
 
 type MusicstorePage struct {
+	Parameters
 	Config
 }
 
@@ -44,10 +46,17 @@ func (mp *MusicstorePage) scrape(el *colly.HTMLElement) model.Teaser {
 	})
 	// Domain
 	teaser.Domain = "musicstore"
-
 	return teaser
 }
 
 func (mp *MusicstorePage) config() Config {
+	fmt.Println("parameters for musicstore:  ",
+		mp.Parameters.Instrument.MusicstoreID,
+		mp.Parameters.Category.MusicstoreIdID,
+	)
 	return mp.Config
+}
+
+func (mp *MusicstorePage) pageCount() int {
+	return 1
 }

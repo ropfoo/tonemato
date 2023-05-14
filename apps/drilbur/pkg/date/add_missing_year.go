@@ -13,7 +13,7 @@ var prevDate time.Time = time.Now()
 //
 // 23.05 => 23.05.2023
 //
-// 10.02 => 10.07.2023
+// 10.02 => 10.02.2023
 //
 // 04.04 => 04.04.2022
 func AddMissingYear(dateString string, format Format) time.Time {

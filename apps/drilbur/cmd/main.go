@@ -2,6 +2,7 @@ package main
 
 import (
 	"drilbur/internal/scrape"
+	"drilbur/pkg/model"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +14,15 @@ func main() {
 	router.LoadHTMLGlob("cmd/mock/html/*")
 
 	router.GET("/", func(c *gin.Context) {
+		instrument := c.Query("instrument")
+		category := c.Query("category")
+		parameters := scrape.Parameters{
+			Instrument: model.Instruments[instrument],
+			Category:   model.Categories[category],
+		}
+
 		musicstorePage := scrape.MusicstorePage{
+			Parameters: parameters,
 			Config: scrape.Config{
 				Url:          "http://localhost:8080/mock/musicstore",
 				TeaserTarget: ".teaser",
@@ -21,6 +30,7 @@ func main() {
 		}
 
 		musikersuchtPage := scrape.MusikersuchtPage{
+			Parameters: parameters,
 			Config: scrape.Config{
 				Url:          "http://localhost:8080/mock/musikersucht",
 				TeaserTarget: ".table-striped tr",

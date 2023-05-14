@@ -2,6 +2,7 @@ package scrape
 
 import (
 	"drilbur/pkg/model"
+	"time"
 
 	"github.com/gocolly/colly"
 )
@@ -11,10 +12,18 @@ type Config struct {
 	TeaserTarget string
 }
 
+type Parameters struct {
+	model.Instrument
+	model.Category
+}
+
 type TeaserScraper interface {
 	scrape(*colly.HTMLElement) model.Teaser
 	config() Config
+	pageCount() int
 }
+
+var YEAR_THRESHOLD = time.Now().Year() - 3
 
 func Teasers(scraper TeaserScraper) []model.Teaser {
 	collector := colly.NewCollector()
@@ -23,13 +32,11 @@ func Teasers(scraper TeaserScraper) []model.Teaser {
 
 	collector.OnHTML(config.TeaserTarget, func(element *colly.HTMLElement) {
 		newTeaser := scraper.scrape(element)
-
-		if newTeaser.Title != "" || newTeaser.Description != "" {
+		// Append teaser if it passes year threshold
+		if newTeaser.Date.Year() > YEAR_THRESHOLD {
 			teasers = append(teasers, newTeaser)
 		}
 	})
-
 	collector.Visit(config.Url)
-
 	return teasers
 }

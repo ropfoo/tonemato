@@ -3,11 +3,13 @@ package scrape
 import (
 	"drilbur/pkg/date"
 	"drilbur/pkg/model"
+	"fmt"
 
 	"github.com/gocolly/colly"
 )
 
 type MusikersuchtPage struct {
+	Parameters
 	Config
 }
 
@@ -18,7 +20,6 @@ func (mp *MusikersuchtPage) scrape(el *colly.HTMLElement) model.Teaser {
 	el.ForEach("a", func(index int, urlElement *colly.HTMLElement) {
 		teaser.Url = "https://musiker-sucht.de" + urlElement.Attr("href")
 	})
-
 	el.ForEach("td", func(index int, textElement *colly.HTMLElement) {
 		// Tilte
 		if index == 0 {
@@ -40,10 +41,18 @@ func (mp *MusikersuchtPage) scrape(el *colly.HTMLElement) model.Teaser {
 	})
 	// Domain
 	teaser.Domain = "musikersucht"
-
 	return teaser
 }
 
 func (mp *MusikersuchtPage) config() Config {
+	fmt.Println("parameters for musikersucht:  ",
+		mp.Parameters.Instrument.MusikersuchtID,
+		mp.Parameters.Category.MusikersuchtID,
+	)
+
 	return mp.Config
+}
+
+func (mp *MusikersuchtPage) pageCount() int {
+	return 1
 }
