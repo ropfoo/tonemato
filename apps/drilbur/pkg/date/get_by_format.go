@@ -8,6 +8,9 @@ import (
 	"time"
 )
 
+// Formats a date can have
+//
+// DMYDot (dd.mm.yyyy) eg. "12.05.2023"
 type Format string
 
 const (
@@ -15,7 +18,7 @@ const (
 	DMYDot  Format = "dd.mm.yyyy"
 )
 
-// returns time.Time based on the "german" date format (eg. "12.05.2023")
+// Returns time.Time based on a given date format
 func GetByFormat(dateString string, format Format) (time.Time, error) {
 
 	var fallbackDate time.Time = time.Date(2023, 1, 1, 0, 0, 0, 0, time.Local)
@@ -47,7 +50,4 @@ func GetByFormat(dateString string, format Format) (time.Time, error) {
 	}
 
 	panic(("Wrong format"))
-
-	// return fallbackDate, nil
-
 }
