@@ -19,17 +19,17 @@ func ScrapePages(parameters Parameters) map[string][]model.Teaser {
 		},
 	}
 
-	musicstoreChannel := make(chan []model.Teaser)
-	go Teasers(&musicstorePage, musicstoreChannel)
-
-	musikersuchtChannel := make(chan []model.Teaser)
-	go Teasers(&musikersuchtPage, musikersuchtChannel)
-
-	musikersuchtTeasers := <-musikersuchtChannel
-	musicstoreTeasers := <-musicstoreChannel
+	musikersuchtTeasers := scrapeTeasers(&musikersuchtPage)
+	musicstoreTeasers := scrapeTeasers(&musicstorePage)
 
 	return map[string][]model.Teaser{
 		"musikersucht": musikersuchtTeasers,
 		"musicstore":   musicstoreTeasers,
 	}
+}
+
+func scrapeTeasers(scraper TeaserScraper) []model.Teaser {
+	teaserChannel := make(chan []model.Teaser)
+	go Teasers(scraper, teaserChannel)
+	return <-teaserChannel
 }
