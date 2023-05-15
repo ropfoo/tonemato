@@ -20,30 +20,9 @@ func main() {
 			Instrument: model.Instruments[instrument],
 			Category:   model.Categories[category],
 		}
+		scrapedPages := scrape.ScrapePages(parameters)
 
-		musicstorePage := scrape.MusicstorePage{
-			Parameters: parameters,
-			Config: scrape.Config{
-				Url:          "http://localhost:8080/mock/musicstore",
-				TeaserTarget: ".teaser",
-			},
-		}
-
-		musikersuchtPage := scrape.MusikersuchtPage{
-			Parameters: parameters,
-			Config: scrape.Config{
-				Url:          "http://localhost:8080/mock/musikersucht",
-				TeaserTarget: ".table-striped tr",
-			},
-		}
-
-		musikersuchtTeasers := scrape.Teasers(&musikersuchtPage)
-		musicstoreTeasers := scrape.Teasers(&musicstorePage)
-
-		c.JSON(http.StatusOK, gin.H{
-			"musikersucht": musikersuchtTeasers,
-			"musicstore":   musicstoreTeasers,
-		})
+		c.JSON(http.StatusOK, scrapedPages)
 
 	})
 

@@ -25,7 +25,7 @@ type TeaserScraper interface {
 
 var YEAR_THRESHOLD = time.Now().Year() - 3
 
-func Teasers(scraper TeaserScraper) []model.Teaser {
+func Teasers(scraper TeaserScraper, channel chan []model.Teaser) {
 	collector := colly.NewCollector()
 	config := scraper.config()
 	teasers := make([]model.Teaser, 0)
@@ -38,5 +38,5 @@ func Teasers(scraper TeaserScraper) []model.Teaser {
 		}
 	})
 	collector.Visit(config.Url)
-	return teasers
+	channel <- teasers
 }
