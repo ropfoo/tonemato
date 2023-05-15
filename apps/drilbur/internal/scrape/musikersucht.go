@@ -13,7 +13,7 @@ type MusikersuchtPage struct {
 	Config
 }
 
-func (mp *MusikersuchtPage) scrape(el *colly.HTMLElement) model.Teaser {
+func (mp *MusikersuchtPage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	var teaser model.Teaser
 
 	// URL
@@ -49,10 +49,15 @@ func (mp *MusikersuchtPage) config() Config {
 		mp.Parameters.Instrument.MusikersuchtID,
 		mp.Parameters.Category.MusikersuchtID,
 	)
-
 	return mp.Config
 }
 
-func (mp *MusikersuchtPage) pageCount() int {
-	return 1
+func (mp *MusikersuchtPage) scrapePageCount(el *colly.HTMLElement) int {
+	var pageCount int = 1
+	el.ForEach("a", func(index int, listElement *colly.HTMLElement) {
+		if listElement.Attr("currenttag") == "a" {
+			pageCount++
+		}
+	})
+	return pageCount
 }

@@ -6,21 +6,23 @@ func ScrapePages(parameters Parameters) map[string][]model.Teaser {
 	musicstorePage := MusicstorePage{
 		Parameters: parameters,
 		Config: Config{
-			Url:          "http://localhost:8080/mock/musicstore",
-			TeaserTarget: ".teaser",
+			Url:             "http://localhost:8080/mock/musicstore",
+			TeaserTarget:    ".teaser",
+			PageCountTarget: ".pagination-container",
 		},
 	}
 
 	musikersuchtPage := MusikersuchtPage{
 		Parameters: parameters,
 		Config: Config{
-			Url:          "http://localhost:8080/mock/musikersucht",
-			TeaserTarget: ".table-striped tr",
+			Url:             "http://localhost:8080/mock/musikersucht",
+			TeaserTarget:    ".table-striped tr",
+			PageCountTarget: ".pagination",
 		},
 	}
 
-	musikersuchtTeasers := scrapeTeasers(&musikersuchtPage)
-	musicstoreTeasers := scrapeTeasers(&musicstorePage)
+	musikersuchtTeasers := scrapeTeaserPage(&musikersuchtPage)
+	musicstoreTeasers := scrapeTeaserPage(&musicstorePage)
 
 	return map[string][]model.Teaser{
 		"musikersucht": musikersuchtTeasers,
@@ -28,8 +30,8 @@ func ScrapePages(parameters Parameters) map[string][]model.Teaser {
 	}
 }
 
-func scrapeTeasers(scraper TeaserScraper) []model.Teaser {
+func scrapeTeaserPage(scraper TeaserScraper) []model.Teaser {
 	teaserChannel := make(chan []model.Teaser)
-	go Teasers(scraper, teaserChannel)
+	go scrapeTeasers(scraper, teaserChannel)
 	return <-teaserChannel
 }

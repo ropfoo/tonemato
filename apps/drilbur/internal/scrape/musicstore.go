@@ -13,7 +13,7 @@ type MusicstorePage struct {
 	Config
 }
 
-func (mp *MusicstorePage) scrape(el *colly.HTMLElement) model.Teaser {
+func (mp *MusicstorePage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	var teaser model.Teaser
 
 	// Url
@@ -57,6 +57,10 @@ func (mp *MusicstorePage) config() Config {
 	return mp.Config
 }
 
-func (mp *MusicstorePage) pageCount() int {
-	return 1
+func (mp *MusicstorePage) scrapePageCount(el *colly.HTMLElement) int {
+	var pageCount int = 0
+	el.ForEach(".pagination-link", func(index int, linkElement *colly.HTMLElement) {
+		pageCount++
+	})
+	return pageCount
 }

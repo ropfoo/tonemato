@@ -21,9 +21,7 @@ func main() {
 			Category:   model.Categories[category],
 		}
 		scrapedPages := scrape.ScrapePages(parameters)
-
 		c.JSON(http.StatusOK, scrapedPages)
-
 	})
 
 	router.GET("/mock/musicstore", func(c *gin.Context) {
