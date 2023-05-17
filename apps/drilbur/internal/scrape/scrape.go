@@ -23,6 +23,7 @@ type Parameters struct {
 type TeaserScraper interface {
 	scrapeTeaser(*colly.HTMLElement) model.Teaser
 	scrapePageCount(*colly.HTMLElement) int
+	setParameters(parameters Parameters)
 	config() Config
 }
 
@@ -36,7 +37,7 @@ func scrapeTeasers(scraper TeaserScraper, channel chan []model.Teaser) {
 	pageCount := 1
 
 	// channel for all teasers getting scraped in go routines
-	collectChannel := make(chan []model.Teaser)
+	collectTeasersChannel := make(chan []model.Teaser)
 	// create function to scrape all teasers on each page
 	collectTeasers := func(page int, wg *sync.WaitGroup) {
 		defer wg.Done()
@@ -66,7 +67,7 @@ func scrapeTeasers(scraper TeaserScraper, channel chan []model.Teaser) {
 		// go to page url
 		collector.Visit(config.Url + "?pageCount=" + fmt.Sprint(page))
 		// add collectedTeasers to channel
-		collectChannel <- collectedTeasers
+		collectTeasersChannel <- collectedTeasers
 	}
 
 	// create go routine to scrape pages concurrently
@@ -84,10 +85,10 @@ func scrapeTeasers(scraper TeaserScraper, channel chan []model.Teaser) {
 			}
 		}
 		waitGroup.Wait()
-		close(collectChannel)
+		close(collectTeasersChannel)
 	}()
 	// recieve teasers from channel
-	for chanTeasers := range collectChannel {
+	for chanTeasers := range collectTeasersChannel {
 		teasers = chanTeasers
 	}
 	// add teasers of the first page to the teasers recieved by the collectChannel

@@ -13,6 +13,14 @@ type MusikersuchtPage struct {
 	Config
 }
 
+var Musikersucht = MusikersuchtPage{
+	Config: Config{
+		Url:             "http://localhost:8080/mock/musikersucht",
+		TeaserTarget:    ".table-striped tr",
+		PageCountTarget: ".pagination",
+	},
+}
+
 func (mp *MusikersuchtPage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	var teaser model.Teaser
 
@@ -42,6 +50,10 @@ func (mp *MusikersuchtPage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	// Domain
 	teaser.Domain = "musikersucht"
 	return teaser
+}
+
+func (mp *MusikersuchtPage) setParameters(parameters Parameters) {
+	mp.Parameters = parameters
 }
 
 func (mp *MusikersuchtPage) config() Config {

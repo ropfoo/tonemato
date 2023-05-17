@@ -13,6 +13,14 @@ type MusicstorePage struct {
 	Config
 }
 
+var Musicstore = MusicstorePage{
+	Config: Config{
+		Url:             "http://localhost:8080/mock/musicstore",
+		TeaserTarget:    ".teaser",
+		PageCountTarget: ".pagination-container",
+	},
+}
+
 func (mp *MusicstorePage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	var teaser model.Teaser
 
@@ -47,6 +55,10 @@ func (mp *MusicstorePage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	// Domain
 	teaser.Domain = "musicstore"
 	return teaser
+}
+
+func (mp *MusicstorePage) setParameters(parameters Parameters) {
+	mp.Parameters = parameters
 }
 
 func (mp *MusicstorePage) config() Config {
