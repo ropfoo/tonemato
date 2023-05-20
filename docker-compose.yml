@@ -66,3 +66,16 @@ services:
     volumes:
       - ./apps/smeargle:/app/apps/smeargle
       - /app/apps/smeargle/node_modules
+
+  # Clobbopus
+  clobbopus:
+    container_name: clobbopus
+    build:
+      context: .
+      dockerfile: ./apps/clobbopus/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - ${CLOBBOPUS_PORT}:${CLOBBOPUS_PORT}
+    volumes:
+      - ./apps/clobbopus:/app/clobbopus
