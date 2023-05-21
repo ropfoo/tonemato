@@ -4,7 +4,6 @@ import (
 	"drilbur/pkg/model"
 	"fmt"
 	"sync"
-	"time"
 
 	"github.com/gocolly/colly"
 )
@@ -27,8 +26,6 @@ type TeaserScraper interface {
 	config() Config
 }
 
-var YEAR_THRESHOLD = time.Now().Year() - 3
-
 func scrapeTeaserSite(scraper TeaserScraper, channel chan model.Teaser) {
 	config := scraper.config()
 	pageCount := 1
@@ -37,15 +34,11 @@ func scrapeTeaserSite(scraper TeaserScraper, channel chan model.Teaser) {
 	collectTeasers := func(page int, wg *sync.WaitGroup) {
 		collector := colly.NewCollector()
 		defer wg.Done()
-
-		fmt.Println("collecting teasers")
-
 		// DEBUG ONLY: artificial delay
 		// time.Sleep(time.Second)
-
-		fmt.Println("PAGE ", page)
 		collector.OnHTML(config.TeaserTarget, func(element *colly.HTMLElement) {
 			newTeaser := scraper.scrapeTeaser(element)
+			// check if element qualifies as a teaser
 			if newTeaser.Description != "" {
 				channel <- newTeaser
 			}
@@ -56,16 +49,14 @@ func scrapeTeaserSite(scraper TeaserScraper, channel chan model.Teaser) {
 				pageCount = scraper.scrapePageCount(element)
 			})
 		}
-		fmt.Println(scraper.Url(page))
+		fmt.Println("Scraping: ", scraper.Url(page))
 		collector.Visit(scraper.Url(page))
-		// collector.
 	}
 
 	waitGroup := &sync.WaitGroup{}
-	waitGroup.Add(1)
 	// get page count and collect teasers of first page
+	waitGroup.Add(1)
 	collectTeasers(1, waitGroup)
-
 	// iterate through all pages left in different go routines
 	if pageCount > 1 {
 		for page := 2; page <= pageCount; page++ {

@@ -18,14 +18,14 @@ func main() {
 	})
 
 	router.GET("/scrape", func(c *gin.Context) {
-		instrument := c.Query("instrument")
-		category := c.Query("category")
+		var instrument string = c.Query("instrument")
+		var category string = c.Query("category")
 		parameters := scrape.Parameters{
 			Instrument: model.Instruments[instrument],
 			Category:   model.Categories[category],
 		}
-		scrapedPages := scrape.ScrapePages(parameters)
-		c.JSON(http.StatusOK, scrapedPages)
+		scrapedSites := scrape.ScrapeSites(parameters)
+		c.JSON(http.StatusOK, scrapedSites)
 	})
 
 	router.Run()

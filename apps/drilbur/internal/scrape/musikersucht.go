@@ -24,11 +24,10 @@ func (mp *MusikersuchtPage) Url(pageCount int) string {
 	var page string = strconv.Itoa(pageCount)
 	var category string = mp.Parameters.Category.MusikersuchtID
 	var instrument string = strconv.Itoa(mp.Parameters.Instrument.MusikersuchtID)
-	var url string = "http://clobbopus:3001/musikersucht/requests/index/" +
+	return "http://clobbopus:3001/musikersucht/requests/index/" +
 		category +
 		"/instrument:" + instrument +
 		"/page:" + page
-	return url
 }
 
 func (mp *MusikersuchtPage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
