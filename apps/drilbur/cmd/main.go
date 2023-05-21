@@ -11,7 +11,13 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.GET("/", func(c *gin.Context) {
+	router.GET("/healthcheck", func(c *gin.Context) {
+		c.JSON(http.StatusOK, map[string]string{
+			"healthcheck": "✅",
+		})
+	})
+
+	router.GET("/scrape", func(c *gin.Context) {
 		instrument := c.Query("instrument")
 		category := c.Query("category")
 		parameters := scrape.Parameters{
