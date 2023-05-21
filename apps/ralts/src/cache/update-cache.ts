@@ -7,7 +7,9 @@ export default async function updateCache() {
   try {
     console.log('fetching data');
     const { data } = await axios.get(
-      `${IS_DOCKER ? 'http://drilbur' : DRILBUR_DOMAIN}:${DRILBUR_PORT}`
+      `${
+        IS_DOCKER ? 'http://drilbur' : DRILBUR_DOMAIN
+      }:${DRILBUR_PORT}/scrape?instrument=guitar&category=lookingForMusician`
     );
 
     // Transform all fetched teasers in a flattened form and store it in 'data'
