@@ -1,18 +1,18 @@
 package scrape
 
-import "drilbur/pkg/model"
+import (
+	"drilbur/pkg/model"
+	"fmt"
+)
 
 func ScrapePages(parameters Parameters) map[string][]model.Teaser {
 	Musicstore.setParameters(parameters)
 	Musikersucht.setParameters(parameters)
 
-	musikersuchtChannel := make(chan []model.Teaser)
-	musicstoreChannel := make(chan []model.Teaser)
-	go scrapeTeasers(&Musikersucht, musikersuchtChannel)
-	go scrapeTeasers(&Musicstore, musicstoreChannel)
+	musikersuchtTeasers := scrapeTeasers(&Musikersucht)
+	musicstoreTeasers := scrapeTeasers(&Musicstore)
 
-	musikersuchtTeasers := <-musikersuchtChannel
-	musicstoreTeasers := <-musicstoreChannel
+	fmt.Println("Teasers: ", len(musicstoreTeasers), len(musikersuchtTeasers))
 
 	return map[string][]model.Teaser{
 		"musikersucht": musikersuchtTeasers,

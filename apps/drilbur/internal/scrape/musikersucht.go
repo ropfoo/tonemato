@@ -3,7 +3,7 @@ package scrape
 import (
 	"drilbur/pkg/date"
 	"drilbur/pkg/model"
-	"fmt"
+	"strconv"
 
 	"github.com/gocolly/colly"
 )
@@ -15,10 +15,20 @@ type MusikersuchtPage struct {
 
 var Musikersucht = MusikersuchtPage{
 	Config: Config{
-		Url:             "http://localhost:8080/mock/musikersucht",
-		TeaserTarget:    ".table-striped tr",
+		TeaserTarget:    ".table-striped tbody tr",
 		PageCountTarget: ".pagination",
 	},
+}
+
+func (mp *MusikersuchtPage) Url(pageCount int) string {
+	var page string = strconv.Itoa(pageCount)
+	var category string = mp.Parameters.Category.MusikersuchtID
+	var instrument string = strconv.Itoa(mp.Parameters.Instrument.MusikersuchtID)
+	var url string = "http://clobbopus:3001/musikersucht/requests/index/" +
+		category +
+		"/instrument:" + instrument +
+		"/page:" + page
+	return url
 }
 
 func (mp *MusikersuchtPage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
@@ -57,10 +67,6 @@ func (mp *MusikersuchtPage) setParameters(parameters Parameters) {
 }
 
 func (mp *MusikersuchtPage) config() Config {
-	fmt.Println("parameters for musikersucht:  ",
-		mp.Parameters.Instrument.MusikersuchtID,
-		mp.Parameters.Category.MusikersuchtID,
-	)
 	return mp.Config
 }
 

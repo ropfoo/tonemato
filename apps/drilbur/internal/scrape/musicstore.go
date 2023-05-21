@@ -3,7 +3,7 @@ package scrape
 import (
 	"drilbur/pkg/date"
 	"drilbur/pkg/model"
-	"fmt"
+	"strconv"
 
 	"github.com/gocolly/colly"
 )
@@ -15,10 +15,21 @@ type MusicstorePage struct {
 
 var Musicstore = MusicstorePage{
 	Config: Config{
-		Url:             "http://localhost:8080/mock/musicstore",
 		TeaserTarget:    ".teaser",
 		PageCountTarget: ".pagination-container",
 	},
+}
+
+func (mp *MusicstorePage) Url(pageCount int) string {
+	var page string = strconv.Itoa(pageCount)
+	var category string = mp.Parameters.Category.MusicstoreID
+	var instrument string = strconv.Itoa(mp.Parameters.Instrument.MusicstoreID)
+	var url string = "http://clobbopus:3001/musicstore/filter-ergebnisse/page/" +
+		page +
+		"/?category=" + category +
+		"&instrument=" + instrument +
+		"&age=alle"
+	return url
 }
 
 func (mp *MusicstorePage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
@@ -48,8 +59,9 @@ func (mp *MusicstorePage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	})
 	// Preview Image Url
 	el.ForEach(".teaser-image img", func(index int, imageElement *colly.HTMLElement) {
-		if index == 1 {
+		if index == 0 {
 			teaser.PreviewImageUrl = imageElement.Attr("src")
+			return
 		}
 	})
 	// Domain
@@ -62,10 +74,6 @@ func (mp *MusicstorePage) setParameters(parameters Parameters) {
 }
 
 func (mp *MusicstorePage) config() Config {
-	fmt.Println("parameters for musicstore:  ",
-		mp.Parameters.Instrument.MusicstoreID,
-		mp.Parameters.Category.MusicstoreIdID,
-	)
 	return mp.Config
 }
 
