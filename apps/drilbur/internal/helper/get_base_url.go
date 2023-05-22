@@ -17,27 +17,20 @@ func GetBaseUrl(domain model.Domain) string {
 
 	switch domain {
 	case "musikersucht":
-		{
-			if isDevelopment {
-				return mockUrl + "/musikersucht/requests/index"
-			}
-			return os.Getenv("MUSIKERSUCHT")
+		if isDevelopment {
+			return mockUrl + "/musikersucht/requests/index"
 		}
+		return os.Getenv("MUSIKERSUCHT")
 	case "musicstore":
-		{
-			if isDevelopment {
-				return mockUrl + "/musicstore/filter-ergebnisse"
-			}
-			return os.Getenv("MUSICSTORE")
+		if isDevelopment {
+			return mockUrl + "/musicstore/filter-ergebnisse"
 		}
+		return os.Getenv("MUSICSTORE")
 	case "backstagepro":
-		{
-			if isDevelopment {
-				return mockUrl + "/backstagepro/musikersuche"
-			}
-			return os.Getenv("BACKSTAGEPRO")
+		if isDevelopment {
+			return mockUrl + "/backstagepro/musikersuche"
 		}
-
+		return os.Getenv("BACKSTAGEPRO")
 	}
 	return ""
 }
