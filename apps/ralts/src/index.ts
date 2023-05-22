@@ -4,8 +4,7 @@ import updateCache from './cache/update-cache';
 import { isCacheStale } from './cache/is-cache-stale';
 import { getCache } from './cache/get-cache';
 
-const { VITE_RALTS_PORT, SMEARGLE_PORT, SMEARGLE_DOMAIN, NODE_ENV } =
-  process.env;
+const { VITE_RALTS_PORT, SMEARGLE_PORT, SMEARGLE_DOMAIN, MODE } = process.env;
 
 const app = express();
 app.use(
@@ -22,7 +21,7 @@ app.get('/', async (req, res) => {
   });
 });
 
-if (NODE_ENV === 'development') {
+if (MODE === 'development') {
   app.get('/nocache', async (req, res) => {
     await updateCache();
     const teasers = await getCache('raw');

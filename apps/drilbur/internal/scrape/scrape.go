@@ -8,26 +8,8 @@ import (
 	"github.com/gocolly/colly"
 )
 
-type Config struct {
-	TeaserTarget    string
-	PageCountTarget string
-}
-
-type Parameters struct {
-	model.Instrument
-	model.Category
-}
-
-type TeaserScraper interface {
-	scrapeTeaser(*colly.HTMLElement) model.Teaser
-	scrapePageCount(*colly.HTMLElement) int
-	setParameters(parameters Parameters)
-	Url(pageCount int) string
-	config() Config
-}
-
-func scrapeTeaserSite(scraper TeaserScraper, channel chan model.Teaser) {
-	config := scraper.config()
+func scrapeTeaserSite(scraper model.TeaserScraper, channel chan model.Teaser) {
+	config := scraper.Config()
 	pageCount := 1
 
 	// create function to scrape all teasers on each page
@@ -37,7 +19,7 @@ func scrapeTeaserSite(scraper TeaserScraper, channel chan model.Teaser) {
 		// DEBUG ONLY: artificial delay
 		// time.Sleep(time.Second)
 		collector.OnHTML(config.TeaserTarget, func(element *colly.HTMLElement) {
-			newTeaser := scraper.scrapeTeaser(element)
+			newTeaser := scraper.ScrapeTeaser(element)
 			// check if element qualifies as a teaser
 			if newTeaser.Description != "" {
 				channel <- newTeaser
@@ -46,7 +28,7 @@ func scrapeTeaserSite(scraper TeaserScraper, channel chan model.Teaser) {
 		// get page count on first scrape
 		if pageCount == 1 {
 			collector.OnHTML(config.PageCountTarget, func(element *colly.HTMLElement) {
-				pageCount = scraper.scrapePageCount(element)
+				pageCount = scraper.ScrapePageCount(element)
 			})
 		}
 		fmt.Println("Scraping: ", scraper.Url(page))
@@ -68,7 +50,7 @@ func scrapeTeaserSite(scraper TeaserScraper, channel chan model.Teaser) {
 	close(channel)
 }
 
-func scrapeTeasers(scraper TeaserScraper) []model.Teaser {
+func scrapeTeasers(scraper model.TeaserScraper) []model.Teaser {
 	teaserChannel := make(chan model.Teaser)
 	go scrapeTeaserSite(scraper, teaserChannel)
 	var teasers []model.Teaser

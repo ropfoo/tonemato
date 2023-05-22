@@ -1,6 +1,7 @@
-package scrape
+package sites
 
 import (
+	"drilbur/internal/helper"
 	"drilbur/pkg/date"
 	"drilbur/pkg/model"
 	"strconv"
@@ -9,12 +10,12 @@ import (
 )
 
 type MusikersuchtPage struct {
-	Parameters
-	Config
+	model.Parameters
+	model.ScrapeConfig
 }
 
 var Musikersucht = MusikersuchtPage{
-	Config: Config{
+	ScrapeConfig: model.ScrapeConfig{
 		TeaserTarget:    ".table-striped tbody tr",
 		PageCountTarget: ".pagination",
 	},
@@ -24,13 +25,14 @@ func (mp *MusikersuchtPage) Url(pageCount int) string {
 	var page string = strconv.Itoa(pageCount)
 	var category string = mp.Parameters.Category.MusikersuchtID
 	var instrument string = strconv.Itoa(mp.Parameters.Instrument.MusikersuchtID)
-	return "http://clobbopus:3001/musikersucht/requests/index/" +
-		category +
+	var baseUrl string = helper.GetBaseUrl("musikersucht")
+	return baseUrl +
+		"/" + category +
 		"/instrument:" + instrument +
 		"/page:" + page
 }
 
-func (mp *MusikersuchtPage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
+func (mp *MusikersuchtPage) ScrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	var teaser model.Teaser
 
 	// URL
@@ -44,7 +46,7 @@ func (mp *MusikersuchtPage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 		}
 		if index == 1 {
 			// Description
-			teaser.Description = PrettifyDescription(textElement.Text[7:])
+			teaser.Description = helper.PrettifyDescription(textElement.Text[7:])
 			// Date
 			dateString := textElement.Text[:6]
 			teaser.Date = date.AddMissingYear(dateString, date.DMYDot)
@@ -61,15 +63,15 @@ func (mp *MusikersuchtPage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	return teaser
 }
 
-func (mp *MusikersuchtPage) setParameters(parameters Parameters) {
+func (mp *MusikersuchtPage) SetParameters(parameters model.Parameters) {
 	mp.Parameters = parameters
 }
 
-func (mp *MusikersuchtPage) config() Config {
-	return mp.Config
+func (mp *MusikersuchtPage) Config() model.ScrapeConfig {
+	return mp.ScrapeConfig
 }
 
-func (mp *MusikersuchtPage) scrapePageCount(el *colly.HTMLElement) int {
+func (mp *MusikersuchtPage) ScrapePageCount(el *colly.HTMLElement) int {
 	var pageCount int = 1
 	el.ForEach("a", func(index int, listElement *colly.HTMLElement) {
 		if listElement.Attr("currenttag") == "a" {

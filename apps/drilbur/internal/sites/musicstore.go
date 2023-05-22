@@ -1,6 +1,7 @@
-package scrape
+package sites
 
 import (
+	"drilbur/internal/helper"
 	"drilbur/pkg/date"
 	"drilbur/pkg/model"
 	"strconv"
@@ -9,12 +10,12 @@ import (
 )
 
 type MusicstorePage struct {
-	Parameters
-	Config
+	model.Parameters
+	model.ScrapeConfig
 }
 
 var Musicstore = MusicstorePage{
-	Config: Config{
+	ScrapeConfig: model.ScrapeConfig{
 		TeaserTarget:    ".teaser",
 		PageCountTarget: ".pagination-container",
 	},
@@ -24,14 +25,15 @@ func (mp *MusicstorePage) Url(pageCount int) string {
 	var page string = strconv.Itoa(pageCount)
 	var category string = mp.Parameters.Category.MusicstoreID
 	var instrument string = strconv.Itoa(mp.Parameters.Instrument.MusicstoreID)
-	return "http://clobbopus:3001/musicstore/filter-ergebnisse/page/" +
-		page +
+	var baseUrl string = helper.GetBaseUrl("musicstore")
+	return baseUrl +
+		"/page/" + page +
 		"/?category=" + category +
 		"&instrument=" + instrument +
 		"&age=alle"
 }
 
-func (mp *MusicstorePage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
+func (mp *MusicstorePage) ScrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	var teaser model.Teaser
 
 	// Url
@@ -48,7 +50,7 @@ func (mp *MusicstorePage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	})
 	// Description
 	el.ForEach(".teaser-text", func(index int, textElement *colly.HTMLElement) {
-		teaser.Description = PrettifyDescription(textElement.Text)
+		teaser.Description = helper.PrettifyDescription(textElement.Text)
 	})
 	// ZipCode
 	// City
@@ -68,16 +70,16 @@ func (mp *MusicstorePage) scrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	return teaser
 }
 
-func (mp *MusicstorePage) setParameters(parameters Parameters) {
+func (mp *MusicstorePage) SetParameters(parameters model.Parameters) {
 	mp.Parameters = parameters
 }
 
-func (mp *MusicstorePage) config() Config {
-	return mp.Config
+func (mp *MusicstorePage) Config() model.ScrapeConfig {
+	return mp.ScrapeConfig
 }
 
-func (mp *MusicstorePage) scrapePageCount(el *colly.HTMLElement) int {
-	var pageCount int = 0
+func (mp *MusicstorePage) ScrapePageCount(el *colly.HTMLElement) int {
+	var pageCount int = 1
 	el.ForEach(".pagination-link", func(index int, linkElement *colly.HTMLElement) {
 		pageCount++
 	})

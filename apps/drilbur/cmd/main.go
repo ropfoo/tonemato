@@ -4,6 +4,7 @@ import (
 	"drilbur/internal/scrape"
 	"drilbur/pkg/model"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,21 +12,22 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.GET("/healthcheck", func(c *gin.Context) {
-		c.JSON(http.StatusOK, map[string]string{
+	router.GET("/healthcheck", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, map[string]string{
 			"healthcheck": "✅",
+			"mode":        os.Getenv("MODE"),
 		})
 	})
 
-	router.GET("/scrape", func(c *gin.Context) {
-		var instrument string = c.Query("instrument")
-		var category string = c.Query("category")
-		parameters := scrape.Parameters{
+	router.GET("/scrape", func(ctx *gin.Context) {
+		var instrument string = ctx.Query("instrument")
+		var category string = ctx.Query("category")
+		parameters := model.Parameters{
 			Instrument: model.Instruments[instrument],
 			Category:   model.Categories[category],
 		}
 		scrapedSites := scrape.ScrapeSites(parameters)
-		c.JSON(http.StatusOK, scrapedSites)
+		ctx.JSON(http.StatusOK, scrapedSites)
 	})
 
 	router.Run()
