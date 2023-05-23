@@ -8,7 +8,6 @@ then
     echo "----------"
     echo "install   install dev environment (eg. air)"
     echo "dev       run in dev mode"
-
 fi
 
 if [[ $1 == "install" ]]
