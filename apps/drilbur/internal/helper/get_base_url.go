@@ -2,6 +2,7 @@ package helper
 
 import (
 	"drilbur/pkg/model"
+	"fmt"
 	"os"
 )
 
@@ -14,6 +15,7 @@ func GetBaseUrl(domain model.Domain) string {
 		mockDomain = os.Getenv("CLOBBOPUS_DOMAIN_DOCKER")
 	}
 	var mockUrl string = mockDomain + ":" + os.Getenv("CLOBBOPUS_PORT")
+	fmt.Println("Mock url:", mockUrl)
 
 	switch domain {
 	case "musikersucht":

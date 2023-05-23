@@ -3,13 +3,23 @@ package main
 import (
 	"drilbur/internal/scrape"
 	"drilbur/pkg/model"
+	"log"
 	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+
+	if os.Getenv("IS_DOCKER") != "true" {
+		err := godotenv.Load("../../.env")
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+	}
+
 	router := gin.Default()
 
 	router.GET("/healthcheck", func(ctx *gin.Context) {

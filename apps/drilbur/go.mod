@@ -3,9 +3,11 @@ module drilbur
 go 1.20
 
 require (
-    github.com/gocolly/colly v1.2.0
-    github.com/gin-gonic/gin v1.9.0
-) 
+	github.com/gin-gonic/gin v1.9.0
+	github.com/gocolly/colly v1.2.0
+)
+
+require github.com/joho/godotenv v1.5.1 // indirect
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.1 // indirect
@@ -21,7 +23,6 @@ require (
 	github.com/go-playground/validator/v10 v10.13.0 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
-	github.com/gocolly/colly v1.2.0 //
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
