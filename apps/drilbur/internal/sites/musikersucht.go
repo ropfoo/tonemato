@@ -1,10 +1,10 @@
 package sites
 
 import (
-	"drilbur/internal/helper"
-	"drilbur/pkg/date"
-	"drilbur/pkg/model"
 	"strconv"
+	"tonemato/apps/drilbur/internal/helper"
+	"tonemato/pkg/date"
+	"tonemato/pkg/model"
 
 	"github.com/gocolly/colly"
 )

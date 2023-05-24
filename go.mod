@@ -1,4 +1,4 @@
-module drilbur
+module tonemato
 
 go 1.20
 

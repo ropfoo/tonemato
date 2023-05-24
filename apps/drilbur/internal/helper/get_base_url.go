@@ -1,9 +1,9 @@
 package helper
 
 import (
-	"drilbur/pkg/model"
 	"fmt"
 	"os"
+	"tonemato/pkg/model"
 )
 
 func GetBaseUrl(domain model.Domain) string {

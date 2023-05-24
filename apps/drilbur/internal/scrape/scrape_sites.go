@@ -1,8 +1,8 @@
 package scrape
 
 import (
-	"drilbur/internal/sites"
-	"drilbur/pkg/model"
+	"tonemato/apps/drilbur/internal/sites"
+	"tonemato/pkg/model"
 )
 
 func ScrapeSites(parameters model.Parameters) map[string][]model.Teaser {

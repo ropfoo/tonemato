@@ -1,11 +1,11 @@
 package main
 
 import (
-	"drilbur/internal/scrape"
-	"drilbur/pkg/model"
 	"log"
 	"net/http"
 	"os"
+	"tonemato/apps/drilbur/internal/scrape"
+	"tonemato/pkg/model"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

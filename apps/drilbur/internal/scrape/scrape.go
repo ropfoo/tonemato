@@ -1,9 +1,9 @@
 package scrape
 
 import (
-	"drilbur/pkg/model"
 	"fmt"
 	"sync"
+	"tonemato/pkg/model"
 
 	"github.com/gocolly/colly"
 )
