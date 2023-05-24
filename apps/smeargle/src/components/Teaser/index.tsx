@@ -1,6 +1,6 @@
 import { A } from '@solidjs/router';
 import dayjs from 'dayjs';
-import type { Teaser as TeaserType } from 'tonemato-types';
+import type { Teaser as TeaserType } from '~/generated/tygo';
 import HoverIndicator from './HoverIndicator';
 
 interface TeaserProps {

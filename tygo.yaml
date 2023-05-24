@@ -1,0 +1,14 @@
+packages:
+  - path: "tonemato/pkg/model"
+    output_path: "apps/smeargle/src/generated/tygo.ts"
+    type_mappings:
+      time.Time: "string /* RFC3339 */"
+      null.String: "null | string"
+      null.Bool: "null | boolean"
+      uuid.UUID: "string /* uuid */"
+      uuid.NullUUID: "null | string /* uuid */"
+    exclude_files:
+      - "category.go"
+      # - "general.go"
+      - "instrument.go"
+      - "scrape.go"

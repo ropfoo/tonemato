@@ -1,6 +1,6 @@
 import { createEffect, createSignal, For, Show } from 'solid-js';
 
-import { Teaser as TeaserType } from 'tonemato-types';
+import { Teaser as TeaserType } from '~/generated/tygo';
 import Teaser from '~/components/Teaser';
 
 const { VITE_RALTS_PORT, VITE_RALTS_DOMAIN, VITE_IS_DOCKER } = import.meta.env;
