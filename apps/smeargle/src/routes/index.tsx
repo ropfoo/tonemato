@@ -7,8 +7,8 @@ const { VITE_RALTS_PORT, VITE_RALTS_DOMAIN, VITE_IS_DOCKER } = import.meta.env;
 
 async function fetchRalts() {
   const response = await fetch(
-    // 'http://localhost:3005/'
-    `${VITE_RALTS_DOMAIN}:${VITE_RALTS_PORT || 3005}/`
+    'http://localhost:3005/'
+    // `${VITE_RALTS_DOMAIN}:${VITE_RALTS_PORT || 3005}/`
   );
   return await response.json();
 }
@@ -22,6 +22,7 @@ export default function Home() {
   createEffect(async () => {
     const teasers = await fetchRalts();
     setData(teasers);
+    console.log(teasers);
   });
 
   return (
