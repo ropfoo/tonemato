@@ -10,9 +10,8 @@ import (
 	"tonemato/pkg/url"
 )
 
-func CollectTeasers() []model.Teaser {
-
-	var collectedTeasers []model.Teaser = make([]model.Teaser, 0)
+func CollectTeasers() map[string][]model.Teaser {
+	var teasersCollections map[string][]model.Teaser = map[string][]model.Teaser{}
 
 	for _, instrument := range model.Instruments {
 		// request teasers in category
@@ -35,10 +34,13 @@ func CollectTeasers() []model.Teaser {
 			fmt.Println(err)
 		}
 
-		// add teasers of each site to collectedTeasers array
-		for _, siteTeasers := range scrapedSites {
-			collectedTeasers = append(collectedTeasers, siteTeasers...)
+		// sort teasers of each site into query based collections
+		for _, teasers := range scrapedSites {
+			for _, teaser := range teasers {
+				var regionKey = string(teaser.ZipCode[0])
+				teasersCollections[regionKey] = append(teasersCollections[regionKey], teaser)
+			}
 		}
 	}
-	return collectedTeasers
+	return teasersCollections
 }

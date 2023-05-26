@@ -9,13 +9,14 @@ import (
 )
 
 func UpdateRawData() {
-	var collectedTeasers []model.Teaser = organizer.CollectTeasers()
-
-	collectedTeasersBytes, err := json.Marshal(collectedTeasers)
-	if err != nil {
-		fmt.Println(err)
-	}
+	var collectedTeasers map[string][]model.Teaser = organizer.CollectTeasers()
 
 	ctx := context.Background()
-	SetCache(ctx, "raw", string(collectedTeasersBytes))
+	for key, collection := range collectedTeasers {
+		collectionBytes, err := json.Marshal(collection)
+		if err != nil {
+			fmt.Println(err)
+		}
+		SetCache(ctx, key, string(collectionBytes))
+	}
 }

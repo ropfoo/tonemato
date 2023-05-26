@@ -12,7 +12,9 @@ import (
 
 // get teasers from redis cache
 func Teasers(ctx *gin.Context) {
-	cachedTeasersString := redis.GetCache(ctx.Request.Context(), "raw")
+	var locationKey string = string(ctx.Query("zipCode")[0])
+	// get teasers from redis cache based on query params
+	cachedTeasersString := redis.GetCache(ctx.Request.Context(), locationKey)
 
 	var cachedTeasers []model.Teaser
 	if err := json.Unmarshal([]byte(cachedTeasersString), &cachedTeasers); err != nil {
