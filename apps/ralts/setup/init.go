@@ -17,9 +17,7 @@ func Init() {
 		}
 	}
 
+	// Init redis
 	redis.Init()
-
-	// initial db update
-
-	//
+	redis.UpdateRawData()
 }

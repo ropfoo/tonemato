@@ -18,7 +18,7 @@ export default function Home() {
 
   const error = <div>something went wrong</div>;
 
-  // just temprary bug fix in this branch
+  // just temporary bug fix in this branch
   createEffect(async () => {
     const teasers = await fetchRalts();
     setData(teasers);
@@ -27,9 +27,9 @@ export default function Home() {
 
   return (
     <main>
-      <Show when={data()?.error || !data()?.teaser} fallback={error}>
+      <Show when={!data()?.error} fallback={error}>
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-y-12 lg:grid-cols-3 lg:gap-11 lg:gap-y-16 xl:grid-cols-4">
-          <For each={data()?.teasers}>
+          <For each={data()}>
             {(teaser: TeaserType) => <Teaser teaser={teaser} />}
           </For>
         </div>

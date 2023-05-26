@@ -2,8 +2,8 @@ package main
 
 import (
 	"os"
-	"tonemato/apps/ralts/controller"
-	"tonemato/apps/ralts/middleware"
+	"tonemato/apps/ralts/api/controller"
+	"tonemato/apps/ralts/api/middleware"
 	"tonemato/apps/ralts/setup"
 
 	"github.com/gin-gonic/gin"

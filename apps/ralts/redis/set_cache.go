@@ -2,12 +2,12 @@ package redis
 
 import (
 	"context"
-	"log"
+	"fmt"
 )
 
 func SetCache(ctx context.Context, key string, value string) {
 	err := Redis.Set(ctx, key, value, 0)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
