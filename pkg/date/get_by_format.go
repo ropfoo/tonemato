@@ -49,5 +49,5 @@ func GetByFormat(dateString string, format Format) (time.Time, error) {
 		return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Local), nil
 	}
 
-	panic(("Wrong format"))
+	return fallbackDate, errors.New("unsupported format")
 }

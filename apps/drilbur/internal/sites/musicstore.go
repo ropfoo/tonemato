@@ -1,6 +1,7 @@
 package sites
 
 import (
+	"log"
 	"strconv"
 	"tonemato/apps/drilbur/internal/helper"
 	"tonemato/pkg/date"
@@ -42,7 +43,11 @@ func (mp *MusicstorePage) ScrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	})
 	// Date
 	el.ForEach(".date", func(index int, dateElement *colly.HTMLElement) {
-		teaser.Date, _ = date.GetByFormat(dateElement.Text, date.DMYDot)
+		convertedDate, err := date.GetByFormat(dateElement.Text, date.DMYDot)
+		if err != nil {
+			log.Print("could not convert date")
+		}
+		teaser.Date = convertedDate
 	})
 	// Title
 	el.ForEach(".teaser-body h4", func(index int, titleElement *colly.HTMLElement) {
