@@ -7,7 +7,7 @@ type ScrapeConfig struct {
 	PageCountTarget string
 }
 
-type Parameters struct {
+type ScrapeParameters struct {
 	Instrument
 	Category
 }
@@ -15,7 +15,7 @@ type Parameters struct {
 type TeaserScraper interface {
 	ScrapeTeaser(*colly.HTMLElement) Teaser
 	ScrapePageCount(*colly.HTMLElement) int
-	SetParameters(parameters Parameters)
+	SetParameters(parameters ScrapeParameters)
 	Url(pageCount int) string
 	Config() ScrapeConfig
 }

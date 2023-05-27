@@ -32,7 +32,7 @@ func main() {
 	router.GET("/scrape", func(ctx *gin.Context) {
 		var instrument string = ctx.Query("instrument")
 		var category string = ctx.Query("category")
-		parameters := model.Parameters{
+		parameters := model.ScrapeParameters{
 			Instrument: model.Instruments[instrument],
 			Category:   model.Categories[category],
 		}

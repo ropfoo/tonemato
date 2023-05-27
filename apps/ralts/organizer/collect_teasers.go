@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"tonemato/apps/ralts/utils"
 	"tonemato/pkg/model"
 	"tonemato/pkg/url"
 )
@@ -37,8 +38,12 @@ func CollectTeasers() map[string][]model.Teaser {
 		// sort teasers of each site into query based collections
 		for _, teasers := range scrapedSites {
 			for _, teaser := range teasers {
-				var regionKey = string(teaser.ZipCode[0])
-				teasersCollections[regionKey] = append(teasersCollections[regionKey], teaser)
+				var cacheKey = utils.GetParamKey(model.TeaserParams{
+					Category:   "lookingForMusician",
+					Instrument: instrument.Name,
+					ZipCode:    teaser.ZipCode,
+				})
+				teasersCollections[cacheKey] = append(teasersCollections[cacheKey], teaser)
 			}
 		}
 	}

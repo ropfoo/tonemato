@@ -5,7 +5,7 @@ import (
 	"tonemato/pkg/model"
 )
 
-func ScrapeSites(parameters model.Parameters) map[string][]model.Teaser {
+func ScrapeSites(parameters model.ScrapeParameters) map[string][]model.Teaser {
 	sites.Musicstore.SetParameters(parameters)
 	sites.Musikersucht.SetParameters(parameters)
 

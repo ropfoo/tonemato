@@ -15,7 +15,7 @@ func main() {
 	app := gin.New()
 	app.Use(middleware.Cors())
 
-	app.GET("/", controller.Teasers)
+	app.GET("/", controller.TeasersController)
 
 	app.Run(":" + os.Getenv("VITE_RALTS_PORT"))
 }

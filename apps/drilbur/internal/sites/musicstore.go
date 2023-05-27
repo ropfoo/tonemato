@@ -11,7 +11,7 @@ import (
 )
 
 type MusicstorePage struct {
-	model.Parameters
+	model.ScrapeParameters
 	model.ScrapeConfig
 }
 
@@ -24,8 +24,8 @@ var Musicstore = MusicstorePage{
 
 func (mp *MusicstorePage) Url(pageCount int) string {
 	var page string = strconv.Itoa(pageCount)
-	var category string = mp.Parameters.Category.MusicstoreID
-	var instrument string = strconv.Itoa(mp.Parameters.Instrument.MusicstoreID)
+	var category string = mp.ScrapeParameters.Category.MusicstoreID
+	var instrument string = strconv.Itoa(mp.ScrapeParameters.Instrument.MusicstoreID)
 	var baseUrl string = helper.GetBaseUrl("musicstore")
 	return baseUrl +
 		"/page/" + page +
@@ -75,8 +75,8 @@ func (mp *MusicstorePage) ScrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	return teaser
 }
 
-func (mp *MusicstorePage) SetParameters(parameters model.Parameters) {
-	mp.Parameters = parameters
+func (mp *MusicstorePage) SetParameters(parameters model.ScrapeParameters) {
+	mp.ScrapeParameters = parameters
 }
 
 func (mp *MusicstorePage) Config() model.ScrapeConfig {

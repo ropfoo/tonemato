@@ -10,7 +10,7 @@ import (
 )
 
 type MusikersuchtPage struct {
-	model.Parameters
+	model.ScrapeParameters
 	model.ScrapeConfig
 }
 
@@ -23,8 +23,8 @@ var Musikersucht = MusikersuchtPage{
 
 func (mp *MusikersuchtPage) Url(pageCount int) string {
 	var page string = strconv.Itoa(pageCount)
-	var category string = mp.Parameters.Category.MusikersuchtID
-	var instrument string = strconv.Itoa(mp.Parameters.Instrument.MusikersuchtID)
+	var category string = mp.ScrapeParameters.Category.MusikersuchtID
+	var instrument string = strconv.Itoa(mp.ScrapeParameters.Instrument.MusikersuchtID)
 	var baseUrl string = helper.GetBaseUrl("musikersucht")
 	return baseUrl +
 		"/" + category +
@@ -63,8 +63,8 @@ func (mp *MusikersuchtPage) ScrapeTeaser(el *colly.HTMLElement) model.Teaser {
 	return teaser
 }
 
-func (mp *MusikersuchtPage) SetParameters(parameters model.Parameters) {
-	mp.Parameters = parameters
+func (mp *MusikersuchtPage) SetParameters(parameters model.ScrapeParameters) {
+	mp.ScrapeParameters = parameters
 }
 
 func (mp *MusikersuchtPage) Config() model.ScrapeConfig {

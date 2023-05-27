@@ -21,3 +21,8 @@ export interface Teaser {
   previewImageUrl: string;
   domain: Domain;
 }
+export interface TeaserParams {
+  instrumemt: string;
+  category: string;
+  zipCode: string;
+}

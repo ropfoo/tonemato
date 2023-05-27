@@ -12,3 +12,9 @@ type Teaser struct {
 	PreviewImageUrl string    `json:"previewImageUrl"`
 	Domain          Domain    `json:"domain"`
 }
+
+type TeaserParams struct {
+	Instrument string `json:"instrumemt"`
+	Category   string `json:"category"`
+	ZipCode    string `json:"zipCode"`
+}
