@@ -2,9 +2,7 @@ package organizer
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"tonemato/apps/ralts/utils"
 	"tonemato/pkg/model"
@@ -19,20 +17,23 @@ func CollectTeasers() map[string][]model.Teaser {
 		var params string = "/scrape?instrument=" + instrument.Name + "&category=lookingForMusician"
 		response, err := http.Get(url.Drilbur(params))
 		if err != nil {
-			log.Fatal(err)
+			utils.Zap.Error("Failed requesting drilbur with the error: " + err.Error())
+			break
 		}
 		defer response.Body.Close()
 
 		// read body
 		responseBody, err := io.ReadAll(response.Body)
 		if err != nil {
-			log.Fatalln(err)
+			utils.Zap.Error("Failed reading response body: " + err.Error())
+			break
 		}
 
 		// convert body to scraped site
 		var scrapedSites map[string][]model.Teaser
 		if err := json.Unmarshal(responseBody, &scrapedSites); err != nil {
-			fmt.Println(err)
+			utils.Zap.Error("Failed unmarshalling teaser site result: " + err.Error())
+			break
 		}
 
 		// sort teasers of each site into query based collections
