@@ -22,7 +22,7 @@ export interface Teaser {
   domain: Domain;
 }
 export interface TeaserParams {
-  instrumemt: string;
+  instrument: string;
   category: string;
   zipCode: string;
 }

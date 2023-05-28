@@ -12,9 +12,14 @@ import {
   Title,
 } from 'solid-start';
 import './root.css';
-import '../styles/fonts.css';
+import './styles/fonts.css';
+import './styles/animations.css';
 import Header from './components/Header';
 import Layout from './components/Layout';
+import FilterProvider from './components/Filter/FilterProvider';
+import { QueryClient, QueryClientProvider } from '@tanstack/solid-query';
+
+const queryClient = new QueryClient();
 
 export default function Root() {
   return (
@@ -27,12 +32,16 @@ export default function Root() {
       <Body class="bg-white dark:bg-black">
         <Suspense>
           <ErrorBoundary>
-            <Header />
-            <Layout>
-              <Routes>
-                <FileRoutes />
-              </Routes>
-            </Layout>
+            <QueryClientProvider client={queryClient}>
+              <FilterProvider>
+                <Header />
+                <Layout>
+                  <Routes>
+                    <FileRoutes />
+                  </Routes>
+                </Layout>
+              </FilterProvider>
+            </QueryClientProvider>
           </ErrorBoundary>
         </Suspense>
         <Scripts />

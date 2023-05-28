@@ -14,7 +14,7 @@ type Teaser struct {
 }
 
 type TeaserParams struct {
-	Instrument string `json:"instrumemt"`
+	Instrument string `json:"instrument"`
 	Category   string `json:"category"`
 	ZipCode    string `json:"zipCode"`
 }
