@@ -23,9 +23,9 @@ module.exports = {
     extend: {
       backgroundImage: {
         'teaser-elvis':
-          'linear-gradient(299.63deg, #EAEAFF 0%, #EAEAFF 0%, #EDEDFF 0.01%, #FDFDFF 49.23%, #F9F9FF 91.67%)',
+          'radial-gradient(73.26% 81.37% at 23.09% 29.52%, rgba(143, 188, 255, 0.21) 0%, rgba(232, 232, 255, 0.21) 29.27%, rgba(243, 241, 255, 0.24) 50.4%, rgba(199, 216, 255, 0.048) 71.92%, rgba(194, 219, 255, 0.132) 100%) ',
         'teaser-presley':
-          'linear-gradient(299.63deg, #282758 0%, #181736 16.67%, #171329 47.92%, #100F19 100%)',
+          'radial-gradient(73.26% 81.37% at 23.09% 29.52%, rgba(0, 102, 254, 0.24) 0%, rgba(51, 50, 113, 0.228) 29.27%, rgba(29, 21, 71, 0.24) 50.4%, rgba(60, 89, 157, 0.048) 71.92%, rgba(0, 37, 91, 0.234) 100%) ',
         'teaser-jimmy':
           'linear-gradient(299.63deg, #E1FFFA 0%, #F7FFFD 45.83%, #F2FFFD 100%)',
         'teaser-hendrix':
@@ -34,10 +34,6 @@ module.exports = {
           'linear-gradient(299.63deg, #FFEDED 0%, #FFFBF9 45.83%, #FFFCFB 100%)',
         'teaser-stewart':
           'linear-gradient(299.63deg, #830101 0%, #251313 47.71%, #121111 100%)',
-        'teaser-ghost':
-          'radial-gradient(73.26% 81.37% at 23.09% 29.52%, rgba(165, 165, 165, 0.174) 0%, rgba(226, 226, 226, 0.21) 29.27%, rgba(236, 236, 236, 0.24) 50.4%, rgba(188, 188, 188, 0.048) 71.92%, rgba(188, 188, 188, 0.132) 100%)',
-        'teaser-ghost-dark':
-          'radial-gradient(73.26% 81.37% at 23.09% 29.52%, rgba(255, 255, 255, 0.24) 0%, rgba(111, 111, 111, 0.228) 25%, rgba(66, 66, 66, 0.24) 50%, rgba(157, 157, 157, 0.048) 67.19%, rgba(87, 87, 87, 0.234) 100%)',
       },
       borderWidth: {
         1: '0.063rem',

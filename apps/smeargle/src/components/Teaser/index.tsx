@@ -2,6 +2,7 @@ import { A } from '@solidjs/router';
 import dayjs from 'dayjs';
 import type { Teaser as TeaserType } from '~/generated/tygo';
 import HoverIndicator from './HoverIndicator';
+import TeaserProfileImage from './TeaserProfileImage';
 
 interface TeaserProps {
   teaser: TeaserType;
@@ -11,13 +12,9 @@ export default function Teaser(props: TeaserProps) {
   return (
     <A href={props.teaser.url} target="_blank" class="group relative">
       <HoverIndicator />
-      <div class="bg-teaser-presley flex h-[300px] flex-col overflow-hidden rounded-2xl  p-5 text-white md:p-8 lg:p-5 ">
+      <div class="dark:bg-teaser-presley bg-teaser-elvis border-1 dark:border-janis/50 border-snow group-hover:border-elvis dark:group-hover:border-presley/80 text-onyx flex h-[300px] flex-col overflow-hidden rounded-2xl p-5 transition-colors dark:text-white md:p-8 lg:p-5 ">
         <div class="flex justify-between">
-          <img
-            class="h-20 w-20 rounded-2xl object-cover "
-            src={props.teaser.previewImageUrl}
-            alt=""
-          />
+          <TeaserProfileImage imageUrl={props.teaser.previewImageUrl} alt="" />
           <div class="text-wolf flex h-5 items-center rounded-full bg-black px-2 text-right">
             <p class="text-xs">{props.teaser.domain}</p>
           </div>
