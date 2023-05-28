@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"tonemato/apps/ralts/logger"
 	"tonemato/apps/ralts/utils"
 	"tonemato/pkg/model"
 	"tonemato/pkg/url"
@@ -38,11 +39,14 @@ func CollectTeasers() map[string][]model.Teaser {
 		// sort teasers of each site into query based collections
 		for _, teasers := range scrapedSites {
 			for _, teaser := range teasers {
-				var cacheKey = utils.GetParamKey(model.TeaserParams{
+				cacheKey, err := utils.GetParamKey(model.TeaserParams{
 					Category:   "lookingForMusician",
 					Instrument: instrument.Name,
 					ZipCode:    teaser.ZipCode,
 				})
+				if err != nil {
+					logger.Zap.Error("Failed to get param key : " + err.Error())
+				}
 				teasersCollections[cacheKey] = append(teasersCollections[cacheKey], teaser)
 			}
 		}

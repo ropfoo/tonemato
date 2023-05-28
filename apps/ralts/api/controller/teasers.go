@@ -18,7 +18,15 @@ func TeasersController(ctx *gin.Context) {
 		Category:   ctx.Query("category"),
 		ZipCode:    ctx.Query("zipCode"),
 	}
-	var cacheKey string = utils.GetParamKey(parameters)
+
+	cacheKey, err := utils.GetParamKey(parameters)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
 	// get teasers from redis cache based on query params
 	cachedTeasersString := redis.GetCache(ctx.Request.Context(), cacheKey)
 

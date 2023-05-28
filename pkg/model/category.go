@@ -8,12 +8,12 @@ type Category struct {
 
 var Categories map[string]Category = map[string]Category{
 	"lookingForMusician": {
-		Name:           "looking for musician",
+		Name:           "lfm",
 		MusikersuchtID: "musician",
 		MusicstoreID:   "msb",
 	},
 	"lookingForBand": {
-		Name:           "looking for band",
+		Name:           "lfb",
 		MusikersuchtID: "band",
 		MusicstoreID:   "bsm",
 	},
