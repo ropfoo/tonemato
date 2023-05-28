@@ -3,8 +3,8 @@ package setup
 import (
 	"log"
 	"os"
-	"tonemato/apps/ralts/logger"
 	"tonemato/apps/ralts/redis"
+	"tonemato/apps/ralts/utils"
 
 	"github.com/joho/godotenv"
 )
@@ -19,7 +19,7 @@ func Init() {
 	}
 
 	// Init redis
-	logger.Zap.Info("Starting ralts")
+	utils.Zap.Info("Starting ralts")
 	redis.Init()
 	redis.UpdateRawData()
 }

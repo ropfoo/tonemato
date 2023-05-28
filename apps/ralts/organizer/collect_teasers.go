@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"tonemato/apps/ralts/logger"
 	"tonemato/apps/ralts/utils"
 	"tonemato/pkg/model"
 	"tonemato/pkg/url"
@@ -45,7 +44,7 @@ func CollectTeasers() map[string][]model.Teaser {
 					ZipCode:    teaser.ZipCode,
 				})
 				if err != nil {
-					logger.Zap.Error("Failed to get param key : " + err.Error())
+					utils.Zap.Error("Failed to get param key : " + err.Error())
 				}
 				teasersCollections[cacheKey] = append(teasersCollections[cacheKey], teaser)
 			}

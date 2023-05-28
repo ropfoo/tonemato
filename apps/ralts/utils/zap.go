@@ -1,4 +1,4 @@
-package logger
+package utils
 
 import "tonemato/pkg/logger"
 
