@@ -21,5 +21,9 @@ func Init() {
 	// Init redis
 	utils.Zap.Info("Starting ralts")
 	redis.Init()
-	redis.UpdateRawData()
+
+	// Update cache if it is stale
+	if redis.IsCacheStale() {
+		redis.UpdateRawData()
+	}
 }

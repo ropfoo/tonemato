@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"time"
 	"tonemato/apps/ralts/organizer"
 	"tonemato/pkg/model"
 )
@@ -20,4 +21,6 @@ func UpdateRawData() {
 		}
 		SetCache(ctx, key, string(collectionBytes))
 	}
+	// updated timestamp
+	SetCache(ctx, "timestamp", time.Now().Format(time.RFC3339))
 }
