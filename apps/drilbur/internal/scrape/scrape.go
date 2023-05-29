@@ -8,7 +8,7 @@ import (
 	"github.com/gocolly/colly"
 )
 
-func scrapeTeaserSite(scraper model.TeaserScraper, channel chan model.Teaser) {
+func scrapeTeaserSite(scraper model.TeaserScraper, channel chan model.ScrapedTeaser) {
 	config := scraper.Config()
 	pageCount := 1
 
@@ -22,6 +22,7 @@ func scrapeTeaserSite(scraper model.TeaserScraper, channel chan model.Teaser) {
 			newTeaser := scraper.ScrapeTeaser(element)
 			// check if element qualifies as a teaser
 			if newTeaser.Description != "" {
+				newTeaser.Meta.Page = page
 				channel <- newTeaser
 			}
 		})
@@ -50,12 +51,12 @@ func scrapeTeaserSite(scraper model.TeaserScraper, channel chan model.Teaser) {
 	close(channel)
 }
 
-func scrapeTeasers(scraper model.TeaserScraper) []model.Teaser {
-	teaserChannel := make(chan model.Teaser)
-	go scrapeTeaserSite(scraper, teaserChannel)
-	var teasers []model.Teaser
-	for newTeaser := range teaserChannel {
-		teasers = append(teasers, newTeaser)
+func scrapeTeasers(scraper model.TeaserScraper) []model.ScrapedTeaser {
+	scrapedTeaserChannel := make(chan model.ScrapedTeaser)
+	go scrapeTeaserSite(scraper, scrapedTeaserChannel)
+	var scrapedTeasers []model.ScrapedTeaser
+	for newTeaser := range scrapedTeaserChannel {
+		scrapedTeasers = append(scrapedTeasers, newTeaser)
 	}
-	return teasers
+	return scrapedTeasers
 }

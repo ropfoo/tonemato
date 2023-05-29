@@ -4,8 +4,6 @@ import (
 	"time"
 )
 
-var prevDate time.Time = time.Now()
-
 // Adds missing year based on occurance by starting with the current date
 // This should be called in an array of sorted day-month pairs.
 //
@@ -16,7 +14,7 @@ var prevDate time.Time = time.Now()
 // 10.02 => 10.02.2023
 //
 // 04.04 => 04.04.2022
-func AddMissingYear(dateString string, format Format) time.Time {
+func AddMissingYear(dateString string, prevDate *time.Time, format Format) time.Time {
 	// convert to time.Time based on format
 	dateByFormat, _ := GetByFormat(dateString, format)
 	newYear := prevDate.Year()
@@ -32,6 +30,6 @@ func AddMissingYear(dateString string, format Format) time.Time {
 		0, 0, 0, 0,
 		time.Local,
 	)
-	prevDate = date
+	*prevDate = date
 	return date
 }

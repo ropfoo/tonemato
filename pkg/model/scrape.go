@@ -13,7 +13,7 @@ type ScrapeParameters struct {
 }
 
 type TeaserScraper interface {
-	ScrapeTeaser(*colly.HTMLElement) Teaser
+	ScrapeTeaser(*colly.HTMLElement) ScrapedTeaser
 	ScrapePageCount(*colly.HTMLElement) int
 	SetParameters(parameters ScrapeParameters)
 	Url(pageCount int) string

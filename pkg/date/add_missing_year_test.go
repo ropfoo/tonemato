@@ -1,6 +1,7 @@
 package date
 
 import (
+	"fmt"
 	"testing"
 	"time"
 )
@@ -40,11 +41,11 @@ func TestAddMissingYear(t *testing.T) {
 			Format:   DMYDot,
 		},
 	}
-
+	var prevDate time.Time = time.Now()
 	for _, td := range testData {
-		gotDate := AddMissingYear(td.GotDate, td.Format)
+		gotDate := AddMissingYear(td.GotDate, &prevDate, td.Format)
 		wantDate, _ := time.Parse(time.RFC3339, td.WantDate)
-
+		fmt.Println(prevDate)
 		if wantDate.Compare(gotDate) != 0 {
 			t.Errorf("got %q, wanted %q", gotDate, wantDate)
 		}

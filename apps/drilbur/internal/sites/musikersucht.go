@@ -3,7 +3,6 @@ package sites
 import (
 	"strconv"
 	"tonemato/apps/drilbur/internal/helper"
-	"tonemato/pkg/date"
 	"tonemato/pkg/model"
 
 	"github.com/gocolly/colly"
@@ -32,8 +31,8 @@ func (mp *MusikersuchtPage) Url(pageCount int) string {
 		"/page:" + page
 }
 
-func (mp *MusikersuchtPage) ScrapeTeaser(el *colly.HTMLElement) model.Teaser {
-	var teaser model.Teaser
+func (mp *MusikersuchtPage) ScrapeTeaser(el *colly.HTMLElement) model.ScrapedTeaser {
+	var teaser model.ScrapedTeaser
 
 	// URL
 	el.ForEach("a", func(index int, urlElement *colly.HTMLElement) {
@@ -48,8 +47,7 @@ func (mp *MusikersuchtPage) ScrapeTeaser(el *colly.HTMLElement) model.Teaser {
 			// Description
 			teaser.Description = helper.PrettifyDescription(textElement.Text[7:])
 			// Date
-			dateString := textElement.Text[:6]
-			teaser.Date = date.AddMissingYear(dateString, date.DMYDot)
+			teaser.Meta.DateString = textElement.Text[:6]
 		}
 		// ZipCode
 		// City

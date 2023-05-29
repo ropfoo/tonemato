@@ -2,6 +2,13 @@ package model
 
 import "time"
 
+type TeaserScrapeMetaInfo struct {
+	Meta struct {
+		Page       int    `json:"page"`
+		DateString string `json:"dateString"`
+	} `json:"meta"`
+}
+
 type Teaser struct {
 	Url             string    `json:"url"`
 	Date            time.Time `json:"date"`
@@ -11,6 +18,11 @@ type Teaser struct {
 	City            string    `json:"city"`
 	PreviewImageUrl string    `json:"previewImageUrl"`
 	Domain          Domain    `json:"domain"`
+}
+
+type ScrapedTeaser struct {
+	Teaser
+	TeaserScrapeMetaInfo
 }
 
 type TeaserParams struct {

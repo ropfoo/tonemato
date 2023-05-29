@@ -34,8 +34,8 @@ func (mp *MusicstorePage) Url(pageCount int) string {
 		"&age=alle"
 }
 
-func (mp *MusicstorePage) ScrapeTeaser(el *colly.HTMLElement) model.Teaser {
-	var teaser model.Teaser
+func (mp *MusicstorePage) ScrapeTeaser(el *colly.HTMLElement) model.ScrapedTeaser {
+	var teaser model.ScrapedTeaser
 
 	// Url
 	el.ForEach(".teaser-content a", func(index int, urlElement *colly.HTMLElement) {
