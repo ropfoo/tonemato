@@ -3,7 +3,7 @@ package sites
 import (
 	"log"
 	"strconv"
-	"tonemato/apps/drilbur/internal/helper"
+	"tonemato/apps/drilbur/internal/utils"
 	"tonemato/pkg/date"
 	"tonemato/pkg/model"
 
@@ -26,7 +26,7 @@ func (mp *MusicstorePage) Url(pageCount int) string {
 	var page string = strconv.Itoa(pageCount)
 	var category string = mp.ScrapeParameters.Category.MusicstoreID
 	var instrument string = strconv.Itoa(mp.ScrapeParameters.Instrument.MusicstoreID)
-	var baseUrl string = helper.GetBaseUrl("musicstore")
+	var baseUrl string = utils.GetBaseUrl("musicstore")
 	return baseUrl +
 		"/page/" + page +
 		"/?category=" + category +
@@ -55,7 +55,7 @@ func (mp *MusicstorePage) ScrapeTeaser(el *colly.HTMLElement) model.ScrapedTease
 	})
 	// Description
 	el.ForEach(".teaser-text", func(index int, textElement *colly.HTMLElement) {
-		teaser.Description = helper.PrettifyDescription(textElement.Text)
+		teaser.Description = utils.PrettifyDescription(textElement.Text)
 	})
 	// ZipCode
 	// City

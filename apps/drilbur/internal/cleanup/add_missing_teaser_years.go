@@ -4,34 +4,33 @@ import (
 	"sort"
 	"time"
 	"tonemato/pkg/date"
+	"tonemato/pkg/helper"
 	"tonemato/pkg/model"
 )
 
-// type ByPage []model.ScrapedTeaser
-
-// func (teasers ByPage) Len() int           { return len(teasers) }
-// func (teasers ByPage) Swap(i, j int)      { teasers[i], teasers[j] = teasers[j], teasers[i] }
-// func (teasers ByPage) Less(i, j int) bool { return teasers[i].Meta.Page < teasers[j].Meta.Page }
-
-type ByMonth []model.ScrapedTeaser
-
-func (teasers ByMonth) Len() int      { return len(teasers) }
-func (teasers ByMonth) Swap(i, j int) { teasers[i], teasers[j] = teasers[j], teasers[i] }
-func (teasers ByMonth) Less(i, j int) bool {
-	return teasers[i].Meta.DateString[2:4] < teasers[j].Meta.DateString[2:4]
-}
-
 func AddMissingTeaserYears(scrapedTeasers []model.ScrapedTeaser) []model.ScrapedTeaser {
 	var sortedTeasers []model.ScrapedTeaser
+	var pagedTeasers map[int][]model.ScrapedTeaser = map[int][]model.ScrapedTeaser{}
 
-	sort.Slice(ByMonth(scrapedTeasers), func(i, j int) bool {
-		return scrapedTeasers[i].Meta.Page < scrapedTeasers[j].Meta.Page
-	})
-
-	var prevDate time.Time = time.Now()
+	// group teasers in their corresponding pages
 	for _, teaser := range scrapedTeasers {
-		teaser.Date = date.AddMissingYear(teaser.Meta.DateString, &prevDate, date.DMYDot)
-		sortedTeasers = append(sortedTeasers, teaser)
+		pagedTeasers[teaser.Meta.Page] = append(pagedTeasers[teaser.Meta.Page], teaser)
+	}
+
+	// sort teasers by month inside their page group
+	for _, teasersInPageGroup := range pagedTeasers {
+		sort.Sort(helper.SortByMonth(teasersInPageGroup))
+	}
+
+	// flatten paged teasers and sort them by acsending page number
+	for i := 1; i <= len(pagedTeasers); i++ {
+		sortedTeasers = append(sortedTeasers, pagedTeasers[i]...)
+	}
+
+	// add missing year to sorted teasers
+	var prevDate time.Time = time.Now()
+	for i, teaser := range sortedTeasers {
+		sortedTeasers[i].Date = date.AddMissingYear(teaser.Meta.DateString, &prevDate, date.DMYDot)
 	}
 
 	return sortedTeasers

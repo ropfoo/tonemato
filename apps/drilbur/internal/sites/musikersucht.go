@@ -2,7 +2,8 @@ package sites
 
 import (
 	"strconv"
-	"tonemato/apps/drilbur/internal/helper"
+
+	"tonemato/apps/drilbur/internal/utils"
 	"tonemato/pkg/model"
 
 	"github.com/gocolly/colly"
@@ -24,7 +25,7 @@ func (mp *MusikersuchtPage) Url(pageCount int) string {
 	var page string = strconv.Itoa(pageCount)
 	var category string = mp.ScrapeParameters.Category.MusikersuchtID
 	var instrument string = strconv.Itoa(mp.ScrapeParameters.Instrument.MusikersuchtID)
-	var baseUrl string = helper.GetBaseUrl("musikersucht")
+	var baseUrl string = utils.GetBaseUrl("musikersucht")
 	return baseUrl +
 		"/" + category +
 		"/instrument:" + instrument +
@@ -45,7 +46,7 @@ func (mp *MusikersuchtPage) ScrapeTeaser(el *colly.HTMLElement) model.ScrapedTea
 		}
 		if index == 1 {
 			// Description
-			teaser.Description = helper.PrettifyDescription(textElement.Text[7:])
+			teaser.Description = utils.PrettifyDescription(textElement.Text[7:])
 			// Date
 			teaser.Meta.DateString = textElement.Text[:6]
 		}
