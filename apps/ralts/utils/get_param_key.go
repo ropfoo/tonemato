@@ -8,6 +8,11 @@ import (
 // Returns cache key based on given parameters
 func GetParamKey(teaserParams model.TeaserParams) (string, error) {
 	var cacheKey string
+
+	if len(teaserParams.ZipCode) <= 0 {
+		return "", errors.New("zip code must be larger than 0")
+	}
+
 	var regionKey = string(teaserParams.ZipCode[0])
 
 	// check if instrument exists
