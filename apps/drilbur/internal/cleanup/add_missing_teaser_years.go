@@ -8,6 +8,7 @@ import (
 	"tonemato/pkg/model"
 )
 
+// Takes an unsorted array of scraped teasers without a year in the date string (eg. 02.05.) and returns a sorted version including a proper Date value
 func AddMissingTeaserYears(scrapedTeasers []model.ScrapedTeaser) []model.ScrapedTeaser {
 	var sortedTeasers []model.ScrapedTeaser
 	var pagedTeasers map[int][]model.ScrapedTeaser = map[int][]model.ScrapedTeaser{}
@@ -17,9 +18,9 @@ func AddMissingTeaserYears(scrapedTeasers []model.ScrapedTeaser) []model.Scraped
 		pagedTeasers[teaser.Meta.Page] = append(pagedTeasers[teaser.Meta.Page], teaser)
 	}
 
-	// sort teasers by month inside their page group
+	// sort teasers by order inside their page group
 	for _, teasersInPageGroup := range pagedTeasers {
-		sort.Sort(helper.SortByMonth(teasersInPageGroup))
+		sort.Sort(helper.SortByOrder(teasersInPageGroup))
 	}
 
 	// flatten paged teasers and sort them by acsending page number

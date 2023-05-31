@@ -6,6 +6,12 @@ import (
 	"tonemato/pkg/model"
 )
 
+type SortByOrder []model.ScrapedTeaser
+
+func (teasers SortByOrder) Len() int           { return len(teasers) }
+func (teasers SortByOrder) Swap(i, j int)      { teasers[i], teasers[j] = teasers[j], teasers[i] }
+func (teasers SortByOrder) Less(i, j int) bool { return teasers[i].Meta.Order < teasers[j].Meta.Order }
+
 type SortByPage []model.ScrapedTeaser
 
 func (teasers SortByPage) Len() int           { return len(teasers) }

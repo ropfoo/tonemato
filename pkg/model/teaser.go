@@ -6,6 +6,7 @@ type TeaserScrapeMetaInfo struct {
 	Meta struct {
 		Page       int    `json:"page"`
 		DateString string `json:"dateString"`
+		Order      int    `json:"order"`
 	} `json:"meta"`
 }
 

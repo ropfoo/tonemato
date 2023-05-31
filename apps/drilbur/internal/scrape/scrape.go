@@ -18,10 +18,13 @@ func scrapeTeaserSite(scraper model.TeaserScraper, channel chan model.ScrapedTea
 		defer wg.Done()
 		// DEBUG ONLY: artificial delay
 		// time.Sleep(time.Second)
+		count := 1
 		collector.OnHTML(config.TeaserTarget, func(element *colly.HTMLElement) {
 			newTeaser := scraper.ScrapeTeaser(element)
 			// check if element qualifies as a teaser
 			if newTeaser.Description != "" {
+				newTeaser.Meta.Order = count
+				count++
 				newTeaser.Meta.Page = page
 				channel <- newTeaser
 			}

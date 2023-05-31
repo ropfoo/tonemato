@@ -3,7 +3,7 @@ import { useFilterContext } from '~/components/Filter/FilterProvider';
 import { getTeasers } from '~/requests/fetch-teasers';
 
 export function useTeasers(): [
-  // TODO add propper typing once endpoint returns flattened result
+  // TODO add proper once endpoint returns flattened result
   CreateQueryResult<any, unknown>,
   { isLoading: () => boolean }
 ] {
