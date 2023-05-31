@@ -47,4 +47,7 @@ sh tonemato.sh
 - The `ralts` service definitely needs the `redis` Docker container to work.
 - The apps currently have a dependency on each other from Frontend to Backend:
   - if you start `smeargle`, you will also have to start `ralts` which also needs `drilbur` if there is no current cache stored in redis.
-- Also make sure your local npm version matches the packageManager version in package.json
+
+#### Overview
+<img width="981" alt="Screenshot 2023-05-31 at 13 07 25" src="https://github.com/ropfoo/tonemato/assets/18482002/609b82ed-24ec-4edc-a82d-23a0b93bdce4">
+
