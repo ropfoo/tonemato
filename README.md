@@ -14,13 +14,16 @@ If you want to start apps individually on your local machine, you can use the fo
 toto init
 
 # start dev servers
-toto drilbur dev # Start the scraping service along with docker container running the mock server
-toto ralts dev # Start the redis cache interface aliong with docker container running redis
-toto smeargle dev # Start the SolidJS Frontend Application
+toto drilbur dev # Start the scraping service along with a docker container running the mock server
+toto ralts dev # Start the teaser backend along with a docker container running redis
+toto smeargle dev # Start the web frontend app
 
 # other handy commands
 toto up # docker compose up -d
 toto down # docker compose down
+
+toto < service > install
+toto < service > test
 ```
 
 ### Setup
