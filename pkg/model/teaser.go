@@ -21,6 +21,14 @@ type Teaser struct {
 	Domain          Domain    `json:"domain"`
 }
 
+func (teaser Teaser) GetDate() time.Time {
+	return teaser.Date
+}
+
+type TeaserInterface interface {
+	GetDate() time.Time
+}
+
 type ScrapedTeaser struct {
 	Teaser
 	TeaserScrapeMetaInfo

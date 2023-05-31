@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"tonemato/apps/ralts/utils"
+	"tonemato/pkg/helper"
 	"tonemato/pkg/model"
 	"tonemato/pkg/url"
 )
@@ -50,6 +51,9 @@ func CollectTeasers() map[string][]model.Teaser {
 				teasersCollections[cacheKey] = append(teasersCollections[cacheKey], teaser)
 			}
 		}
+	}
+	for _, teasers := range teasersCollections {
+		helper.SortTeasersByDate(teasers)
 	}
 	return teasersCollections
 }

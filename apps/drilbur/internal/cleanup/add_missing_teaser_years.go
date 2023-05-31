@@ -1,7 +1,6 @@
 package cleanup
 
 import (
-	"sort"
 	"time"
 	"tonemato/pkg/date"
 	"tonemato/pkg/helper"
@@ -20,7 +19,7 @@ func AddMissingTeaserYears(scrapedTeasers []model.ScrapedTeaser) []model.Scraped
 
 	// sort teasers by order inside their page group
 	for _, teasersInPageGroup := range pagedTeasers {
-		sort.Sort(helper.SortByOrder(teasersInPageGroup))
+		helper.SortTeaserByOrder(teasersInPageGroup)
 	}
 
 	// flatten paged teasers and sort them by acsending page number
