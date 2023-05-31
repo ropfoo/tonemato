@@ -19,7 +19,7 @@ func TeasersController(ctx *gin.Context) {
 		ZipCode:    ctx.Query("zipCode"),
 	}
 
-	cacheKey, err := utils.GetParamKey(parameters)
+	cacheKey, err := utils.GetCacheKeyByParams(parameters)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),

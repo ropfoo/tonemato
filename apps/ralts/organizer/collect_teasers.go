@@ -39,7 +39,7 @@ func CollectTeasers() map[string][]model.Teaser {
 		// sort teasers of each site into query based collections
 		for _, teasers := range scrapedSites {
 			for _, teaser := range teasers {
-				cacheKey, err := utils.GetParamKey(model.TeaserParams{
+				cacheKey, err := utils.GetCacheKeyByParams(model.TeaserParams{
 					Category:   "lookingForMusician",
 					Instrument: instrument.Name,
 					ZipCode:    teaser.ZipCode,

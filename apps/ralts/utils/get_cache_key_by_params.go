@@ -6,7 +6,7 @@ import (
 )
 
 // Returns cache key based on given parameters
-func GetParamKey(teaserParams model.TeaserParams) (string, error) {
+func GetCacheKeyByParams(teaserParams model.TeaserParams) (string, error) {
 	var cacheKey string
 
 	if len(teaserParams.ZipCode) <= 0 {

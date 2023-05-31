@@ -5,7 +5,7 @@ import (
 	"tonemato/pkg/model"
 )
 
-func TestGetParamKey(t *testing.T) {
+func TestGetCacheKeyByParams(t *testing.T) {
 
 	var params map[string]model.TeaserParams = map[string]model.TeaserParams{
 		"lfm-guitar-5": {
@@ -16,7 +16,7 @@ func TestGetParamKey(t *testing.T) {
 	}
 
 	for key, param := range params {
-		cacheKey, _ := GetParamKey(param)
+		cacheKey, _ := GetCacheKeyByParams(param)
 		if cacheKey != key {
 			t.Errorf("got %q, wanted %q", cacheKey, key)
 		}
