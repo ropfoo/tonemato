@@ -50,5 +50,5 @@ sh tonemato.sh
 
 #### Overview
 
-<img width="1436" alt="Screenshot 2023-06-01 at 13 53 44" src="https://github.com/ropfoo/tonemato/assets/18482002/9169ad6e-c9ca-4659-bdb4-57d8347df7a0">
+<img width="1430" alt="Screenshot 2023-06-01 at 14 18 46" src="https://github.com/ropfoo/tonemato/assets/18482002/8d85d61c-bb0f-438c-81a0-6d2f0fcec7cf">
 
