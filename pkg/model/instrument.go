@@ -4,6 +4,7 @@ type Instrument struct {
 	Name           string
 	MusikersuchtID int
 	MusicstoreID   int
+	MukkenID       string
 }
 
 var Instruments map[string]Instrument = map[string]Instrument{
@@ -11,6 +12,7 @@ var Instruments map[string]Instrument = map[string]Instrument{
 		Name:           "guitar",
 		MusikersuchtID: 4,
 		MusicstoreID:   5,
+		MukkenID:       "r165",
 	},
 	"bass": {
 		Name:           "bass",

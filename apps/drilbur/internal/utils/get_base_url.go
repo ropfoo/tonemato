@@ -33,6 +33,11 @@ func GetBaseUrl(domain model.Domain) string {
 			return mockUrl + "/backstagepro/musikersuche"
 		}
 		return os.Getenv("BACKSTAGEPRO")
+	case "mukken":
+		if isDevelopment {
+			return mockUrl + "/mukken/de/searches"
+		}
+		return os.Getenv("MUKKEN")
 	}
 	return ""
 }

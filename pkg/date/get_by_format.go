@@ -31,19 +31,22 @@ func GetByFormat(dateString string, format Format) (time.Time, error) {
 			return fallbackDate, errors.New(errorMessage)
 		}
 
-		day, error := strconv.Atoi(dateValues[0])
-		if error != nil {
+		day, err := strconv.Atoi(dateValues[0])
+		if err != nil {
 			day = 1
+			fmt.Println("error with day", dateValues[0], err)
 		}
 
-		month, error := strconv.Atoi(dateValues[1])
-		if error != nil {
+		month, err := strconv.Atoi(dateValues[1])
+		if err != nil {
 			month = 1
+			fmt.Println("error with month", dateValues[0], err)
 		}
 
-		year, error := strconv.Atoi(dateValues[2])
-		if error != nil {
+		year, err := strconv.Atoi(dateValues[2])
+		if err != nil {
 			year = 2023
+			fmt.Println("error with year", dateValues[0], err)
 		}
 
 		return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Local), nil

@@ -2,16 +2,20 @@ port: 3001
 dist: dist
 domains:
   musikersucht:
-    url: 'https://www.musiker-sucht.de/requests/index'
+    url: "https://www.musiker-sucht.de/requests/index"
     params:
       - /musician/instrument:4/page:~1-3~
       - /musician/instrument:2/page:~1-4~
   musicstore:
-    url: 'https://musikersuche.musicstore.de/filter-ergebnisse'
+    url: "https://musikersuche.musicstore.de/filter-ergebnisse"
     params:
       - /page/~1-7~/?category=msb&instrument=5&age=alle
       - /page/~1-5~/?category=msb&instrument=6&age=alle
   backstagepro:
-    url: 'https://www.backstagepro.de/musikersuche'
+    url: "https://www.backstagepro.de/musikersuche"
     params:
       - ?radius=40&instruments[]=vocals_background&page=~1-3~
+  mukken:
+    url: "https://mukken.com/de/searches"
+    params:
+      - /r165-p~1-5~
