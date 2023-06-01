@@ -49,5 +49,6 @@ sh tonemato.sh
   - if you start `smeargle`, you will also have to start `ralts` which also needs `drilbur` if there is no current cache stored in redis.
 
 #### Overview
-<img width="981" alt="Screenshot 2023-05-31 at 13 07 25" src="https://github.com/ropfoo/tonemato/assets/18482002/609b82ed-24ec-4edc-a82d-23a0b93bdce4">
+
+<img width="1436" alt="Screenshot 2023-06-01 at 13 53 44" src="https://github.com/ropfoo/tonemato/assets/18482002/9169ad6e-c9ca-4659-bdb4-57d8347df7a0">
 
