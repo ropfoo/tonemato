@@ -34,7 +34,7 @@ func (mp *MukkenPage) ScrapeTeaser(el *colly.HTMLElement) model.ScrapedTeaser {
 
 	// Url
 	el.ForEach("a", func(index int, urlElement *colly.HTMLElement) {
-		teaser.Url = urlElement.Attr("href")
+		teaser.Url = "https://mukken.com" + urlElement.Attr("href")
 	})
 	// Date
 	el.ForEach(".item-date", func(index int, dateElement *colly.HTMLElement) {
@@ -62,7 +62,7 @@ func (mp *MukkenPage) ScrapeTeaser(el *colly.HTMLElement) model.ScrapedTeaser {
 	// Preview Image Url
 	el.ForEach(".user-image img", func(index int, imageElement *colly.HTMLElement) {
 		if index == 0 {
-			teaser.PreviewImageUrl = imageElement.Attr("src")
+			teaser.PreviewImageUrl = imageElement.Attr("data-src")
 			return
 		}
 	})

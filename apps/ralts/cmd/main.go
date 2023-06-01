@@ -16,6 +16,7 @@ func main() {
 	app.Use(middleware.Cors())
 
 	app.GET("/", controller.TeasersController)
+	app.GET("/invalidate-cache", controller.InvalidateController)
 
 	app.Run(":" + os.Getenv("VITE_RALTS_PORT"))
 }
